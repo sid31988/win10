@@ -55,7 +55,7 @@ namespace Win10WebApp.Controllers
                     _repository.Save();
                     return Json(Functions.OutPutResponse(true, "Record inserted successfully", receiveTrustMaster));
                 }
-                return Json(Functions.OutPutResponse(false, "Invalid Data"));
+                return Json(Functions.OutPutResponse(false, "Invalid Data", ModelState));
             }
             catch (Exception ex)
             {

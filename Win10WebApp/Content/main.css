@@ -22,6 +22,7 @@
 .floating-input {
     text-transform: uppercase;
 }
+
 .floating-input, .floating-select {
     font-size: 14px;
     padding: 4px 4px;
@@ -33,13 +34,13 @@
     border-bottom: 1px solid #757575;
 }
 
-.floating-input:focus, .floating-select:focus {
-     outline: none;
-     border-bottom: 2px solid #5264AE;
-}
+    .floating-input:focus, .floating-select:focus {
+        outline: none;
+        border-bottom: 2px solid #5264AE;
+    }
 
 .tbl-row:hover {
-    cursor:pointer;
+    cursor: pointer;
 }
 
 .floating-label label {
@@ -137,13 +138,13 @@
 
 /***CSS Loader***/
 .loader {
-position: fixed;
-top:0;
-width: 100%;
-bottom: 0;
-background-color:rgba(255,255,255,0.9) ;
-z-index: 1;
-display: none;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    bottom: 0;
+    background-color: rgba(255,255,255,0.9);
+    z-index: 1;
+    display: none;
 }
 
 .cssload-loader {
@@ -210,9 +211,29 @@ display: none;
     }
 
 
+div.page-root[data-mode='view'] .grid-control{
+    display: inline-block;
+}
 
+div.page-root[data-mode='view'] .editor-control{
+    display: none;
+}
 
+div.page-root[data-mode='edit'] .grid-control{
+    display: none;
+}
 
+div.page-root[data-mode='edit'] .editor-control{
+    display: inline-block;
+}
+
+div.page-root[data-mode='add'] .grid-control{
+    display: none;
+}
+
+div.page-root[data-mode='add'] .editor-control{
+    display: inline-block;
+}
 
 
 @keyframes cssload-rotate-one {

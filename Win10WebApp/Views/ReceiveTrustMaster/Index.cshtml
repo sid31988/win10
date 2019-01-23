@@ -10,10 +10,10 @@
                 Receive T.Cs
             </div>
             <div class="panel-body">
-                <div class="row">
+                <div id="receiverTrustMasterRoot" class="row page-root" data-mode="view">
                     <button type="button" class="btn btn-primary add-btn">Add</button>
                     <!--View Design-->
-                    <div class="col-sm-12">
+                    <div id="divDatatable" class="col-sm-12 grid-control">
                         <table class="table" id="receiverTrustTable">
                             <thead>
                                 <tr>
@@ -53,7 +53,10 @@
                     </div>
 
                     <!--Details Design-->
-                    <div id="divParentActions">
+                    <div id="divAddEdit" class="editor-control">
+                        <form id="formAddEdit">
+
+                        </form>
                         @*using (Ajax.BeginForm("Save", "ReceiveTrustMaster", new AjaxOptions { HttpMethod = "POST" }))
                             {
                                 <div id="divActions">
@@ -67,13 +70,33 @@
         </div>
     </div>
     <script type="text/template" id="editDeleteCommandTemplate">
-        <a href="#" class="editor_edit" data-key="[key]">Edit</a> / <a href="#" class="editor_delete" data-key="[key]">Delete</a>
+        <span class="editor_edit"><a href="#" data-key="[key]">Edit</a></span> / <span class="editor_delete"><a href="#" data-key="[key]">Delete</a></span>
     </script>
     <script type="text/javascript" src="@Url.Content("\\scripts\\receive-trust-master.js")"></script>
     <script type="text/javascript">
-        const findUrl = "@Url.Action("Find")";
-        const editDeleteCommandTemplateSelector = "#editDeleteCommandTemplate";
-        initialisePage("#receiverTrustTable", findUrl, editDeleteCommandTemplateSelector);
+        let findUrl = "@Url.Action("Find")";
+        let editDeleteCommandTemplateSelector = "#editDeleteCommandTemplate";
+        let addEditFormSelector = "#formAddEdit";
+        let pageRootSelector = "#receiverTrustMasterRoot";
+        let receiverTrustTableSelector = "#receiverTrustTable";
+        let dateFormat = "MM-dd-yyyy";
+        let dataMode = "view";
+        let saveButtonSelector = "#btnSaveAct";
+        let cancelButtonSelector = "#btnCancelAct";
+        let page = new ReceiverTrustMasterPage(pageRootSelector, receiverTrustTableSelector, dateFormat, editDeleteCommandTemplateSelector, addEditFormSelector, saveButtonSelector, cancelButtonSelector, dataMode);
+        let columnSettings = [
+            { data: "Date", render: page.dataTableHelper.renderDate },
+            { data: "Issuer" },
+            { data: "Curr" },
+            { data: "Prefix" },
+            { data: "StartNo" },
+            { data: "Nos" },
+            { data: "EndNo" },
+            { data: "Deno" },
+            { data: "Value" },
+            { data: null, className: "center", render: page.dataTableHelper.renderEditDeleteCommands }
+        ];
+        page.createDataTable(columnSettings, findUrl);
     </script>
 
     <!--<script>
