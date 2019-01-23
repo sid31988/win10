@@ -1,0 +1,133 @@
+﻿@model Win10WebApp.Models.ReceiveTrustMaster
+@{
+    Layout = null;
+}
+@*<div class="col-sm-4" id="left-panel">
+    <div class="portlet light ">
+        <div class="portlet-body form">
+            <div class="panel-group accordion" id="receivetrust">*@
+                <div class="panel panel-default" id="receivetrustDetails">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <a class="accordion-toggle" data-toggle="collapse" data-parent="#receivetrust" href="#receivetrust_1"> Details </a>
+                        </h4>
+                    </div>
+                    <div  class="panel-collapse in">
+                        <div class="panel-body floating-form">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group floating-label">                                        
+                                        <input type="text" id="date" name="date" value="@Model.Date" 
+                                               class="form-control floating-input elementInput" placeholder=" " onclick="(this.type='date')">
+                                        <span class="highlight"></span>
+                                        <label>Date</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group floating-label">
+                                        <input type="text"  id="issuer" name="issuer" value="@Model.Issuer" 
+                                               class="form-control floating-input elementInput" placeholder=" ">
+                                        <span class="highlight"></span>
+                                        <label>Issuer</label>
+
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group floating-label">
+                                        <input type="text"  id="curr" name="curr" value="@Model.Curr" 
+                                               class="form-control floating-input elementInput" placeholder=" ">
+                                        <span class="highlight"></span>
+                                        <label>Curr</label>
+
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group floating-label">
+                                        <input type="text"  id="prefix" name="prefix" value="@Model.Prefix" 
+                                               class="form-control floating-input elementInput" placeholder=" ">
+                                        <span class="highlight"></span>
+                                        <label>Prefix</label>
+
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group floating-label">
+                                        <input type="text"  id="startno" name="startno" value="@Model.StartNo" 
+                                               class="form-control floating-input elementInput" placeholder=" " onclick="(this.type='number')">
+                                        <span class="highlight"></span>
+                                        <label>Start No.</label>
+
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group floating-label">
+                                        <input type="text"  id="nos" name="nos" value="@Model.Nos" 
+                                               class="form-control floating-input elementInput" placeholder=" " onclick="(this.type='number')">
+                                        <span class="highlight"></span>
+                                        <label>Nos.</label>
+
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group floating-label">
+                                        <input type="text"  id="endno" name="endno" value="@Model.EndNo" 
+                                               class="form-control floating-input elementInput" placeholder=" " onclick="(this.type='number')">
+                                        <span class="highlight"></span>
+                                        <label>End No.</label>
+
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group floating-label">
+                                        <input type="text" type="text"  id="deno" name="deno" value="@Model.Deno" 
+                                               class="form-control floating-input elementInput" placeholder=" " onclick="(this.type='number')">
+                                        <span class="highlight"></span>
+                                        <label>Deno</label>
+
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group floating-label">
+                                        <input type="text"  id="value" name="value" value="@Model.Value" 
+                                               class="form-control floating-input elementInput" placeholder=" " onclick="(this.type='number')">
+                                        <span class="highlight"></span>
+                                        <label>Value</label>
+
+                                    </div>
+                                </div>
+                                @*<div class="col-md-3">
+                                        <div class="form-actions">
+                                            <button type="button" class="btn btn-primary add-btn">Add</button>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <button type="button" class="btn btn-warning">Edit</button>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <button type="button" class="btn btn-danger">Delete</button>
+                                        </div>
+                                    </div>*@
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+           @* </div>
+
+            </div>
+        </div>
+    </div>*@
+<div class="col-sm-1">
+    <div class="form-actions">
+       
+        
+       
+        <div class="add-group" style="display: none">
+            <button type="button" class="btn btn-success left-panelbtn save-btn" data-actpanel="#left-panel" id="btnSaveAct">Save</button>
+            <button type="button" class="btn btn-info left-panelbtn cancel-btn" data-actpanel="#left-panel">Cancel</button>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,135 @@
+﻿@model IEnumerable<Win10WebApp.Models.CountryMaster>
+
+@{
+    Layout = null;
+}
+<div class="row" id="@Win10WebApp.Utility.Constants.MODULES["COUNTRYMASTER"]">
+    <div class="col-md-12">
+        <div class="panel panel-info">
+            <div class="panel-heading">
+                Currency
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-sm-5">
+
+                        <table class="table" id="countryTable">
+                            <thead>
+                                <tr>
+                                   
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.CountryCode)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.CountryName)
+                                    </th>
+
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                   
+                                        <tr class="tbl-row" data-childdata="@Json.Encode(item)" data-actpanel="#left-panel">
+
+                                          
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.CountryCode)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.CountryName)
+                                            </td>
+
+
+                                        </tr>
+                                   
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="col-sm-6" id="left-panel">
+                        <div class="portlet light ">
+                            <div class="portlet-body form">
+                                <div class="panel-group accordion" id="accordion1">
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading">
+                                            <h4 class="panel-title">
+                                                <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion1" href="#collapse_1"> Details </a>
+                                            </h4>
+                                        </div>
+                                        <div id="collapse_1" class="panel-collapse in">
+                                            <div class="panel-body floating-form">
+                                                <div class="row">
+
+                                                    <div class="col-md-6">
+                                                        <div class="form-group floating-label">
+                                                            <input class="form-control floating-input elementInput" data-columnname="COUNTRYCODE"
+                                                                   type="text" placeholder=" " disabled>
+                                                            <span class="highlight"></span>
+                                                            <label>Country Code</label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-12">
+                                                        <div class="form-group floating-label">
+                                                            <input class="form-control floating-input elementInput" data-columnname="COUNTRYNAME"
+                                                                   type="text" placeholder=" " disabled>
+                                                            <span class="highlight"></span>
+                                                            <label>Currency Name</label>
+
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-12">
+                                                        <div class="form-group floating-label">
+                                                            <input class="form-control floating-input elementInput" data-columnname="NATIONALITY"
+                                                                   type="text" placeholder=" " disabled>
+                                                            <span class="highlight"></span>
+                                                            <label>Nationality</label>
+
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-1">
+                        <div class="form-actions">
+                            <button type="button" class="btn btn-primary left-panelbtn add-btn" data-actpanel="#left-panel">Add</button>
+                            <button type="button" class="btn btn-warning left-panelbtn edit-btn">Edit</button>
+                            <button type="button" class="btn btn-danger left-panelbtn del-btn">Delete</button>
+                            <div class="add-group" style="display: none">
+                                <button type="button" class="btn btn-success left-panelbtn save-btn" data-actpanel="#left-panel" id="btnSaveAct">Save</button>
+                                <button type="button" class="btn btn-info left-panelbtn cancel-btn" data-actpanel="#left-panel">Cancel</button>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    freezePanel('#left-panel');
+    var countryTable = $('#countryTable').DataTable();
+
+    $(preIndex + ' #btnSaveAct').click(function () {
+        var CountryArr = {};
+        var hiddenFields = ["id","Nationality"];
+        $(preIndex + " .elementInput").each(function () {
+            CountryArr[$(this).data('columnname')] = $(preIndex + ' [data-columnname="' + $(this).data('columnname') + '"]').val();
+        });
+        addDataToTable(CountryArr, "CountryMaster/SaveCountry", 'countryTable', 'POST', '#left-panel', countryTable, hiddenFields, false)
+        //console.log(AccountingArr);
+
+    });
+</script>

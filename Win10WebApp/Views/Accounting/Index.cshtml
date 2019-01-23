@@ -1,0 +1,389 @@
+﻿@model IEnumerable<Win10WebApp.Models.Accounting>
+@{
+    Layout = null;
+}
+<div class="row" id="@Win10WebApp.Utility.Constants.MODULES["ACCOUNTING"]">
+    <div class="col-md-12">
+        <div class="panel panel-info">
+            <div class="panel-heading">
+                Accounting
+            </div>
+            <div class="panel-body"> 
+                <div class="row">
+                    <div class="col-sm-5">
+
+                        <table class="table" id="accountingTable">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.Id)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.SubId)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.Desc)
+                                    </th>
+
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                   if (item.Type == "Title")
+                                    {
+                                        <tr style="font-weight:bold" class="tbl-row acc-row" data-childdata="@Json.Encode(item)" data-actpanel="#left-panel">
+
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.Id)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.SubId)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.Desc)
+                                            </td>
+
+
+                                        </tr>
+                                    }
+                                    else
+                                    {
+                                        <tr class="tbl-row acc-row" data-childdata="@Json.Encode(item)" data-actpanel="#left-panel">
+
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.Id)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.SubId)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.Desc)
+                                            </td>
+
+
+                                        </tr>
+                                    }
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="col-sm-6" id="left-panel">
+                        <div class="portlet light ">
+                            <div class="portlet-body form">
+                                <div class="panel-group accordion" id="accordion1">
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading">
+                                            <h4 class="panel-title">
+                                                <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion1" href="#collapse_1"> Details </a>
+                                            </h4>
+                                        </div>
+                                        <div id="collapse_1" class="panel-collapse in">
+                                            <div class="panel-body floating-form">
+                                                <div class="row">
+                                                    <div class="col-md-4 ">
+                                                        <div class="form-group floating-label">
+                                                            <select class="form-control form-control-sm floating-select elementInput" data-columnname="ID" 
+                                                                    onclick="this.setAttribute('value', this.value);" value="" data-dismissable="edit">
+                                                                <option value="0"> </option>
+                                                                @foreach (var item in Model)
+                                                                {
+                                                                    if (item.SubId == 0)
+                                                                    {
+                                                                        <option value="@item.Id">@item.Desc</option>
+                                                                    }
+                                                                }
+                                                            </select>
+                                                            <span class="highlight"></span>
+                                                            <label>I.D.</label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                        <div class="form-group floating-label">
+                                                            <input class="form-control floating-input elementInput" data-columnname="SUBID" 
+                                                                   type="text" placeholder=" " data-dismissable="add" value="0" disabled>
+                                                            <span class="highlight"></span>
+                                                            <label>Sub Id</label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-12">
+                                                        <div class="form-group floating-label">
+                                                            <input class="form-control floating-input elementInput" data-columnname="DESC" 
+                                                                   type="text" placeholder=" " disabled>
+                                                            <span class="highlight"></span>
+                                                            <label>A/c Desc.</label>
+                                                          
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group floating-label">
+                                                            <select class="form-control form-control-sm floating-select elementInput" id="dd-acctype" data-columnname="TYPE" onclick="this.setAttribute('value', this.value);" value="">
+                                                                <option value=""></option>
+                                                                @foreach (var item in Win10WebApp.Utility.Constants.ACCTYPE)
+                                                                {
+                                                                    <option value="@item">@item</option>
+                                                                }
+                                                            </select>
+                                                            <span class="highlight"></span>
+                                                            <label>A/c Type.</label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group floating-label">
+                                                            <input class="form-control floating-input elementInput" type="text" data-columnname="HSNSAC" placeholder=" " disabled>
+                                                            <span class="highlight"></span>
+                                                            <label>HSN/SAC</label>
+                                                           
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-8">
+                                                        <div class="form-group floating-label">
+                                                            <select class="form-control form-control-sm floating-select elementInput" data-columnname="GRPUNDER" onclick="this.setAttribute('value', this.value);" value="">
+                                                                <option value=""></option>
+                                                                @foreach (var item in Model)
+                                                                {
+                                                                    if (item.Type == "Title")
+                                                                    {
+                                                                        <option value="@item.Desc">@item.Desc</option>
+                                                                    }
+
+                                                                }
+
+                                                            </select>
+                                                            <span class="highlight"></span>
+                                                            <label>Group Under</label>
+
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <div class="form-group floating-label">
+                                                            <select class="form-control form-control-sm floating-select elementInput" data-columnname="BLOCK" onclick="this.setAttribute('value', this.value);" value="">
+                                                                <option></option>
+                                                                <option>Y</option>
+                                                                <option>N</option>
+                                                            </select>
+                                                            <span class="highlight"></span>
+                                                            <label>Block</label>
+
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group floating-label">
+                                                            <input class="form-control floating-input elementInput" data-columnname="BALANCE" type="text" placeholder=" " disabled>
+                                                            <span class="highlight"></span>
+                                                            <label>Balance B/f</label>
+
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <div class="form-group floating-label">
+                                                            <select class="form-control form-control-sm floating-select elementInput" 
+                                                                    data-columnname="BALANCEPOST" onclick="this.setAttribute('value', this.value);" value="">
+                                                                <option></option>
+                                                                <option>Dr</option>
+                                                                <option>Cr</option>
+
+                                                            </select>
+                                                            <span class="highlight"></span>
+                                                            <label>&nbsp;</label>
+
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <div class="form-group floating-label">
+                                                            <select class="form-control form-control-sm floating-select elementInput" data-columnname="NOF" onclick="this.setAttribute('value', this.value);" value="">
+                                                                <option></option>
+                                                                <option>Y</option>
+                                                                <option>N</option>
+
+                                                            </select>
+                                                            <span class="highlight"></span>
+                                                            <label>NOF</label>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="panel panel-default" style="display: none" id="bank-panel">
+                                        <div class="panel-heading">
+                                            <h4 class="panel-title">
+                                                <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion1" href="#collapse_2"> Bank </a>
+                                            </h4>
+                                        </div>
+                                        <div id="collapse_2" class="panel-collapse in">
+                                            <div class="panel-body floating-form">
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <div class="form-group floating-label">
+                                                            <input class="form-control floating-input elementAddInput" data-columnname="BANKAC" type="text" placeholder=" ">
+                                                            <span class="highlight"></span>
+                                                            <label>Bank A/C</label>
+                                                    
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-12">
+                                                        <div class="form-group floating-label">
+                                                            <input class="form-control floating-input elementAddInput" data-columnname="BRANCH" type="text" placeholder=" ">
+                                                            <span class="highlight"></span>
+                                                            <label>Branch</label>
+                                                           
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-12">
+                                                        <div class="form-group floating-label">
+                                                            <input class="form-control floating-input elementAddInput" data-columnname="CONTDTLS" type="text" placeholder=" ">
+                                                            <span class="highlight"></span>
+                                                            <label>Contact Dtls</label>
+                                                           
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group floating-label">
+                                                            <input class="form-control floating-input elementAddInput" data-columnname="BRS" type="text" onclick="(this.type='date')"  placeholder=" ">
+                                                            <span class="highlight"></span>
+                                                            <label>BRS Done Till.</label>
+                                                            
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group floating-label">
+                                                            <input class="form-control floating-input elementAddInput" data-columnname="CHQTEMP" type="text" placeholder=" ">
+                                                            <span class="highlight"></span>
+                                                            <label>Chq Template</label>
+                                                           
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-12">
+                                                        <div class="panel panel-default">
+                                                            <div class="panel-body">
+                                                                <div class="row">
+                                                                    <div class="col-md-6">
+                                                                        <div class="form-group floating-label">
+                                                                            <input class="form-control floating-input elementAddInput" data-columnname="CHQDT" type="text" onclick="(this.type='number')"  min="1" max="31" placeholder=" ">
+                                                                            <span class="highlight"></span>
+                                                                            <label>Chq Date</label>
+                                                                     
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-6">
+                                                                        <div class="form-group floating-label">
+                                                                            <input class="form-control floating-input elementAddInput" data-columnname="RCPTCHQ" type="text" onclick="(this.type='number')" placeholder=" ">
+                                                                            <span class="highlight"></span>
+                                                                            <label>Rcpt Chq No.</label>
+                                                                            
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-6">
+                                                                        <div class="form-group floating-label">
+                                                                            <input class="form-control floating-input elementAddInput" data-columnname="PDCHQNO" type="text" onclick="(this.type='number')" placeholder=" ">
+                                                                            <span class="highlight"></span>
+                                                                            <label>Paid Chq No.</label>
+                                                                           
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-6">
+                                                                        <div class="form-group floating-label">
+                                                                            <input class="form-control floating-input elementAddInput" data-columnname="DTFORM" type="text" placeholder=" ">
+                                                                            <span class="highlight"></span>
+                                                                            <label>Date Format</label>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-1">
+                        <div class="form-actions">
+                            <button type="button" class="btn btn-primary left-panelbtn add-btn" data-actpanel="#left-panel">Add</button>
+                            <button type="button" class="btn btn-warning left-panelbtn edit-btn" data-actpanel="#left-panel">Edit</button>
+                            <button type="button" class="btn btn-danger left-panelbtn del-btn">Delete</button>
+                            <div class="add-group" style="display: none">
+                                <button type="button" class="btn btn-success left-panelbtn save-btn" data-actpanel="#left-panel" id="btnSaveAct">Save</button>
+                                <button type="button" class="btn btn-info left-panelbtn cancel-btn" data-actpanel="#left-panel">Cancel</button>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+
+    freezePanel('#left-panel');
+    var acttable = $('#accountingTable').DataTable();
+    $(preIndex + ' #dd-acctype').change(function () {
+        
+        if ($(this).val() == "Bank") {
+            $(preIndex + ' #bank-panel').show();
+        } else {
+            $(preIndex + ' #bank-panel').hide();
+        }
+    });
+
+
+    $(document).on('click', preIndex + ' .acc-row', function () {
+        
+        var chData = $(this).data('childdata');
+        if (chData['Type'] == "Bank") {
+            $(preIndex + ' #bank-panel').show();
+        } else {
+            $(preIndex + ' #bank-panel').hide();
+        }
+    });
+
+
+
+    $(preIndex + ' #btnSaveAct').click(function () {
+        var AccountingArr = {};
+        var AdditionalData = [];
+        var hiddenFields = ["AdditionalData", "NOF", "BalancePost", "Balance", "Block", "GrpUnder", "HSNSAC", "Type"];
+        $(preIndex+" .elementInput").each(function () {
+            AccountingArr[$(this).data('columnname')] = $(preIndex + ' [data-columnname="' + $(this).data('columnname')+'"]').val();
+        });
+        if ($(preIndex + ' #dd-acctype').val() == "Bank") {
+            $(preIndex + " .elementAddInput").each(function () {
+                if ($(preIndex + ' [data-columnname="' + $(this).data('columnname') + '"]').val() != null
+                    && $(preIndex + ' [data-columnname="' + $(this).data('columnname') + '"]').val().trim() != "")
+                {
+                    var newObj = {};
+                    newObj["Table"] = "Accountings";
+                    newObj["Column"] = $(this).data('columnname');
+                    newObj["Value"] = $(preIndex + ' [data-columnname="' + $(this).data('columnname') + '"]').val();
+                    AdditionalData.push(newObj);
+                }
+            });
+        }
+        AccountingArr["AdditionalData"] = AdditionalData;
+        if ($(this).data("acttype") == 'save') {
+            addDataToTable(AccountingArr, "Accounting/SaveAccounting", 'accountingTable', 'POST', '#left-panel', acttable, hiddenFields, false);
+        } else {
+
+        }
+        
+       
+        
+    });
+
+</script>
+
+
+
+
+

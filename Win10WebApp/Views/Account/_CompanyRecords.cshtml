@@ -1,0 +1,76 @@
+﻿@model IEnumerable<Win10WebApp.Models.Company>
+<style>
+    .company-row:hover {
+    cursor:pointer
+    }
+    .selected-company {
+    background-color:gray;
+    color:white;
+    }
+</style>
+
+<table class="table" id="companyTables" style="width:100%">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Cocode)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Coname)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Coystart)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Cocity)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Costate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Copincode)
+            </th>
+
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr class="company-row" data-code="@item.Cocode" data-year="@item.Coystart">
+                <td>
+                    @Html.DisplayFor(modelItem => item.Cocode)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.Coname)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Coystart)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Cocity)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Costate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Copincode)
+                </td>
+
+            </tr>
+        }
+    </tbody>
+</table>
+<script>
+    $(document).ready(function () {
+        
+        $('.company-row').click(function () {
+            $('.selected-company').removeClass('selected-company');
+            $(this).addClass('selected-company');
+            $('#companyModal').modal('hide');
+            cocode = $(this).data('code');
+            $('#companyselected').text(cocode + "-" + $(this).data('year'));
+            $('#CompanyCode').val(cocode);
+        });
+    });
+</script>

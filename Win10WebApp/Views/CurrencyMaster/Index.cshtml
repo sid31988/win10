@@ -1,0 +1,158 @@
+﻿@model IEnumerable<Win10WebApp.Models.CurrencyMaster>
+
+@{
+    Layout = null;
+}
+
+<div class="row" id="@Win10WebApp.Utility.Constants.MODULES["CURRENCYMASTER"]">
+    <div class="col-md-12">
+        <div class="panel panel-info">
+            <div class="panel-heading">
+                Currency
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-sm-5">
+
+                        <table class="table" id="currencyTable">
+                            <thead>
+                                <tr>
+                                   
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.CurrencyCode)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.CurrencyName)
+                                    </th>
+
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                   
+                                        <tr class="tbl-row" data-childdata="@Json.Encode(item)" data-actpanel="#left-panel">
+
+                                          
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.CurrencyCode)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.CurrencyName)
+                                            </td>
+
+
+                                        </tr>
+                                   
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="col-sm-6" id="left-panel">
+                        <div class="portlet light ">
+                            <div class="portlet-body form">
+                                <div class="panel-group accordion" id="accordion1">
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading">
+                                            <h4 class="panel-title">
+                                                <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion1" href="#collapse_1"> Details </a>
+                                            </h4>
+                                        </div>
+                                        <div id="collapse_1" class="panel-collapse in">
+                                            <div class="panel-body floating-form">
+                                                <div class="row">
+
+                                                    <div class="col-md-6">
+                                                        <div class="form-group floating-label">
+                                                            <input class="form-control floating-input elementInput" data-columnname="CURRENCYCODE"
+                                                                   type="text" placeholder=" " disabled>
+                                                            <span class="highlight"></span>
+                                                            <label>Currency Code</label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-12">
+                                                        <div class="form-group floating-label">
+                                                            <input class="form-control floating-input elementInput" data-columnname="CURRENCYNAME"
+                                                                   type="text" placeholder=" " disabled>
+                                                            <span class="highlight"></span>
+                                                            <label>Currency Name</label>
+
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <div class="form-group floating-label">
+                                                            <input class="form-control floating-input elementInput" data-columnname="AFTYPE"
+                                                                   type="text" placeholder=" " disabled>
+                                                            <span class="highlight"></span>
+                                                            <label>AMEX FI Type</label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <div class="form-group floating-label">
+                                                            <input class="form-control floating-input elementInput" data-columnname="RBI"
+                                                                   type="text" placeholder=" " disabled>
+                                                            <span class="highlight"></span>
+                                                            <label>RBI # </label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <div class="form-group floating-label">
+                                                            <input class="form-control floating-input elementInput" data-columnname="RATE"
+                                                                   type="text" placeholder=" " disabled>
+                                                            <span class="highlight"></span>
+                                                            <label>Rate / </label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <div class="form-group floating-label">
+                                                            <input class="form-control floating-input elementInput" data-columnname="POSITION"
+                                                                   type="text" placeholder=" " disabled>
+                                                            <span class="highlight"></span>
+                                                            <label>Order</label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-1">
+                        <div class="form-actions">
+                            <button type="button" class="btn btn-primary left-panelbtn add-btn" data-actpanel="#left-panel">Add</button>
+                            <button type="button" class="btn btn-warning left-panelbtn edit-btn">Edit</button>
+                            <button type="button" class="btn btn-danger left-panelbtn del-btn">Delete</button>
+                            <div class="add-group" style="display: none">
+                                <button type="button" class="btn btn-success left-panelbtn save-btn" data-actpanel="#left-panel" id="btnSaveAct">Save</button>
+                                <button type="button" class="btn btn-info left-panelbtn cancel-btn" data-actpanel="#left-panel">Cancel</button>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    freezePanel('#left-panel');
+    var currencyTable = $('#currencyTable').DataTable();
+
+    $(preIndex + ' #btnSaveAct').click(function () {
+        var CurrencyArr = {};
+        var hiddenFields = ["Id", "AFType", "RBI", "Rate", "Position"];
+        $(preIndex + " .elementInput").each(function () {
+            CurrencyArr[$(this).data('columnname')] = $(preIndex + ' [data-columnname="' + $(this).data('columnname') + '"]').val();
+        });
+        addDataToTable(CurrencyArr, "CurrencyMaster/SaveCurrency", 'currencyTable', 'POST', '#left-panel', currencyTable, hiddenFields, false)
+        //console.log(AccountingArr);
+
+    });
+</script>
