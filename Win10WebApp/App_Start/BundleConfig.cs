@@ -27,6 +27,7 @@ namespace Win10WebApp
                       "~/Scripts/references/jquery.uniform.min.js",
                       "~/Scripts/references/bootstrap-tabdrop.js",
                       "~/Scripts/references/datatables.min.js",
+                      "~/Scripts/references/datatables.buttons.min.js",
                       "~/Scripts/references/app.min.js",
                       "~/Scripts/references/layout.min.js",
                       "~/Scripts/references/utility.js",
@@ -37,14 +38,14 @@ namespace Win10WebApp
                       "~/Content/site.css"));
 
             bundles.Add(new StyleBundle("~/Content/cssplugin").Include(
-                    "~/Content/datatables.min.css",
                     "~/Content/font-awesome.min.css",
                     "~/Content/simple-line-icons.min.css",
                     "~/Content/uniform.default.css",
                     "~/Content/components-md.min.css",
-                    "~/Content/plugins-md.min.css",
                     "~/Content/layout.min.css",
                     "~/Content/default.min.css",
+                    "~/Content/datatables.min.css",
+                    "~/Content/datatables.buttons.min.css",
                     "~/Content/main.css"));
 
 

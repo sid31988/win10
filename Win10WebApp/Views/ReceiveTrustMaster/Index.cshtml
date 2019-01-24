@@ -11,10 +11,10 @@
             </div>
             <div class="panel-body">
                 <div id="receiverTrustMasterRoot" class="row page-root" data-mode="view">
-                    <button type="button" class="btn btn-primary add-btn">Add</button>
+                    <!--<button type="button" class="btn btn-primary add-btn">Add</button>-->
                     <!--View Design-->
                     <div id="divDatatable" class="col-sm-12 grid-control">
-                        <table class="table" id="receiverTrustTable">
+                        <table class="table display dataTable compact" id="receiverTrustTable">
                             <thead>
                                 <tr>
                                     <th>
@@ -45,7 +45,7 @@
                                         Value
                                     </th>
                                     <th>
-                                        Edit / Delete
+                                        
                                     </th>
                                 </tr>
                             </thead>
@@ -54,21 +54,16 @@
 
                     <!--Details Design-->
                     <div id="divAddEdit" class="editor-control col-sm-8">
-                        <form id="formAddEdit"></form>
-                        @*using (Ajax.BeginForm("Save", "ReceiveTrustMaster", new AjaxOptions { HttpMethod = "POST" }))
-                        {
-                        <div id="divActions">
-                            Html.RenderPartial("~/Views/ReceiveTrustMaster/Actions.cshtml", Model);
-                        </div>
-                        }*@
+                        <form id="formAddEdit">
+                        </form>
                     </div>
-                    @*{ Html.RenderPartial("~/Views/ReceiveTrustMaster/Actions.cshtml", Model); }}*@
                 </div>
             </div>
         </div>
     </div>
+</div>
     <script type="text/template" id="editDeleteCommandTemplate">
-        <span class="editor_edit"><a href="#" data-key="[key]">Edit</a></span> / <span class="editor_delete"><a href="#" data-key="[key]">Delete</a></span>
+        <span class="editor_edit"><a href="#" data-key="[key]">Edit</a></span>  |  <span class="editor_delete"><a href="#" data-key="[key]">Delete</a></span>
     </script>
     <script type="text/javascript" src="@Url.Content("\\scripts\\receive-trust-master.js")"></script>
     <script type="text/javascript">
@@ -96,52 +91,3 @@
         ];
         page.createDataTable(columnSettings, findUrl);
     </script>
-
-    <!--<script>
-        freezePanel('#left-panel');
-
-        var $receiverTrustTable = $('#receiverTrustTable');
-        var receiverTrustTable = $('#receiverTrustTable').DataTable();
-
-        $(document).on('click', '.add-btn', function () {
-            InvokeAction("ReceiveTrustMaster/Add", "GET", null);
-        });
-
-        $(document).on('click', '.edit-btn', function () {
-            InvokeAction("ReceiveTrustMaster/Edit", "GET", { Id: $(this).data('id') });
-        });
-
-        $(document).on('click', '.save-btn', function () {
-
-        });
-
-        $(document).on('click', '.cancel-btn', function () {
-
-        });
-
-        $(preIndex + ' #btnSaveAct').click(function () {
-            var receivetrustArr = {};
-            var hiddenFields = ["Id"];
-
-            $(preIndex + " .elementInput").each(function () {
-                receivetrustArr[$(this).data('columnname')] = $(preIndex + ' [data-columnname="' + $(this).data('columnname') + '"]').val();
-            });
-
-            switch ($(this).data("acttype")) {
-                case 'save':
-                    addDataToTable(receivetrustArr, "ReceiveTrustMaster/Save", 'receiverTrustTable', 'POST', '#left-panel', receiverTrustTable, hiddenFields, false, "", "receiverTrustTableRowTemplate", "receiverTrustTableRowInternalTemplate");
-                    break;
-                case 'edit':
-                    editDataOfTable(receivetrustArr, "ReceiveTrustMaster/Edit", 'receiverTrustTable', 'POST', receiverTrustTable, "receiverTrustTableRowInternalTemplate")
-                    break;
-            }
-        });
-
-        $(preIndex + ' .del-btn').click(function () {
-            var receivetrustArr = {};
-            var $selectedRow = $receiverTrustTable.find("tr.selected-column");
-            if ($selectedRow.length > 0) {
-                deleteDataOfTable(receivetrustArr, "ReceiveTrustMaster/Delete", 'receiverTrustTable', 'POST', receiverTrustTable);
-            }
-        });
-    </script>-->

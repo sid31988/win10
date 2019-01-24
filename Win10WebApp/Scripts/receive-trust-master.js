@@ -1,8 +1,4 @@
-﻿let $editDeleteCommandTemplate = null;
-let $receiverTrustTable = null;
-let receiverTrustDataTable = null;
-
-$.fn.serializeJson = function () {
+﻿$.fn.serializeJson = function () {
     var o = {};
     var a = this.serializeArray();
     $.each(a, function () {
@@ -150,7 +146,14 @@ function ReceiverTrustMasterPage(rootSelector, receiverTrustTableSelector, dateF
     _this.createDataTable = function (columnSettings, findUrl) {
         _this.receiverTrustDataTable = _this.$receiverTrustTable.DataTable({
             columns: columnSettings,
-            ajax: findUrl
+            ajax: findUrl,
+            dom: "Bfrtip",
+            buttons: [
+                {
+                    text: "Add new",
+                    action: _this.addClickEventHandler
+                }
+            ]
         });
         _this.receiverTrustDataTable.on("draw", _this.dataTableDrawEventHandler);
         _this.baseUrl = _this.getBaseUrl(findUrl);
@@ -163,9 +166,10 @@ function ReceiverTrustMasterPage(rootSelector, receiverTrustTableSelector, dateF
     _this.dataTableDrawEventHandler = function () {
         $(".editor_edit").off("click").on("click", _this.editClickEventHandler);
         $(".editor_delete").off("click").on("click", _this.deleteClickEventHandler);
+
     }
 
-    _this.addClickEventHandler = function (clickEvent) {
+    _this.addClickEventHandler = function (clickEvent, dt, node, config) {
         //_this.loadAddEditForm(_this.addUrl);
         _this.loadPartialView(_this.addUrl, null, _this.addEditFormSelector, function (ev) {
             _this.setDataMode("add");
@@ -219,56 +223,3 @@ function ReceiverTrustMasterPage(rootSelector, receiverTrustTableSelector, dateF
 }
 
 ReceiverTrustMasterPage.prototype.__proto__ = PageBase.prototype;
-
-function initialisePage(receiverTrustTableSelector, findUrl, editDeleteCommandTemplateSelector) {
-    $receiverTrustTable = $(receiverTrustTableSelector);
-    $editDeleteCommandTemplate = $(editDeleteCommandTemplateSelector);
-    receiverTrustDataTable = $receiverTrustTable.DataTable({
-        columns: Columns,
-        ajax: findUrl,
-        drawCallback: dataTableDrawComplete
-    });
-}
-
-function dataTableDrawComplete(settings) {
-    $(".editor_edit").off("click").on("click", function (ev) {
-
-    });
-}
-
-function renderEditDeleteCommands(data, type, row, meta) {
-    if (type !== "display") return "";
-    var templateHtml = $editDeleteCommandTemplate.html();
-    templateHtml = replaceAll(templateHtml, "[key]", row.Id);
-    return templateHtml;
-}
-
-function renderDate(data, type, row, meta) {
-    return data.length > 0 ? formatDateString(new Date(parseInt(data.replace("/Date(", "").replace(")/", ""), 10)), DateFormat) : data;
-}
-
-function formatDateString(date, format) {
-    var monthFullNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-    var monthShortNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sept", "Oct", "Nov", "Dec"];
-    var dateComponents = {};
-    dateComponents.dd = date.getDate();
-    dateComponents.MMMM = monthFullNames[date.getMonth()];
-    dateComponents.MMM = monthShortNames[date.getMonth()];
-    dateComponents.MM = date.getMonth() + 1;
-    if (dateComponents.MM.toString().length == 1)
-        dateComponents.MM = "0" + dateComponents.MM.toString();
-    dateComponents.yyyy = date.getFullYear();
-    dateComponents.yy = dateComponents.yyyy.toString().substring(2);
-    dateComponents.hh = date.getHours();
-    dateComponents.ss = date.getSeconds();
-    dateComponents.mm = date.getMilliseconds();
-
-    for (var key in dateComponents) {
-        format = replaceAll(format, key, dateComponents[key]);
-    }
-    return format;
-}
-
-function replaceAll(str, oldText, newText) {
-    return str.split(oldText).join(newText);
-}
