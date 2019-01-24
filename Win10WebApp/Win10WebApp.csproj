@@ -241,7 +241,14 @@
     <Content Include="fonts\Simple-Line-Icons.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
-    <Content Include="Scripts\receive-trust-master.js" />
+    <Content Include="Scripts\common\control.viewable.js" />
+    <Content Include="Scripts\common\jQuery.extend.js" />
+    <Content Include="Scripts\common\lib.js" />
+    <Content Include="Scripts\dataTable\dataTable.container.js" />
+    <Content Include="Scripts\dataTable\dataTable.editor.js" />
+    <Content Include="Scripts\dataTable\dataTable.helper.js" />
+    <Content Include="Scripts\page\page.base.js" />
+    <Content Include="Scripts\page\page.receiveTrustMaster.js" />
     <Content Include="Scripts\references\app.min.js" />
     <Content Include="Scripts\references\bootstrap-tabdrop.js" />
     <Content Include="Scripts\references\bootstrap.js" />
