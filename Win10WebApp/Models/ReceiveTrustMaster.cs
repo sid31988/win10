@@ -11,7 +11,7 @@ namespace Win10WebApp.Models
     {
         public int Id { get; set; }
 
-        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}")]
         public DateTime? Date { get; set; }
         public string Issuer { get; set; }
         public string Curr { get; set; }

@@ -44,13 +44,19 @@ namespace Win10WebApp.Controllers
         [Authorize]
         [HttpPost]
         public JsonResult Save(ReceiveTrustMaster receiveTrustMaster)
-        {
+        {            
             try
             {
                 if (ModelState.IsValid)
                 {
-                    receiveTrustMaster.CreatedDate = DateTime.Now;
                     receiveTrustMaster.IsDeleted = false;
+                    if (receiveTrustMaster.Id > 0)
+                    {
+                        receiveTrustMaster.UpdatedDate = DateTime.Now;
+                        _repository.Update(receiveTrustMaster);
+                        return Json(Functions.OutPutResponse(true, "Record updated successfully", receiveTrustMaster));
+                    }
+                    receiveTrustMaster.CreatedDate = DateTime.Now;
                     _repository.Insert(receiveTrustMaster);
                     _repository.Save();
                     return Json(Functions.OutPutResponse(true, "Record inserted successfully", receiveTrustMaster));

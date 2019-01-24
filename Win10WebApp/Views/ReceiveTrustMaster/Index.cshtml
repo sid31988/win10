@@ -53,16 +53,14 @@
                     </div>
 
                     <!--Details Design-->
-                    <div id="divAddEdit" class="editor-control">
-                        <form id="formAddEdit">
-
-                        </form>
+                    <div id="divAddEdit" class="editor-control col-sm-8">
+                        <form id="formAddEdit"></form>
                         @*using (Ajax.BeginForm("Save", "ReceiveTrustMaster", new AjaxOptions { HttpMethod = "POST" }))
-                            {
-                                <div id="divActions">
-                                    Html.RenderPartial("~/Views/ReceiveTrustMaster/Actions.cshtml", Model);
-                                </div>
-                            }*@
+                        {
+                        <div id="divActions">
+                            Html.RenderPartial("~/Views/ReceiveTrustMaster/Actions.cshtml", Model);
+                        </div>
+                        }*@
                     </div>
                     @*{ Html.RenderPartial("~/Views/ReceiveTrustMaster/Actions.cshtml", Model); }}*@
                 </div>
