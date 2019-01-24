@@ -217,6 +217,7 @@ function ReceiverTrustMasterPage(rootSelector, receiverTrustTableSelector, dateF
         let key = $eventTarget.data("key");
         let deleteUrl = replaceAll(_this.deleteUrlFormat, "[id]", key);
         _this.invokeAction(deleteUrl, "GET", null, function (ev) {
+            _this.receiverTrustDataTable.ajax.reload();
             _this.receiverTrustDataTable.draw(false);
         });
     }

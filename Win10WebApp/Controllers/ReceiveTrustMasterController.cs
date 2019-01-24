@@ -84,16 +84,19 @@ namespace Win10WebApp.Controllers
             return PartialView("Actions", receiveTrustMaster);           
         }
 
-        public JsonResult Delete(ReceiveTrustMaster receiveTrustMaster)
+        [Authorize]
+        public JsonResult Delete(int Id)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
+                    ReceiveTrustMaster receiveTrustMaster = new ReceiveTrustMaster();
+                    receiveTrustMaster = _repository.GetById(Id);
                     receiveTrustMaster.UpdatedDate = DateTime.Now;
                     receiveTrustMaster.IsDeleted = true;
                     _repository.Update(receiveTrustMaster);
-                    return Json(Functions.OutPutResponse(true, "Record deleted successfully", receiveTrustMaster));
+                    return Json(Functions.OutPutResponse(true, "Record deleted successfully", receiveTrustMaster),JsonRequestBehavior.AllowGet);
 
                 }
             }
