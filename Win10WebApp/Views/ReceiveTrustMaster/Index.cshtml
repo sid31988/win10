@@ -65,7 +65,6 @@
     <script type="text/template" id="editDeleteCommandTemplate">
         <span class="editor_edit"><a href="#" data-key="[key]" class="btn-success btn-sm">Edit</a></span>  |  <span class="editor_delete"><a href="#" data-key="[key]" class="btn-danger btn-sm">Delete</a></span>
     </script>
-    <script type="text/javascript" src="@Url.Content("\\scripts\\receive-trust-master.js")"></script>
     <script type="text/javascript">
         let findUrl = "@Url.Action("Find")";
         let editDeleteCommandTemplateSelector = "#editDeleteCommandTemplate";
@@ -76,9 +75,9 @@
         let dataMode = "view";
         let saveButtonSelector = "#btnSaveAct";
         let cancelButtonSelector = "#btnCancelAct";
-        let page = new ReceiverTrustMasterPage(pageRootSelector, receiverTrustTableSelector, dateFormat, editDeleteCommandTemplateSelector, addEditFormSelector, saveButtonSelector, cancelButtonSelector, dataMode);
+        var receiverTrustMasterPage = new page.ReceiverTrustMaster(pageRootSelector, receiverTrustTableSelector, dateFormat, editDeleteCommandTemplateSelector, addEditFormSelector, saveButtonSelector, cancelButtonSelector, dataMode);
         let columnSettings = [
-            { data: "Date", render: page.dataTableHelper.renderDate },
+            { data: "Date", render: "$dt.helper.renderDate" },
             { data: "Issuer" },
             { data: "Curr" },
             { data: "Prefix" },
@@ -87,7 +86,7 @@
             { data: "EndNo" },
             { data: "Deno" },
             { data: "Value" },
-            { data: null, className: "center", render: page.dataTableHelper.renderEditDeleteCommands }
+            { data: null, className: "center", render: "$dt.helper.renderEditDeleteCommands" }
         ];
-        page.createDataTable(columnSettings, findUrl);
+        receiverTrustMasterPage.initReceiverTrustDataTable(columnSettings, findUrl);
     </script>

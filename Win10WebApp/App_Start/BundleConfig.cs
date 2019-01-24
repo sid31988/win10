@@ -31,7 +31,10 @@ namespace Win10WebApp
                       "~/Scripts/references/app.min.js",
                       "~/Scripts/references/layout.min.js",
                       "~/Scripts/references/utility.js",
-                      "~/Scripts/references/actions.js"));
+                      "~/Scripts/references/actions.js",
+                      "~/Scripts/common/*.js",
+                      "~/Scripts/dataTable/*.js",
+                      "~/Scripts/page/*.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
