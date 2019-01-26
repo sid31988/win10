@@ -1,9 +1,4 @@
-var dataTable;
-if(dataTable === undefined || dataTable === null) {
-    dataTable = {};
-}
-
-dataTable.Container = function (rootSelector, dataTableSelector, dateFormat, editDeleteCommandTemplateSelector, addEditFormSelector, saveButtonSelector, cancelButtonSelector, dataMode) {
+Container = function (rootSelector, dataTableSelector, dateFormat, editDeleteCommandTemplateSelector, addEditFormSelector, saveButtonSelector, cancelButtonSelector, dataMode) {
     let _this = this;
 
     _this.$root = $(rootSelector);
@@ -23,7 +18,34 @@ dataTable.Container = function (rootSelector, dataTableSelector, dateFormat, edi
         _this.editor.onCancel.addEventListener(_this.editorCancelEventHandler);
     }
 
+    let formatColumnSettings = function (columnSettings) {
+        for(let i = 0; i < columnSettings.length; i++) {
+            let columnSetting = columnSettings[i];
+            for(let key in columnSetting) {
+                if (key === "render") {
+                    let value = columnSetting[key];
+                    let valueParts = value.split(".");
+                    if(valueParts[0] === "$dt") {
+                        if (valueParts[1] === "helper") {
+                            if (typeof valueParts[2] === "string" && valueParts[2].length > 0) {
+                                let newValue = _this.helper[valueParts[2]];
+                                if (newValue !== undefined) {
+                                    columnSetting[key] = newValue;
+                                }
+                                else {
+                                    throw "Invalid render method: " + valueParts[2];
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return columnSettings;
+    }
+
     _this.initDataTable = function (columnSettings, ajaxUrl) {
+        formatColumnSettings(columnSettings);
         _this.dataTable = _this.$dataTable.DataTable({
             columns: columnSettings,
             ajax: ajaxUrl,
