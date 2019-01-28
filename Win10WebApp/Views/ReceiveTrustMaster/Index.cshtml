@@ -11,9 +11,9 @@
             </div>
             <div class="panel-body">
                 <div id="receiverTrustMasterRoot" class="row page-root" data-mode="view">
-                    <!--<button type="button" class="btn btn-primary add-btn">Add</button>-->
+                   
                     <!--View Design-->
-                    <div id="divDatatable" class="col-sm-12 grid-control">
+                    <div id="divDatatable" class="col-sm-8 grid-control">
                         <table class="table display dataTable compact" id="receiverTrustTable">
                             <thead>
                                 <tr>
@@ -24,36 +24,33 @@
                                         Issuer
                                     </th>
                                     <th>
-                                        Currency
+                                        Curr
                                     </th>
                                     <th>
                                         Prefix
                                     </th>
                                     <th>
-                                        Start Num
+                                        Start No
                                     </th>
                                     <th>
-                                        Numbers
+                                        Nos
                                     </th>
                                     <th>
-                                        End Num
+                                        End No
                                     </th>
                                     <th>
-                                        Denomination
+                                        Den
                                     </th>
                                     <th>
                                         Value
-                                    </th>
-                                    <th>
-                                        
-                                    </th>
+                                    </th>                                  
                                 </tr>
                             </thead>
                         </table>
                     </div>
 
                     <!--Details Design-->
-                    <div id="divAddEdit" class="editor-control col-sm-8">
+                    <div id="divAddEdit" class="editor-control col-sm-4">
                         <form id="formAddEdit">
                         </form>
                     </div>
@@ -62,9 +59,9 @@
         </div>
     </div>
 </div>
-    <script type="text/template" id="editDeleteCommandTemplate">
+    @*<script type="text/template" id="editDeleteCommandTemplate">
         <span class="editor_edit"><a href="#" data-key="[key]" class="btn-success btn-sm">Edit</a></span>  |  <span class="editor_delete"><a href="#" data-key="[key]" class="btn-danger btn-sm">Delete</a></span>
-    </script>
+    </script>*@
     <script type="text/javascript">
         let findUrl = "@Url.Action("Find")";
         let editDeleteCommandTemplateSelector = "#editDeleteCommandTemplate";
@@ -85,8 +82,7 @@
             { data: "Nos" },
             { data: "EndNo" },
             { data: "Deno" },
-            { data: "Value" },
-            { data: null, className: "center", render: "$dt.helper.renderEditDeleteCommands" }
+            { data: "Value" }            
         ];
         receiverTrustMasterPage.initReceiverTrustDataTable(columnSettings, findUrl);
     </script>

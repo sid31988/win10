@@ -16,6 +16,10 @@ Container = function (rootSelector, dataTableSelector, dateFormat, editDeleteCom
         _this.editor = new dataTable.Editor(addEditFormSelector, saveButtonSelector, cancelButtonSelector, dataMode, _this.saveUrl);
         _this.editor.onSave.addEventListener(_this.editorSaveEventHandler);
         _this.editor.onCancel.addEventListener(_this.editorCancelEventHandler);
+
+        _this.editor.loadPartialView(_this.addUrl, null, function (ev) {
+            _this.setDataMode("add");
+        });
     }
 
     let formatColumnSettings = function (columnSettings) {
@@ -50,12 +54,7 @@ Container = function (rootSelector, dataTableSelector, dateFormat, editDeleteCom
             columns: columnSettings,
             ajax: ajaxUrl,
             dom: "Bfrtip",
-            buttons: [
-                {
-                    text: "Add new",
-                    action: _this.addClickEventHandler
-                }
-            ]
+            buttons: []
         });
         _this.dataTable.on("draw", _this.dataTableDrawEventHandler);
         _this.baseUrl = lib.getBaseUrl(ajaxUrl);
@@ -70,9 +69,11 @@ Container = function (rootSelector, dataTableSelector, dateFormat, editDeleteCom
     _this.reloadTable = function () {
         _this.dataTable.ajax.reload();
         _this.dataTable.draw(false);
+
     }
 
     _this.dataTableDrawEventHandler = function () {
+        $(".editor_add").off("click").on("click", _this.addClickEventHandler);
         $(".editor_edit").off("click").on("click", _this.editClickEventHandler);
         $(".editor_delete").off("click").on("click", _this.deleteClickEventHandler);
     }

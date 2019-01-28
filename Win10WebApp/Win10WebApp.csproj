@@ -244,7 +244,7 @@
     <Content Include="Scripts\common\control.viewable.js" />
     <Content Include="Scripts\common\jQuery.extend.js" />
     <Content Include="Scripts\common\lib.js" />
-    <Content Include="Scripts\dataTable\dataTable.container.js" />
+    <Content Include="Scripts\dataTable\container.js" />
     <Content Include="Scripts\dataTable\dataTable.editor.js" />
     <Content Include="Scripts\dataTable\dataTable.helper.js" />
     <Content Include="Scripts\page\page.base.js" />

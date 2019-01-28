@@ -14,49 +14,23 @@ var OTHER_MASTER = {
 };
 
 $(document).on('click', '.add-btn', function () {
-    //var panelId = $(this).data('actpanel');
-    //$(preIndex + ' .save-btn').data('acttype', 'save');
-    //$(preIndex + ' .save-btn').text('Save');
-    //leftBtnPanelAddOnAction('add');
-    //unFreezePanel(panelId);
-    //$(preIndex + ' [data-dismissable="add"]').attr('disabled', 'disabled');
-
-    //$.ajax({
-    //    url: "ReceiveTrustMaster/Add",
-    //    type: "Get",
-    //    data: data,
-    //    success: function (response) {
-
-    //    }, error: function (err1, err2, err3) {
-    //        console.log(err1, err2, err3);
-    //        $('.loader').hide();
-
-    //    }
-    //});
-
-    var options = {};
-    options.url = "/ReceiveTrustMaster/Actions";
-    options.type = "GET";
-    options.data = null;
-  
-    $.ajax(options);
+    var panelId = $(this).data('actpanel');
+    $(preIndex + ' .save-btn').data('acttype', 'save');
+    $(preIndex + ' .save-btn').text('Save');
+    leftBtnPanelAddOnAction('add');
+    unFreezePanel(panelId);
+    $(preIndex + ' [data-dismissable="add"]').attr('disabled', 'disabled');
 });
 
 $(document).on('click', '.edit-btn', function () {
-    //var panelId = $(this).data('actpanel');
-    //$(preIndex + ' .save-btn').data('acttype', 'edit');
-    //$(preIndex + ' .save-btn').text('Update');
-    //leftBtnPanelAddOnAction('edit');
-    //unFreezePanel(panelId);
-    //$(preIndex + ' [data-dismissable="add"]').attr('disabled', 'disabled');
-    //$(preIndex + ' [data-dismissable="edit"]').attr('disabled', 'disabled');
-    ////console.log($(preIndex + " .selected-column"));
-
-    var options = {};
-    options.url = "/ReceiveTrustMaster/Actions";
-    options.type = "GET";
-    options.data = { Id: $(this).data('id') };
-    $.ajax(options);
+    var panelId = $(this).data('actpanel');
+    $(preIndex + ' .save-btn').data('acttype', 'edit');
+    $(preIndex + ' .save-btn').text('Update');
+    leftBtnPanelAddOnAction('edit');
+    unFreezePanel(panelId);
+    $(preIndex + ' [data-dismissable="add"]').attr('disabled', 'disabled');
+    $(preIndex + ' [data-dismissable="edit"]').attr('disabled', 'disabled');
+    //console.log($(preIndex + " .selected-column"));
 });
 
 $(document).on('click', '.save-btn', function () {

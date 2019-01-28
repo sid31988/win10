@@ -210,7 +210,7 @@
         border-top: 3px solid rgb(0,0,0);
     }
 
-
+/*
 div.page-root[data-mode='view'] .grid-control{
     display: inline-block;
 }
@@ -234,7 +234,7 @@ div.page-root[data-mode='add'] .grid-control{
 div.page-root[data-mode='add'] .editor-control{
     display: inline-block;
 }
-
+*/
 
 @keyframes cssload-rotate-one {
     0% {

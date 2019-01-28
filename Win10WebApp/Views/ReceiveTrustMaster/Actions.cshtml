@@ -3,94 +3,121 @@
     Layout = null;
 }
 
-<input type="text" name="Id" value="@Model.Id" style="display: none;" />
-<div class="form-horizontal">
-    <div class="form-group">
-        <label class="control-label col-sm-2" for="date">Date</label>
-        <div class="col-sm-5">
-            <input type="text" id="date" name="date" value="@Model.Date"
-                   class="form-control" placeholder=" " onclick="(this.type='date')">
-        </div>
-    </div>
-    <div class="form-group">
-        <label class="control-label col-sm-2" for="issuer">Issuer</label>
-        <div class="col-sm-5">
-            <input type="text" id="issuer" name="issuer" value="@Model.Issuer"
-                   class="form-control" placeholder=" ">
-        </div>
-    </div>
-    <div class="form-group">
-        <label class="control-label col-sm-2" for="curr">Curr</label>
-        <div class="col-sm-5">
-            <input type="text" id="curr" name="curr" value="@Model.Curr"
-                   class="form-control" placeholder=" ">
-        </div>
-    </div>
-
-    <div class="form-group">
-        <label class="control-label col-sm-2" for="prefix">Prefix</label>
-        <div class="col-sm-5">
-            <input type="text" id="prefix" name="prefix" value="@Model.Prefix"
-                   class="form-control" placeholder=" ">
-        </div>
-    </div>
-
-    <div class="form-group">
-        <label class="control-label col-sm-2" for="startno">Start No</label>
-        <div class="col-sm-5">
-            <input type="text" id="startno" name="startno" value="@Model.StartNo"
-                   class="form-control" placeholder=" " onclick="(this.type='number')">
-        </div>
-    </div>
-
-    <div class="form-group">
-        <label class="control-label col-sm-2" for="nos">Nos</label>
-        <div class="col-sm-5">
-            <input type="text" id="nos" name="nos" value="@Model.Nos"
-                   class="form-control" placeholder=" " onclick="(this.type='number')">
-        </div>
-    </div>
-
-    <div class="form-group">
-        <label class="control-label col-sm-2" for="endno">End No</label>
-        <div class="col-sm-5">
-            <input type="text" id="endno" name="endno" value="@Model.EndNo"
-                   class="form-control" placeholder=" " onclick="(this.type='number')">
-        </div>
-    </div>
-
-    <div class="form-group">
-        <label class="control-label col-sm-2" for="deno">Deno</label>
-        <div class="col-sm-5">
-            <input type="text" id="deno" name="deno" value="@Model.Deno"
-                   class="form-control" placeholder=" " onclick="(this.type='number')">
-        </div>
-    </div>
-
-    <div class="form-group">
-        <label class="control-label col-sm-2" for="value">Value</label>
-        <div class="col-sm-5">
-            <input type="text" id="value" name="value" value="@Model.Value"
-                   class="form-control" placeholder=" " onclick="(this.type='number')">
-        </div>
-    </div>
-
-    <div class="form-group">
-        <div class="col-sm-offset-2 col-sm-5">
-            <button type="button" class="btn btn-success" id="btnSaveAct">Save</button>
-            <button type="button" class="btn btn-danger" id="btnCancelAct">Cancel</button>
-        </div>
-    </div>
 
 
-</div>
+    <div class="portlet light ">
+        <div class="portlet-body form">
+            <div class="panel-group accordion" id="receivetrust">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <a class="accordion-toggle" data-toggle="collapse" data-parent="#receivetrust" href="#receivetrust_form"> Details </a>
+                        </h4>
+                    </div>
+                    <div id="receivetrust_form" class="panel-collapse in">
+                        <div class="panel-body floating-form">
+                            <input type="text" name="Id" value="@Model.Id" style="display: none;" />
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group floating-label">
+                                        <input class="form-control floating-input elementInput" id="date" name="date" value="@Model.Date"
+                                               type="text" placeholder=" " onclick="(this.type='date')">
+                                        <span class="highlight"></span>
+                                        <label>Date</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group floating-label">
+                                        <input class="form-control floating-input elementInput" id="issuer" name="issuer" value="@Model.Issuer"
+                                               type="text" placeholder=" ">
+                                        <span class="highlight"></span>
+                                        <label>Issuer</label>
 
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group floating-label">
+                                        <input class="form-control floating-input elementInput" id="curr" name="curr" value="@Model.Curr"
+                                               type="text" placeholder=" ">
+                                        <span class="highlight"></span>
+                                        <label>Curr</label>
 
-@*<div class="col-sm-1">
-        <div class="form-actions">
-            <div class="add-group">
-                <button type="button" class="btn btn-success" id="btnSaveAct">Save</button>
-                <button type="button" class="btn btn-danger" id="btnCancelAct">Cancel</button>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group floating-label">
+                                        <input class="form-control floating-input elementInput" id="prefix" name="prefix" value="@Model.Prefix"
+                                               type="text" placeholder=" ">
+                                        <span class="highlight"></span>
+                                        <label>Prefix</label>
+
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group floating-label">
+                                        <input class="form-control floating-input elementInput" id="startno" name="startno" value="@Model.StartNo"
+                                               type="text" placeholder=" " onclick="(this.type='number')">
+                                        <span class="highlight"></span>
+                                        <label>Start No.</label>
+
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group floating-label">
+                                        <input class="form-control floating-input elementInput" id="nos" name="nos" value="@Model.Nos"
+                                               type="text" placeholder=" " onclick="(this.type='number')">
+                                        <span class="highlight"></span>
+                                        <label>Nos.</label>
+
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group floating-label">
+                                        <input class="form-control floating-input elementInput" id="endno" name="endno" value="@Model.EndNo"
+                                               type="text" placeholder=" " onclick="(this.type='number')">
+                                        <span class="highlight"></span>
+                                        <label>End No.</label>
+
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group floating-label">
+                                        <input class="form-control floating-input elementInput" id="deno" name="deno" value="@Model.Deno"
+                                               type="text" placeholder=" " onclick="(this.type='number')">
+                                        <span class="highlight"></span>
+                                        <label>Deno</label>
+
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group floating-label">
+                                        <input class="form-control floating-input elementInput" id="value" name="value" value="@Model.Value"
+                                               type="text" placeholder=" " onclick="(this.type='number')">
+                                        <span class="highlight"></span>
+                                        <label>Value</label>
+
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
             </div>
+
         </div>
-    </div>*@
+    </div>
+
+
+<div class="form-inline">
+    <div class="form-group col-sm-offset-1">
+        <button type="button" class="btn btn-primary editor_add" id="btnAddAct">Add</button>
+        <button type="button" class="btn btn-warning editor_edit" id="btnEditAct">Edit</button>
+        <button type="button" class="btn btn-danger editor_delete" id="btnDeleteAct">Delete</button>
+        <div class="add-group" style="display: none">
+            <button type="button" class="btn btn-success  editor_save" id="btnSaveAct">Save</button>
+            <button type="button" class="btn btn-info  editor_cancel" id="btnCancelAct">Cancel</button>
+        </div>
+    </div>
+</div>
