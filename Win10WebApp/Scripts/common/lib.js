@@ -26,8 +26,9 @@ const lib = {
     replaceTokens: function (str, tokenData) {
         if (tokenData === undefined || tokenData === null) return str;
         for (var x in tokenData) {
-            replaceAll(str, "[" + x + "]", tokenData[x]);
+            str = replaceAll(str, "[" + x + "]", tokenData[x]);
         }
+        return str;
     },
     EventEmitter: function (eventName) {
         let _this = this;
@@ -67,5 +68,29 @@ const lib = {
         let urlParts = url.split("/");
         urlParts.pop();
         return urlParts.join("/");
+    },
+    ObjectType: function (name, type, argumentFactory) {
+        let _this = this;
+    
+        _this.name = name;
+        _this.type = type;
+        _this.argumentFactory = argumentFactory;
+    
+        _this.create = function () {
+            let newObj = {};
+            _this.type.call(newObj, _this.argumentFactory());
+            newObj.prototype = Object.create(_this.type.prototype);
+            return newObj;
+        }
+    },
+    getOrDefault: function (obj, defaultObj) {
+        obj = obj || defaultObj;
+        for (var key in defaultObj) {
+            if (obj[key] === undefined || obj[key] === null)
+                obj[key] = defaultObj[key];
+            else if (typeof obj[key] === "object")
+                obj[key] = lib.getOrDefault(obj[key], defaultObj[key]);
+        }
+        return obj;
     }
 };
