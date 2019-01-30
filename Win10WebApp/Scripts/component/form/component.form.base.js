@@ -17,15 +17,29 @@ component.Form = function (rootSelector, settings) {
         return settings;
     }
 
+    let _viewBeforeAdd = null;
+    let backupViewBeforeAdd = function () {
+        _viewBeforeAdd = _this.$root.html();
+    }
+    let restoreViewBeforeAdd = function() {
+        _this.$root.html(_viewBeforeAdd);
+    }
+
     let _addViewHtml = null;
+
+    let loadAddViewSuccessHandler = function (newHtml) {
+        _addViewHtml = newHtml;
+        _this.writeMode = component.Form.WriteMode.Add;
+        _this.enable(true);
+        _this.emit("form.add.success");
+    }
+
     _this.loadAddView = function (addUrl, success, error) {
         try {
+            backupViewBeforeAdd();
             if (_addViewHtml == null) {
                 _this.loadPartialView(addUrl, null, function (newHtml) {
-                    _addViewHtml = newHtml;
-                    _this.writeMode = component.Form.WriteMode.Add;
-                    _this.enable(false);
-                    _this.emit("form.add.success");
+                    loadAddViewSuccessHandler(newHtml);
                     if (typeof success === "function") {
                         success(_addViewHtml);
                     }
@@ -38,6 +52,10 @@ component.Form = function (rootSelector, settings) {
             }
             else {
                 _this.$root.html(_addViewHtml);
+                loadAddViewSuccessHandler(_addViewHtml);
+                if (typeof success === "function") {
+                    success(_addViewHtml);
+                }
             }
         }
         catch (ex) {
@@ -116,7 +134,8 @@ component.Form = function (rootSelector, settings) {
     _this.cancelSave = function () {
         switch(_this.writeMode) {
             case component.Form.WriteMode.Add:
-                _this.$root.html(_addViewHtml);
+                //_this.$root.html(_addViewHtml);
+                restoreViewBeforeAdd();
                 _this.enable(false);
             break;
             case component.Form.WriteMode.Edit:
@@ -126,6 +145,8 @@ component.Form = function (rootSelector, settings) {
             default:
             break;
         }
+        _this.writeMode = component.Form.WriteMode.None;
+        _this.emit("form.cancel");
     }
 
     _this.initialize = function () {

@@ -47,13 +47,6 @@ component.Base = function (rootSelector, settingsOrFactory) {
         return event;
     }
     _this.enable = function (toggle) {
-        if (toggle) {
-            _this.$root.removeAttr("disabled");
-            _this.$root.find("*").removeAttr("disabled");
-        }
-        else {
-            _this.$root.attr("disabled", "disabled");
-            _this.$root.find("*").attr("disabled", "disabled");
-        }
+        _this.$root.enable(toggle);
     }
 }

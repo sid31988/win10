@@ -10,8 +10,7 @@ component.channel.CommandPanelToForm = function (sourceCommandPanel, targetForm,
 
     sourceCommandPanel.on("command.edit", function (eventArgs) {
         targetForm.enable(true);
-        sourceCommandPanel.toggleAddEditCommands(true);
-        sourceCommandPanel.toggleViewCommands(false);
+        sourceCommandPanel.setCommandMode(component.CommandPanel.CommandMode.Edit);
     });
 
     sourceCommandPanel.on("command.delete", function (eventArgs) {

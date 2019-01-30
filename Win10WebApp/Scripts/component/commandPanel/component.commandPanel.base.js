@@ -99,9 +99,10 @@ component.CommandPanel = function (rootSelector, settings) {
         _this.$saveCommandButton = getSaveCommandButton();
         _this.$cancelCommandButton = getCancelCommandButton();
         _this.handlers = new component.CommandPanel.EventHandlers(_this);
+        _this.setCommandMode(component.CommandPanel.CommandMode.None);
     }
 
-    _this.toggleViewCommands = function (toggle) {
+    let toggleViewCommands = function (toggle) {
         if (toggle) {
             _this.$addCommandButton.show();
             _this.$editCommandButton.show();
@@ -114,7 +115,13 @@ component.CommandPanel = function (rootSelector, settings) {
         }
     }
 
-    _this.toggleAddEditCommands = function (toggle) {
+    let enableViewCommands = function (enable) {
+        _this.$addCommandButton.enable(enable);
+        _this.$editCommandButton.enable(enable);
+        _this.$deleteCommandButton.enable(enable);
+    }
+
+    let toggleAddEditCommands = function (toggle) {
         if (toggle) {
             _this.$saveCommandButton.show();
             _this.$cancelCommandButton.show();
@@ -124,4 +131,54 @@ component.CommandPanel = function (rootSelector, settings) {
             _this.$cancelCommandButton.hide();
         }
     }
+
+    let enableAddEditCommands = function (enable) {
+        _this.$saveCommandButton.enable(enable);
+        _this.$cancelCommandButton.enable(enable);
+    }
+
+    let _commandMode = null;
+    _this.setCommandMode = function (commandMode) {
+        switch (commandMode) {
+            // Show only Add, Edit and Delete buttons
+            case component.CommandPanel.CommandMode.View:
+                enableViewCommands(true);
+                toggleViewCommands(true);
+                enableAddEditCommands(false);
+                toggleAddEditCommands(false);
+            break;
+            // Show Add, Edit and Delete buttons in disabled mode
+            // Show Save and Cancel in enabled mode
+            case component.CommandPanel.CommandMode.Add:
+                enableViewCommands(false);
+                toggleViewCommands(true);
+                enableAddEditCommands(true);
+                toggleAddEditCommands(true);
+            break;
+            // Show Add, Edit and Delete buttons in disabled mode
+            // Show Save and Cancel in enabled mode
+            case component.CommandPanel.CommandMode.Edit:
+                enableViewCommands(false);
+                toggleViewCommands(true);
+                enableAddEditCommands(true);
+                toggleAddEditCommands(true);
+            break;
+            // Hide all the command buttons
+            case component.CommandPanel.CommandMode.None:
+                enableViewCommands(false);
+                toggleViewCommands(false);
+                enableAddEditCommands(false);
+                toggleAddEditCommands(false);
+            break;
+            default:
+                throw "Invalid command mode."
+        }
+    }
 }
+
+component.CommandPanel.CommandMode = {
+    None: 0,
+    Add: 1,
+    Edit: 2,
+    View: 3
+};

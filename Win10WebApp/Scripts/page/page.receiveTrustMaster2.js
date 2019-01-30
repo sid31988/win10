@@ -47,8 +47,6 @@ page.ReceiverTrustMaster2 = function (rootSelector, settings) {
 
         _this.receiverTrustMasterCommandPanel = new component.CommandPanel(_settings.receiverTrustCommandSelector, _settings.receiverTrustCommandSettings);
         _this.receiverTrustMasterCommandPanel.initialize();
-        _this.receiverTrustMasterCommandPanel.toggleViewCommands(false);
-        _this.receiverTrustMasterCommandPanel.toggleAddEditCommands(false);
 
         _this.receiverTrustMasterTable.initialize();
         _this.receiverTrustMasterForm.initialize();
@@ -62,5 +60,6 @@ page.ReceiverTrustMaster2 = function (rootSelector, settings) {
         _this.receiverTrustMasterCommandPanel.bindTo("cp2table", _this.receiverTrustMasterTable, component.channel.CommandPanelToDataTable, _settings.addUrl, _settings.editUrl, _settings.deleteUrl, _settings.saveUrl);
         _this.receiverTrustMasterCommandPanel.bindTo("cp2form", _this.receiverTrustMasterForm, component.channel.CommandPanelToForm, _settings.addUrl, _settings.editUrl, _settings.deleteUrl, _settings.saveUrl);
         _this.receiverTrustMasterForm.bindTo("form2cp", _this.receiverTrustMasterCommandPanel, component.channel.FormToCommandPanel);
+        _this.receiverTrustMasterForm.bindTo("form2table", _this.receiverTrustMasterTable, component.channel.FormToDataTable);
     }
 }

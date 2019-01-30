@@ -18,9 +18,20 @@ $.fn.ajaxLoad = function (actionUrl, data, onSuccess, onError) {
     let _this = this;
     lib.invokeAction(actionUrl, "GET", data, function(result) {
         _this.html(result);
-        if (onSuccess !== undefined) onSuccess({ html: result });
+        if (onSuccess !== undefined) onSuccess(result);
     }, function (xhr, status, ex) {
         _this.log(ex);
-        if (onError !== undefined) onError({ error: ex });
+        if (onError !== undefined) onError(xhr, status, ex);
     });
+}
+
+$.fn.enable = function (toggle) {
+    if (toggle) {
+        this.removeAttr("disabled");
+        this.find("*").removeAttr("disabled");
+    }
+    else {
+        this.attr("disabled", "disabled");
+        this.find("*").attr("disabled", "disabled");
+    }
 }

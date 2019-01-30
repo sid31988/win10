@@ -10,18 +10,9 @@ component.DataTable.EventHandlers = function (dataTableComponent) {
 
     dataTableComponent.$root.on("click", "tr", function () {
         let row = this;
-        let $row = $(this);
         let tableRows = dataTableComponent.$root.find("tbody tr").toArray();
         let rowIndex = tableRows.indexOf(row);
-        let $selectedRow = dataTableComponent.$root.find("tr.selected");
-        if (!$row.hasClass("selected")) {
-            $selectedRow.removeClass("selected");
-            $row.addClass("selected");
-            var data = dataTableComponent.dataTable.rows(rowIndex).data()[0];
-            if (data !== undefined && data !== null) {
-                dataTableComponent.emit("table.row.select", data);
-            }
-        }
+        dataTableComponent.selectRow(rowIndex);
     });
 
     dataTableComponent.dataTable.on("select", function (e, dt, type, indexes) {
