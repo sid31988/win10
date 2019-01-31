@@ -73,7 +73,7 @@
         <span class="editor_edit"><a href="#" data-key="[key]" class="btn-success btn-sm">Edit</a></span>  |  <span class="editor_delete"><a href="#" data-key="[key]" class="btn-danger btn-sm">Delete</a></span>
     </script>*@
 <script type="text/javascript">
-    var receiverTrustMasterPage2 = new page.ReceiverTrustMaster2("#receiverTrustMasterRoot", function () {
+    var receiverTrustMasterPage = new page.ReceiverTrustMaster("#receiverTrustMasterRoot", function () {
         return {
             receiverTrustTableSelector: "#receiverTrustTable",
             receiverTrustTableSettings: function () {
@@ -82,7 +82,7 @@
                     dateFormat: "MM-dd-yyyy",
                     tableSettings: {
                         columns: [
-                            { data: "Date", render: receiverTrustMasterPage2.receiverTrustMasterTable.formatHelper.renderDate },
+                            { data: "Date", render: receiverTrustMasterPage.receiverTrustMasterTable.formatHelper.renderDate },
                             { data: "Issuer" },
                             { data: "Curr" },
                             { data: "Prefix" },
@@ -116,30 +116,5 @@
             addEditCommandGroupSelector: "#formAddEdit div.form-inline div.add-group"
         }
     });
-    receiverTrustMasterPage2.initialize();
-
-    @*
-        let findUrl = "@Url.Action("Find")";
-        let editDeleteCommandTemplateSelector = "#editDeleteCommandTemplate";
-        let addEditFormSelector = "#formAddEdit";
-        let pageRootSelector = "#receiverTrustMasterRoot";
-        let receiverTrustTableSelector = "#receiverTrustTable";
-        let dateFormat = "MM-dd-yyyy";
-        let dataMode = "view";
-        let saveButtonSelector = "#btnSaveAct";
-        let cancelButtonSelector = "#btnCancelAct";
-        var receiverTrustMasterPage = new page.ReceiverTrustMaster(pageRootSelector, receiverTrustTableSelector, dateFormat, editDeleteCommandTemplateSelector, addEditFormSelector, saveButtonSelector, cancelButtonSelector, dataMode);
-        let columnSettings = [
-            { data: "Date", render: "$dt.helper.renderDate" },
-            { data: "Issuer" },
-            { data: "Curr" },
-            { data: "Prefix" },
-            { data: "StartNo" },
-            { data: "Nos" },
-            { data: "EndNo" },
-            { data: "Deno" },
-            { data: "Value" }
-        ];
-        receiverTrustMasterPage.initReceiverTrustDataTable(columnSettings, findUrl);
-        *@
+    receiverTrustMasterPage.initialize();
 </script>
