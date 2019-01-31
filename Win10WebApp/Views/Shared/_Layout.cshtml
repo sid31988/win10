@@ -559,24 +559,32 @@
                                     </a>
                                     <ul class="dropdown-menu">
                                         <li class="menu-ls" data-menu="receiveTrustTab" data-menuname="Receive T.Cs"
-                                            data-controller="ReceiveTrustMaster" data-action="Index" 
+                                            data-controller="TCMaster" data-action="ReceiveTrust" 
                                             data-preid="@Win10WebApp.Utility.Constants.MODULES["RECEIVETRUST"]">
                                             <a class="nav-link "> Receive Trust T.C's </a>
                                         </li>
-                                        <li class=" ">
+                                        <li  class="menu-ls" data-menu="receiveforexTab" data-menuname="Receive Forex Cards"
+                                            data-controller="TCMaster" data-action="ReceiveForex" 
+                                            data-preid="@Win10WebApp.Utility.Constants.MODULES["RECEIVEFOREX"]">
                                             <a href="elements_lists.html" class="nav-link "> Receive Forex Cards </a>
                                         </li>
-                                        <li class=" ">
-                                            <a href="elements_ribbons.html" class="nav-link "> Prv. Purchased T.C's </a>
+                                        <li class="menu-ls" data-menu="purchasedTab" data-menuname="Prv. Purchased T.C's'"
+                                            data-controller="TCMaster" data-action="Purchased" 
+                                            data-preid="@Win10WebApp.Utility.Constants.MODULES["PURCHASED"]">
+                                            <a class="nav-link "> Prv. Purchased T.C's </a>
                                         </li>
-
-                                        <li class=" ">
+                                        
+                                        <li class="menu-ls" data-menu="UnsettledTab" data-menuname="Prv. Unsettled T.C's'"
+                                            data-controller="TCMaster" data-action="Unsettled" 
+                                            data-preid="@Win10WebApp.Utility.Constants.MODULES["UNSETTLED"]">
                                             <a href="elements_steps.html" class="nav-link "> Prv. Unsettled T.C's </a>
                                         </li>
                                         <li class=" ">
                                             <a href="elements_lists.html" class="nav-link "> Prv. Unsurrendered T.C's </a>
                                         </li>
-                                        <li class=" ">
+                                        <li  class="menu-ls" data-menu="UnsettledForexCardTab" data-menuname="Prv.Encashed DD Balance"
+                                            data-controller="TCMaster" data-action="UnsettledForexCard" 
+                                            data-preid="@Win10WebApp.Utility.Constants.MODULES["UNSETTLEDFOREXCARD"]">
                                             <a href="elements_ribbons.html" class="nav-link ">  Prv. Unsettled Forex Card </a>
                                         </li>
                                         <li class=" ">
@@ -585,8 +593,10 @@
                                         <li class=" ">
                                             <a href="elements_lists.html" class="nav-link "> Prv. DD Balance </a>
                                         </li>
-                                        <li class=" ">
-                                            <a href="elements_ribbons.html" class="nav-link ">Prv.Encashed DD Balance  </a>
+                                        <li class="menu-ls" data-menu="encashedBalanceTab" data-menuname="Prv.Encashed DD Balance"
+                                            data-controller="TCMaster" data-action="EncashedBalance" 
+                                            data-preid="@Win10WebApp.Utility.Constants.MODULES["ENCASHEDBALANCE"]">
+                                            <a href="elements_ribbons.html" class="nav-link ">Prv.Encashed DD Balance </a>
                                         </li>
                                     </ul>
                                 </li>

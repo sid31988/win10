@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Win10WebApp.Models.PartyMaster>
+﻿﻿@model IEnumerable<Win10WebApp.Models.PartyMaster>
 @{
     Layout = null;
 }
@@ -11,11 +11,9 @@
             <div class="panel-body">
                 <div class="row">
                     <div class="col-sm-5">
-
                         <table class="table" id="franchiseesTable">
                             <thead>
                                 <tr>
-
                                     <th>
                                         @Html.DisplayNameFor(model => model.Name)
                                     </th>
@@ -23,16 +21,13 @@
                                         @Html.DisplayNameFor(model => model.City)
                                     </th>
 
-
-
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach (var item in Model)
                                 {
 
-                                    <tr class="tbl-row" data-childdata="@Json.Encode(item)" data-actpanel="#left-panel">
-
+                                    <tr class="tbl-row" data-trid="tr_@item.Id" data-childdata="@Json.Encode(item)" data-actpanel="#left-panel">
 
                                         <td>
                                             @Html.DisplayFor(modelItem => item.Name)
@@ -40,7 +35,6 @@
                                         <td>
                                             @Html.DisplayFor(modelItem => item.City)
                                         </td>
-
 
                                     </tr>
 
@@ -61,7 +55,6 @@
                                         <div id="franchcollapse_1" class="panel-collapse in">
                                             <div class="panel-body floating-form">
                                                 <div class="row">
-
                                                     <div class="col-md-12">
                                                         <div class="form-group floating-label">
                                                             <input class="form-control floating-input elementInput" data-columnname="NAME"
@@ -73,17 +66,15 @@
                                                     <div class="col-md-12">
                                                         <div class="form-group floating-label">
                                                             <select class="form-control form-control-sm floating-select elementInput"
-                                                                    data-columnname="" onclick="this.setAttribute('value', this.value);"
+                                                                    data-columnname="CONTROLAC" onclick="this.setAttribute('value', this.value);"
                                                                     onchange="this.setAttribute('value', this.value);" value="">
                                                                 <option></option>
                                                                 <option>SUNDRY DEBTORS A/C</option>
                                                             </select>
                                                             <span class="highlight"></span>
                                                             <label>Control A/C</label>
-
                                                         </div>
                                                     </div>
-
                                                 </div>
                                             </div>
                                         </div>
@@ -97,7 +88,6 @@
                                         <div id="franchcollapse_2" class="panel-collapse">
                                             <div class="panel-body floating-form">
                                                 <div class="row">
-
                                                     <div class="col-md-12">
                                                         <div class="form-group floating-label">
                                                             <input class="form-control floating-input elementInput" data-columnname="ADDRESS1"
@@ -132,7 +122,7 @@
                                                     </div>
                                                     <div class="col-md-6">
                                                         <div class="form-group floating-label">
-                                                            <input class="form-control floating-input elementInput" data-columnname=""
+                                                            <input class="form-control floating-input elementInput" data-columnname="PINCODE"
                                                                    type="text" placeholder=" " disabled>
                                                             <span class="highlight"></span>
                                                             <label>Pincode </label>
@@ -143,30 +133,24 @@
                                                             <select class="form-control form-control-sm floating-select elementInput" data-columnname="STATE" onclick="this.setAttribute('value', this.value);" value="">
                                                                 <option></option>
                                                                 <option>MAHARASHTRA</option>
-
                                                             </select>
                                                             <span class="highlight"></span>
                                                             <label>State</label>
-
                                                         </div>
                                                     </div>
-
                                                     <div class="col-md-6">
                                                         <div class="form-group floating-label">
-                                                            <select class="form-control form-control-sm floating-select elementInput" data-columnname="STATE" onclick="this.setAttribute('value', this.value);" value="">
+                                                            <select class="form-control form-control-sm floating-select elementInput" data-columnname="COUNTRY" onclick="this.setAttribute('value', this.value);" value="">
                                                                 <option></option>
                                                                 <option>India</option>
-
                                                             </select>
                                                             <span class="highlight"></span>
                                                             <label>Country</label>
-
                                                         </div>
                                                     </div>
-                                                    
                                                     <div class="col-md-6">
                                                         <div class="form-group floating-label">
-                                                            <input class="form-control floating-input elementInput" data-columnname="NAME"
+                                                            <input class="form-control floating-input elementInput" data-columnname="TEL1"
                                                                    type="text" placeholder=" " disabled>
                                                             <span class="highlight"></span>
                                                             <label>Telephone</label>
@@ -174,7 +158,7 @@
                                                     </div>
                                                     <div class="col-md-6">
                                                         <div class="form-group floating-label">
-                                                            <input class="form-control floating-input elementInput" data-columnname="NAME"
+                                                            <input class="form-control floating-input elementInput" data-columnname="MOBILE"
                                                                    type="text" placeholder=" " disabled>
                                                             <span class="highlight"></span>
                                                             <label>Mobile</label>
@@ -182,7 +166,7 @@
                                                     </div>
                                                     <div class="col-md-12">
                                                         <div class="form-group floating-label">
-                                                            <input class="form-control floating-input elementInput" data-columnname="NAME"
+                                                            <input class="form-control floating-input elementInput" data-columnname="EMAIL1"
                                                                    type="text" placeholder=" " disabled>
                                                             <span class="highlight"></span>
                                                             <label>Email</label>
@@ -203,7 +187,7 @@
                                                 <div class="row">
                                                     <div class="col-md-6">
                                                         <div class="form-group floating-label">
-                                                            <input class="form-control floating-input elementInput" data-columnname="NAME"
+                                                            <input class="form-control floating-input elementInput" data-columnname="PANNO"
                                                                    type="text" placeholder=" " disabled>
                                                             <span class="highlight"></span>
                                                             <label>Pancard No.</label>
@@ -211,7 +195,7 @@
                                                     </div>
                                                     <div class="col-md-6">
                                                         <div class="form-group floating-label">
-                                                            <input class="form-control floating-input elementInput" data-columnname="NAME"
+                                                            <input class="form-control floating-input elementInput" data-columnname="GST"
                                                                    type="text" placeholder=" " disabled>
                                                             <span class="highlight"></span>
                                                             <label>GSTIN</label>
@@ -219,7 +203,7 @@
                                                     </div>
                                                     <div class="col-md-4">
                                                         <div class="form-group floating-label">
-                                                            <input class="form-control floating-input elementInput" data-columnname="NAME"
+                                                            <input class="form-control floating-input elementInput" data-columnname="OPENINGBALANCE"
                                                                    type="text" placeholder=" " disabled>
                                                             <span class="highlight"></span>
                                                             <label>Opening Balance</label>
@@ -228,70 +212,60 @@
                                                     <div class="col-md-3">
                                                         <div class="form-group floating-label">
                                                             <select class="form-control form-control-sm floating-select elementInput"
-                                                                    data-columnname="BALANCEPOST" 
-                                                                    onclick="this.setAttribute('value', this.value);" 
+                                                                    data-columnname="BALANCEPOST"
+                                                                    onclick="this.setAttribute('value', this.value);"
                                                                     value="Dr">
-                                                               
                                                                 <option>Dr</option>
                                                                 <option>Cr</option>
-
                                                             </select>
                                                             <span class="highlight"></span>
                                                             <label>&nbsp;</label>
-
                                                         </div>
                                                     </div>
                                                     <div class="col-md-5">
                                                         <div class="form-group floating-label">
-                                                            <select class="form-control form-control-sm floating-select elementInput" data-columnname="BLOCK" onclick="this.setAttribute('value', this.value);" value="">
+                                                            <select class="form-control form-control-sm floating-select elementInput" data-columnname="ADDRESSINBILL" onclick="this.setAttribute('value', this.value);" value="">
                                                                 <option></option>
                                                                 <option>Y</option>
                                                                 <option>N</option>
                                                             </select>
                                                             <span class="highlight"></span>
                                                             <label>Address In Bill</label>
-
                                                         </div>
                                                     </div>
-
                                                     <div class="col-md-6">
                                                         <div class="form-group floating-label">
-                                                            <select class="form-control form-control-sm floating-select elementInput" data-columnname="BLOCK" onclick="this.setAttribute('value', this.value);" value="">
+                                                            <select class="form-control form-control-sm floating-select elementInput" data-columnname="LOCK" onclick="this.setAttribute('value', this.value);" value="">
                                                                 <option></option>
                                                                 <option>Y</option>
                                                                 <option>N</option>
                                                             </select>
                                                             <span class="highlight"></span>
                                                             <label>Lock</label>
-
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6">
                                                         <div class="form-group floating-label">
-                                                            <input class="form-control floating-input elementInput" data-columnname="NAME"
+                                                            <input class="form-control floating-input elementInput" data-columnname="RBILICNO"
                                                                    type="text" placeholder=" " disabled>
                                                             <span class="highlight"></span>
                                                             <label>RBI Lic #</label>
                                                         </div>
                                                     </div>
-                                                    
                                                     <div class="col-md-12">
                                                         <div class="form-group floating-label">
-                                                            <select class="form-control form-control-sm floating-select elementInput" data-columnname="BLOCK" onclick="this.setAttribute('value', this.value);" value="">
+                                                            <select class="form-control form-control-sm floating-select elementInput" data-columnname="LOCATION" onclick="this.setAttribute('value', this.value);" value="">
                                                                 <option></option>
                                                                 <option>Demo City</option>
-
                                                             </select>
                                                             <span class="highlight"></span>
                                                             <label>Location</label>
-
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                    
                                     <div class="panel panel-default">
                                         <div class="panel-heading">
                                             <h4 class="panel-title">
@@ -301,104 +275,134 @@
                                         <div id="franchcollapse_5" class="panel-collapse">
                                             <div class="panel-body floating-form">
                                                 <div class="row">
-
-
-                                                    <div class="col-md-4">
+                                                    @*<div class="col-md-4">
+                                                            <div class="form-group floating-label">
+                                                                <select class="form-control form-control-sm floating-select elementInput"
+                                                                        data-columnname="MGEND" onclick="this.setAttribute('value', this.value);"
+                                                                        onchange="this.setAttribute('value', this.value);" value="Male">
+                                                                    <option>Male</option>
+                                                                    <option>Female</option>
+                                                                    <option>Others</option>
+                                                                </select>
+                                                                <span class="highlight"></span>
+                                                                <label>Gender</label>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-4">
+                                                            <div class="form-group floating-label">
+                                                                <input class="form-control floating-input elementInput" data-columnname="MDOB"
+                                                                       type="text" placeholder=" " onclick="(this.type='date')" disabled>
+                                                                <span class="highlight"></span>
+                                                                <label>Date Of Birth</label>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-4">
+                                                            <div class="form-group floating-label">
+                                                                <select class="form-control form-control-sm floating-select elementInput"
+                                                                        data-columnname="MRSKCAT" onclick="this.setAttribute('value', this.value);"
+                                                                        onchange="this.setAttribute('value', this.value);" value="Low Risk">
+                                                                    <option>Low Risk</option>
+                                                                    <option>Medium Risk</option>
+                                                                    <option>High Risk</option>
+                                                                </select>
+                                                                <span class="highlight"></span>
+                                                                <label>Risk Category</label>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <div class="form-group floating-label">
+                                                                <input class="form-control floating-input elementInput" data-columnname="MOCC"
+                                                                       type="text" placeholder=" " disabled>
+                                                                <span class="highlight"></span>
+                                                                <label>Occupation</label>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <div class="form-group floating-label">
+                                                                <input class="form-control floating-input elementInput" data-columnname="MADDHAR"
+                                                                       type="text" placeholder=" " disabled>
+                                                                <span class="highlight"></span>
+                                                                <label>Aadhar</label>
+                                                            </div>
+                                                        </div>*@
+                                                    <div class="col-md-12">
                                                         <div class="form-group floating-label">
-                                                            <select class="form-control form-control-sm floating-select elementInput"
-                                                                    data-columnname="MGEND" onclick="this.setAttribute('value', this.value);"
-                                                                    onchange="this.setAttribute('value', this.value);" value="Male">
-                                                                <option>Male</option>
-                                                                <option>Female</option>
-                                                                <option>Others</option>
-                                                            </select>
-                                                            <span class="highlight"></span>
-                                                            <label>Gender</label>
-
+                                                            <div class="col-md-12">
+                                                                <label>Select List of Documents Collected</label><br />
+                                                            </div>
+                                                            <div class="col-md-12">
+                                                                <input class="elementInput elementAddInput" data-columnname="COPYOFPANCARD"
+                                                                       type="checkbox" name="profiledata" value="Copy of Pan Card" />Copy of Pan Card<br />
+                                                            </div>
+                                                            <div class="col-md-12">
+                                                                <input class="elementInput elementAddInput" data-columnname="COPYOFUTILITYBILL"
+                                                                       type="checkbox" name="profiledata" value="Copy of Utility Bill" />Copy of Utility Bill<br />
+                                                            </div>
                                                         </div>
                                                     </div>
-
-                                                    <div class="col-md-4">
-                                                        <div class="form-group floating-label">
-                                                            <input class="form-control floating-input elementInput" data-columnname="MDOB"
-                                                                   type="text" placeholder=" " onclick="(this.type='date')" disabled>
-                                                            <span class="highlight"></span>
-                                                            <label>Date Of Birth</label>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-4">
-                                                        <div class="form-group floating-label">
-                                                            <select class="form-control form-control-sm floating-select elementInput"
-                                                                    data-columnname="MRSKCAT" onclick="this.setAttribute('value', this.value);"
-                                                                    onchange="this.setAttribute('value', this.value);" value="Low Risk">
-                                                                <option>Low Risk</option>
-                                                                <option>Medium Risk</option>
-                                                                <option>High Risk</option>
-                                                            </select>
-                                                            <span class="highlight"></span>
-                                                            <label>Risk Category</label>
-
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-6">
-                                                        <div class="form-group floating-label">
-                                                            <input class="form-control floating-input elementInput" data-columnname="MOCC"
-                                                                   type="text" placeholder=" " disabled>
-                                                            <span class="highlight"></span>
-                                                            <label>Occupation</label>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-6">
-                                                        <div class="form-group floating-label">
-                                                            <input class="form-control floating-input elementInput" data-columnname="MADDHAR"
-                                                                   type="text" placeholder=" " disabled>
-                                                            <span class="highlight"></span>
-                                                            <label>Aadhar</label>
-                                                        </div>
-                                                    </div>
-
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-
                             </div>
                         </div>
-                    </div>
-                    <div class="col-sm-1">
-                        <div class="form-actions">
-                            <button type="button" class="btn btn-primary left-panelbtn add-btn" data-actpanel="#left-panel">Add</button>
-                            <button type="button" class="btn btn-warning left-panelbtn edit-btn" data-actpanel="#left-panel">Edit</button>
-                            <button type="button" class="btn btn-danger left-panelbtn del-btn">Delete</button>
-                            <div class="add-group" style="display: none">
-                                <button type="button" class="btn btn-success left-panelbtn save-btn" data-actpanel="#left-panel" id="btnSaveAct">Save</button>
-                                <button type="button" class="btn btn-info left-panelbtn cancel-btn" data-actpanel="#left-panel">Cancel</button>
+                        <div class="col-sm-1">
+                            <div class="form-actions">
+                                <button type="button" class="btn btn-primary left-panelbtn add-btn" data-actpanel="#left-panel">Add</button>
+                                <button type="button" class="btn btn-warning left-panelbtn edit-btn" data-actpanel="#left-panel">Edit</button>
+                                <button type="button" class="btn btn-danger left-panelbtn del-btn">Delete</button>
+                                <div class="add-group" style="display: none">
+                                    <button type="button" class="btn btn-success left-panelbtn save-btn" data-actpanel="#left-panel" id="btnSaveAct">Save</button>
+                                    <button type="button" class="btn btn-info left-panelbtn cancel-btn" data-actpanel="#left-panel">Cancel</button>
+                                </div>
                             </div>
                         </div>
-
                     </div>
                 </div>
-
             </div>
         </div>
     </div>
-</div>
+    <script>
+        freezePanel('#left-panel');
+        var franchiseeTable = $('#franchiseesTable').DataTable();
 
-<script>
-    freezePanel('#left-panel');
-    var indTable = $('#franchiseesTable').DataTable();
+        $(preIndex + ' #btnSaveAct').click(function () {
 
-    $(preIndex + ' #btnSaveAct').click(function () {
-        var CurrencyArr = {};
-        var hiddenFields = ["Id", "AFType", "RBI", "Rate", "Position"];
-        $(preIndex + " .elementInput").each(function () {
-            CurrencyArr[$(this).data('columnname')] = $(preIndex + ' [data-columnname="' + $(this).data('columnname') + '"]').val();
+            var FranchiseesArr = {}
+            var hiddenFields = ["Type", "Name", "Address1", "Address2", "Address3", "City", "Pincode", "State", "Country", "Nationality", "Residency", "Contactperson1", "Tel1", "Email1", "Primaryid", "Panno", "Aadharno", "Gst", "Mobile", "OpeningBalance", "BalancePost", "AddressInBill", "Lock", "Category", "Broker", "Location", "CollectGST", "RBILICNo", "RBIExp", "ControlAC"];
+            var AdditionalData = [];
+
+            $(preIndex + " .elementInput").each(function () {
+                FranchiseesArr[$(this).data('columnname')] = $(preIndex + ' [data-columnname="' + $(this).data('columnname') + '"]').val();
+            });
+
+            $(preIndex + " .elementAddInput").each(function () {
+                if ($(preIndex + ' [data-columnname="' + $(this).data('columnname') + '"]').val() != null
+                    && $(preIndex + ' [data-columnname="' + $(this).data('columnname') + '"]').val().trim() != ""
+                    && $(this).prop("checked") == true) {
+                    var newObj = {};
+                    newObj["Table"] = "PartyMasters";
+                    newObj["Column"] = $(this).data('columnname');
+                    newObj["Value"] = $(preIndex + ' [data-columnname="' + $(this).data('columnname') + '"]').val();
+                    AdditionalData.push(newObj);
+                }
+            });
+
+            FranchiseesArr["AdditionalData"] = AdditionalData;
+
+
+            FranchiseesArr['Type'] = 'F';
+
+
+            if ($(this).data("acttype") == 'save') {
+                addDataToTable(FranchiseesArr, "PartiesMaster/SavePartiesMaster", 'franchiseeTable', 'POST', '#left-panel', franchiseeTable, hiddenFields, false);
+            }
+            else {
+                //var trid = $(preIndex + " .selected-column").data("trid");
+                //editDataToTable(FranchiseesArr, "PartiesMaster/SavePartiesMaster", 'franchiseeTable', 'POST', trid, '#left-panel', franchiseeTable, hiddenFields);
+                editDataOfTable(IndividualArr, "PartiesMaster/EditPartiesMaster", 'franchiseeTable', 'POST', franchiseeTable, "");
+            }
+
         });
-        addDataToTable(CurrencyArr, "CurrencyMaster/SaveCurrency", 'individualTable', 'POST', '#left-panel', indTable, hiddenFields, false)
-        //console.log(AccountingArr);
-
-    });
-</script>
-
-
+    </script>

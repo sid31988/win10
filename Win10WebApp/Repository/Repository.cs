@@ -9,7 +9,7 @@ using Win10WebApp.DataLayer;
 
 namespace Win10WebApp.Repository
 {
-    public class Repository<T> : IRepository<T> where T : class, ISoftDelete
+    public class Repository<T> : IRepository<T> where T : class, ICustomColumns
     {
         private DbRepo<T> db;
         private DbSet<T> dbSet;
@@ -45,6 +45,7 @@ namespace Win10WebApp.Repository
         public void Update(T obj)
         {
             db.Entry(obj).State = EntityState.Modified;
+            db.Entry(obj).Property(x => x.CreatedDate).IsModified = false;
             Save();
         }
 

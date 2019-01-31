@@ -1,0 +1,203 @@
+﻿@model Win10WebApp.Models.TCMasterViewModel
+@{
+    Layout = null;
+}
+
+@if (Model.TCMaster != null)
+{
+    <div class="portlet light ">
+        <div class="portlet-body form">
+            <div class="panel-group accordion" id="receiveforex">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <a class="accordion-toggle" data-toggle="collapse" data-parent="#receiveforex" href="#receiveforex_form"> Details </a>
+                        </h4>
+                    </div>
+                    <div id="receiveforex_form" class="panel-collapse in">
+                        <div class="panel-body floating-form">
+
+
+                            <input type="text" name="Id" value="@Model.TCMaster.Id" style="display: none;" />
+                            <input type="text" name="Type" value="@Model.TCMaster.Type" style="display: none;" />
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group floating-label">
+                                        <input class="form-control floating-input elementInput" id="date" name="date" value="@Model.TCMaster.Date"
+                                               type="text" placeholder=" " onclick="(this.type='date')">
+                                        <span class="highlight"></span>
+                                        <label>Date</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group floating-label">
+                                        <input class="form-control floating-input elementInput" id="issuer" name="issuer" value="@Model.TCMaster.Issuer"
+                                               type="text" placeholder=" ">
+                                        <span class="highlight"></span>
+                                        <label>Issuer</label>
+
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group floating-label">
+                                        <input class="form-control floating-input elementInput" id="curr" name="curr" value="@Model.TCMaster.Curr"
+                                               type="text" placeholder=" ">
+                                        <span class="highlight"></span>
+                                        <label>Curr</label>
+
+                                    </div>
+                                </div>                                
+                                <div class="col-md-6">
+                                    <div class="form-group floating-label">
+                                        <input class="form-control floating-input elementInput" id="refrno" name="refrno" value="@Model.TCMaster.RefrNo"
+                                               type="text" placeholder=" " onclick="(this.type='number')">
+                                        <span class="highlight"></span>
+                                        <label>Refr No.</label>
+
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group floating-label">
+                                        <input class="form-control floating-input elementInput" id="cardno" name="cardno" value="@Model.TCMaster.CardNo"
+                                               type="text" placeholder=" " onclick="(this.type='number')">
+                                        <span class="highlight"></span>
+                                        <label>Card No.</label>
+
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group floating-label">
+                                        <input class="form-control floating-input elementInput" id="proxyno" name="proxyno" value="@Model.TCMaster.ProxyNo"
+                                               type="text" placeholder=" " onclick="(this.type='number')">
+                                        <span class="highlight"></span>
+                                        <label>Proxy No.</label>
+
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group floating-label">
+                                        <input class="form-control floating-input elementInput" id="expdate" name="expdate" value="@Model.TCMaster.ExpDate"
+                                               type="text" placeholder=" " onclick="(this.type='date')">
+                                        <span class="highlight"></span>
+                                        <label>Exp Date</label>
+
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+}
+else
+{
+    <div class="row" id="@Win10WebApp.Utility.Constants.MODULES["RECEIVEFOREX"]">
+        <div class="col-md-14">
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    Receive Forex Cards
+                </div>
+                <div class="panel-body">
+                    <div id="receiveforexMasterRoot" class="row page-root" data-mode="view">
+
+                        <!--View Design-->
+                        <div id="divDatatable" class="col-sm-8 grid-control">
+                            <table class="table display dataTable compact" id="receiveforexTable">
+                                <thead>
+                                    <tr>
+                                        <th>
+                                            Date
+                                        </th>
+                                        <th>
+                                            Issuer
+                                        </th>
+                                        <th>
+                                            Curr
+                                        </th>                                       
+                                        <th>
+                                            Refr No
+                                        </th>
+                                        <th>
+                                            Card No
+                                        </th>
+                                        <th>
+                                            Proxy No
+                                        </th>
+                                        <th>
+                                            Exp Date
+                                        </th>
+                                    </tr>
+                                </thead>
+                            </table>
+                        </div>
+
+                        <!--Details Design-->
+                        <div id="divAddEdit" class="editor-control col-sm-4">
+                            <form id="formAddEdit"></form>
+                            <div class="form-actions">
+                                <div class="form-group col-sm-offset-1">
+                                    <button type="button" class="btn btn-primary editor_add" id="btnAddAct">Add</button>
+                                    <button type="button" class="btn btn-warning editor_edit" id="btnEditAct">Edit</button>
+                                    <button type="button" class="btn btn-danger editor_delete" id="btnDeleteAct">Delete</button>
+                                    <div class="add-group">
+                                        <button type="button" class="btn btn-success  editor_save" id="btnSaveAct">Save</button>
+                                        <button type="button" class="btn btn-info  editor_cancel" id="btnCancelAct">Cancel</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+        var receiveforexMasterPage = new page.ReceiveforexMaster("#receiveforexMasterRoot", function () {
+            return {
+                receiveforexTableSelector: "#receiveforexTable",
+                receiveforexTableSettings: function () {
+                    return {
+                        commandDisplay: component.DataTable.CommandDisplayTypes.external,
+                        dateFormat: "MM-dd-yyyy",
+                        tableSettings: {
+                            columns: [
+                                { data: "Date", render: receiveforexMasterPage.receiveforexMasterTable.formatHelper.renderDate },
+                                { data: "Issuer" },
+                                { data: "Curr" },                              
+                                { data: "RefrNo" },
+                                { data: "CardNo" },
+                                { data: "ProxyNo" },
+                                { data: "ExpDate", render: receiveforexMasterPage.receiveforexMasterTable.formatHelper.renderDate }
+                            ],
+                            ajax: "@Url.Action("Find")?tcMasterType=ReceiveForex",
+                            select: true
+                        }
+                    }
+                },
+                receiveforexDetailsPanelSelector: "#divAddEdit",
+                receiveforexFormSelector: "#formAddEdit",
+                receiveforexFormSettings: {
+                },
+                receiveforexCommandSelector: "#divAddEdit div.form-actions",
+                receiveforexCommandSettings: {
+                    addCommandButtonSelector: "button.editor_add",
+                    editCommandButtonSelector: "button.editor_edit",
+                    deleteCommandButtonSelector: "button.editor_delete",
+                    saveCommandButtonSelector: "button.editor_save",
+                    cancelCommandButtonSelector: "button.editor_cancel"
+                },
+                addUrl: "@Url.Action("Add")?tcMasterType=ReceiveForex",
+                editUrl: "@Url.Action("Edit")?tcMasterType=ReceiveForex&Id=[Id]",
+                deleteUrl: "@Url.Action("Delete")/[Id]",
+                saveUrl: "@Url.Action("Save")?tcMasterType=ReceiveForex",
+                addEditCommandGroupSelector: "#formAddEdit div.form-actions div.add-group"
+            }
+        });
+        receiveforexMasterPage.initialize();
+    </script>
+}

@@ -31,7 +31,7 @@
                                 @foreach (var item in Model)
                                 {
 
-                                    <tr class="tbl-row" data-childdata="@Json.Encode(item)" data-actpanel="#left-panel">
+                                    <tr class="tbl-row" data-trid="tr_@item.Id" data-childdata="@Json.Encode(item)" data-actpanel="#left-panel">
 
 
                                         <td>
@@ -73,7 +73,7 @@
                                                     <div class="col-md-12">
                                                         <div class="form-group floating-label">
                                                             <select class="form-control form-control-sm floating-select elementInput"
-                                                                    data-columnname="" onclick="this.setAttribute('value', this.value);"
+                                                                    data-columnname="CONTROLAC" onclick="this.setAttribute('value', this.value);"
                                                                     onchange="this.setAttribute('value', this.value);" value="">
                                                                 <option></option>
                                                                 <option>SUNDRY DEBTORS A/C</option>
@@ -132,7 +132,7 @@
                                                     </div>
                                                     <div class="col-md-6">
                                                         <div class="form-group floating-label">
-                                                            <input class="form-control floating-input elementInput" data-columnname=""
+                                                            <input class="form-control floating-input elementInput" data-columnname="PINCODE"
                                                                    type="text" placeholder=" " disabled>
                                                             <span class="highlight"></span>
                                                             <label>Pincode </label>
@@ -153,7 +153,7 @@
 
                                                     <div class="col-md-6">
                                                         <div class="form-group floating-label">
-                                                            <select class="form-control form-control-sm floating-select elementInput" data-columnname="STATE" onclick="this.setAttribute('value', this.value);" value="">
+                                                            <select class="form-control form-control-sm floating-select elementInput" data-columnname="COUNTRY" onclick="this.setAttribute('value', this.value);" value="">
                                                                 <option></option>
                                                                 <option>India</option>
 
@@ -165,7 +165,7 @@
                                                     </div>
                                                     <div class="col-md-6">
                                                         <div class="form-group floating-label">
-                                                            <input class="form-control floating-input elementInput" data-columnname="NAME"
+                                                            <input class="form-control floating-input elementInput" data-columnname="TEL1"
                                                                    type="text" placeholder=" " disabled>
                                                             <span class="highlight"></span>
                                                             <label>Telephone</label>
@@ -173,7 +173,7 @@
                                                     </div>
                                                     <div class="col-md-6">
                                                         <div class="form-group floating-label">
-                                                            <input class="form-control floating-input elementInput" data-columnname="NAME"
+                                                            <input class="form-control floating-input elementInput" data-columnname="MOBILE"
                                                                    type="text" placeholder=" " disabled>
                                                             <span class="highlight"></span>
                                                             <label>Mobile</label>
@@ -181,7 +181,7 @@
                                                     </div>
                                                     <div class="col-md-12">
                                                         <div class="form-group floating-label">
-                                                            <input class="form-control floating-input elementInput" data-columnname="NAME"
+                                                            <input class="form-control floating-input elementInput" data-columnname="EMAIL1"
                                                                    type="text" placeholder=" " disabled>
                                                             <span class="highlight"></span>
                                                             <label>Email</label>
@@ -202,7 +202,7 @@
                                                 <div class="row">
                                                     <div class="col-md-6">
                                                         <div class="form-group floating-label">
-                                                            <input class="form-control floating-input elementInput" data-columnname="NAME"
+                                                            <input class="form-control floating-input elementInput" data-columnname="PANNO"
                                                                    type="text" placeholder=" " disabled>
                                                             <span class="highlight"></span>
                                                             <label>Pancard No.</label>
@@ -210,7 +210,7 @@
                                                     </div>
                                                     <div class="col-md-6">
                                                         <div class="form-group floating-label">
-                                                            <input class="form-control floating-input elementInput" data-columnname="NAME"
+                                                            <input class="form-control floating-input elementInput" data-columnname="GST"
                                                                    type="text" placeholder=" " disabled>
                                                             <span class="highlight"></span>
                                                             <label>GSTIN</label>
@@ -218,7 +218,7 @@
                                                     </div>
                                                     <div class="col-md-4">
                                                         <div class="form-group floating-label">
-                                                            <input class="form-control floating-input elementInput" data-columnname="NAME"
+                                                            <input class="form-control floating-input elementInput" data-columnname="OPENINGBALANCE"
                                                                    type="text" placeholder=" " disabled>
                                                             <span class="highlight"></span>
                                                             <label>Opening Balance</label>
@@ -240,7 +240,7 @@
                                                     </div>
                                                     <div class="col-md-5">
                                                         <div class="form-group floating-label">
-                                                            <select class="form-control form-control-sm floating-select elementInput" data-columnname="BLOCK" onclick="this.setAttribute('value', this.value);" value="">
+                                                            <select class="form-control form-control-sm floating-select elementInput" data-columnname="ADDRESSINBILL" onclick="this.setAttribute('value', this.value);" value="">
                                                                 <option></option>
                                                                 <option>Y</option>
                                                                 <option>N</option>
@@ -254,9 +254,9 @@
                                                     <div class="col-md-4">
                                                         <div class="form-group floating-label">
                                                             <select class="form-control form-control-sm floating-select elementInput"
-                                                                    data-columnname="BLOCK" onclick="this.setAttribute('value', this.value);"
+                                                                    data-columnname="COLLECTGST" onclick="this.setAttribute('value', this.value);"
                                                                     value="Y">
-                                                                
+
                                                                 <option>Y</option>
                                                                 <option>N</option>
                                                             </select>
@@ -269,9 +269,9 @@
                                                     <div class="col-md-4">
                                                         <div class="form-group floating-label">
                                                             <select class="form-control form-control-sm floating-select elementInput"
-                                                                    data-columnname="BLOCK" onclick="this.setAttribute('value', this.value);"
+                                                                    data-columnname="LOCK" onclick="this.setAttribute('value', this.value);"
                                                                     value="Y">
-                                                                
+
                                                                 <option>Y</option>
                                                                 <option>N</option>
                                                             </select>
@@ -283,7 +283,7 @@
                                                     <div class="col-md-4">
                                                         <div class="form-group floating-label">
                                                             <select class="form-control form-control-sm floating-select elementInput"
-                                                                    data-columnname="BLOCK" onclick="this.setAttribute('value', this.value);"
+                                                                    data-columnname="CATEGORY" onclick="this.setAttribute('value', this.value);"
                                                                     value="Private Limited">
                                                                 <option>Private Limited</option>
                                                                 <option>LLP (Ltd. Liability)</option>
@@ -300,7 +300,7 @@
                                                     </div>
                                                     <div class="col-md-12">
                                                         <div class="form-group floating-label">
-                                                            <select class="form-control form-control-sm floating-select elementInput" data-columnname="BLOCK" onclick="this.setAttribute('value', this.value);" value="">
+                                                            <select class="form-control form-control-sm floating-select elementInput" data-columnname="BROKER" onclick="this.setAttribute('value', this.value);" value="">
                                                                 <option></option>
                                                                 <option>NONE</option>
 
@@ -312,7 +312,7 @@
                                                     </div>
                                                     <div class="col-md-12">
                                                         <div class="form-group floating-label">
-                                                            <select class="form-control form-control-sm floating-select elementInput" data-columnname="BLOCK" onclick="this.setAttribute('value', this.value);" value="">
+                                                            <select class="form-control form-control-sm floating-select elementInput" data-columnname="LOCATION" onclick="this.setAttribute('value', this.value);" value="">
                                                                 <option></option>
                                                                 <option>Demo City</option>
 
@@ -325,7 +325,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                    </div> 
+                                    </div>
                                     <div class="panel panel-default">
                                         <div class="panel-heading">
                                             <h4 class="panel-title">
@@ -337,57 +337,94 @@
                                                 <div class="row">
 
 
-                                                    <div class="col-md-4">
-                                                        <div class="form-group floating-label">
-                                                            <select class="form-control form-control-sm floating-select elementInput"
-                                                                    data-columnname="MGEND" onclick="this.setAttribute('value', this.value);"
-                                                                    onchange="this.setAttribute('value', this.value);" value="Male">
-                                                                <option>Male</option>
-                                                                <option>Female</option>
-                                                                <option>Others</option>
-                                                            </select>
-                                                            <span class="highlight"></span>
-                                                            <label>Gender</label>
+                                                    @*<div class="col-md-4">
+                                                            <div class="form-group floating-label">
+                                                                <select class="form-control form-control-sm floating-select elementInput"
+                                                                        data-columnname="MGEND" onclick="this.setAttribute('value', this.value);"
+                                                                        onchange="this.setAttribute('value', this.value);" value="Male">
+                                                                    <option>Male</option>
+                                                                    <option>Female</option>
+                                                                    <option>Others</option>
+                                                                </select>
+                                                                <span class="highlight"></span>
+                                                                <label>Gender</label>
 
+                                                            </div>
                                                         </div>
-                                                    </div>
 
-                                                    <div class="col-md-4">
-                                                        <div class="form-group floating-label">
-                                                            <input class="form-control floating-input elementInput" data-columnname="MDOB"
-                                                                   type="text" placeholder=" " onclick="(this.type='date')" disabled>
-                                                            <span class="highlight"></span>
-                                                            <label>Date Of Birth</label>
+                                                        <div class="col-md-4">
+                                                            <div class="form-group floating-label">
+                                                                <input class="form-control floating-input elementInput" data-columnname="MDOB"
+                                                                       type="text" placeholder=" " onclick="(this.type='date')" disabled>
+                                                                <span class="highlight"></span>
+                                                                <label>Date Of Birth</label>
+                                                            </div>
                                                         </div>
-                                                    </div>
-                                                    <div class="col-md-4">
-                                                        <div class="form-group floating-label">
-                                                            <select class="form-control form-control-sm floating-select elementInput"
-                                                                    data-columnname="MRSKCAT" onclick="this.setAttribute('value', this.value);"
-                                                                    onchange="this.setAttribute('value', this.value);" value="Low Risk">
-                                                                <option>Low Risk</option>
-                                                                <option>Medium Risk</option>
-                                                                <option>High Risk</option>
-                                                            </select>
-                                                            <span class="highlight"></span>
-                                                            <label>Risk Category</label>
+                                                        <div class="col-md-4">
+                                                            <div class="form-group floating-label">
+                                                                <select class="form-control form-control-sm floating-select elementInput"
+                                                                        data-columnname="MRSKCAT" onclick="this.setAttribute('value', this.value);"
+                                                                        onchange="this.setAttribute('value', this.value);" value="Low Risk">
+                                                                    <option>Low Risk</option>
+                                                                    <option>Medium Risk</option>
+                                                                    <option>High Risk</option>
+                                                                </select>
+                                                                <span class="highlight"></span>
+                                                                <label>Risk Category</label>
 
+                                                            </div>
                                                         </div>
-                                                    </div>
-                                                    <div class="col-md-6">
-                                                        <div class="form-group floating-label">
-                                                            <input class="form-control floating-input elementInput" data-columnname="MOCC"
-                                                                   type="text" placeholder=" " disabled>
-                                                            <span class="highlight"></span>
-                                                            <label>Occupation</label>
+                                                        <div class="col-md-6">
+                                                            <div class="form-group floating-label">
+                                                                <input class="form-control floating-input elementInput" data-columnname="MOCC"
+                                                                       type="text" placeholder=" " disabled>
+                                                                <span class="highlight"></span>
+                                                                <label>Occupation</label>
+                                                            </div>
                                                         </div>
-                                                    </div>
-                                                    <div class="col-md-6">
+                                                        <div class="col-md-6">
+                                                            <div class="form-group floating-label">
+                                                                <input class="form-control floating-input elementInput" data-columnname="MADDHAR"
+                                                                       type="text" placeholder=" " disabled>
+                                                                <span class="highlight"></span>
+                                                                <label>Aadhar</label>
+                                                            </div>
+                                                        </div>*@
+
+                                                    <div class="col-md-12">
                                                         <div class="form-group floating-label">
-                                                            <input class="form-control floating-input elementInput" data-columnname="MADDHAR"
-                                                                   type="text" placeholder=" " disabled>
-                                                            <span class="highlight"></span>
-                                                            <label>Aadhar</label>
+                                                            <div class="col-md-12">
+                                                                <label>Select List of Documents Collected</label><br />
+                                                            </div>
+                                                            <div class="col-md-12">
+                                                                <input class="elementInput elementAddInput" data-columnname="CERTIFICATEOFINCORPORATION"
+                                                                       type="checkbox" name="profiledata" value="CERTIFICATEOFINCORPORATION" />Certificate of Incorporation<br />
+                                                            </div>
+                                                            <div class="col-md-12">
+                                                                <input class="elementInput elementAddInput" data-columnname="COPYOFBOARDRESOLUTION"
+                                                                       type="checkbox" name="profiledata" value="COPYOFBOARDRESOLUTION"  />Copy of Board Resolution<br />
+                                                            </div>
+                                                            <div class="col-md-12">
+                                                                <input class="elementInput elementAddInput" data-columnname="COPYOFMOA"
+                                                                       type="checkbox" name="profiledata" value="COPYOFMOA" />Copy of MOA/AOA<br />
+                                                            </div>
+                                                            <div class="col-md-12">
+                                                                <input class="elementInput elementAddInput" data-columnname="COPYOFPANCARD"
+                                                                       type="checkbox" name="profiledata" value="COPYOFPANCARD" />Copy of Pan Card<br />
+                                                            </div>
+                                                            <div class="col-md-12">
+                                                                <input class="elementInput elementAddInput" data-columnname="COPYOFPOA"
+                                                                       type="checkbox" name="profiledata" value="COPYOFPOA"/>Copy of POA<br />
+                                                            </div>
+                                                            <div class="col-md-12">
+                                                                <input class="elementInput elementAddInput" data-columnname="COPYOFUTILITYBILL"
+                                                                       type="checkbox" name="profiledata" value="COPYOFUTILITYBILL" />Copy of Utility Bill<br />
+                                                            </div>
+                                                            <div class="col-md-12">
+                                                                <input class="elementInput elementAddInput" data-columnname="LISTOFSIGNATORIES"
+                                                                       type="checkbox" name="profiledata" value="LISTOFSIGNATORIES"/>List of Signatories<br />
+                                                            </div>
+
                                                         </div>
                                                     </div>
 
@@ -420,17 +457,63 @@
 
 <script>
     freezePanel('#left-panel');
-    var indTable = $('#corporateTable').DataTable();
+    var corporateTable = $('#corporateTable').DataTable();
 
     $(preIndex + ' #btnSaveAct').click(function () {
-        var CurrencyArr = {};
-        var hiddenFields = ["Id", "AFType", "RBI", "Rate", "Position"];
-        $(preIndex + " .elementInput").each(function () {
-            CurrencyArr[$(this).data('columnname')] = $(preIndex + ' [data-columnname="' + $(this).data('columnname') + '"]').val();
-        });
-        addDataToTable(CurrencyArr, "CurrencyMaster/SaveCurrency", 'individualTable', 'POST', '#left-panel', indTable, hiddenFields, false)
-        //console.log(AccountingArr);
 
+        var CorporateArr = {}
+        var hiddenFields = ["Type", "Name", "Address1", "Address2", "Address3", "City", "Pincode", "State", "Country", "Nationality", "Residency", "Contactperson1", "Tel1", "Email1", "Primaryid", "Panno", "Aadharno", "Gst", "Mobile", "OpeningBalance", "BalancePost", "AddressInBill", "Lock", "Category", "Broker", "Location", "CollectGST", "RBILICNo", "RBIExp", "ControlAC"];
+        //var hiddenFields = ["Name","City"];
+        var AdditionalData = [];
+
+        $(preIndex + " .elementInput").each(function () {
+            CorporateArr[$(this).data('columnname')] = $(preIndex + ' [data-columnname="' + $(this).data('columnname') + '"]').val();
+        });
+
+        $(preIndex + " .elementAddInput").each(function () {
+            if ($(preIndex + ' [data-columnname="' + $(this).data('columnname') + '"]').val() != null
+                && $(preIndex + ' [data-columnname="' + $(this).data('columnname') + '"]').val().trim() != "") {
+                var newObj = {};
+                newObj["Table"] = "PartyMasters";
+                newObj["Column"] = $(this).data('columnname');
+                if ($(this).prop("checked") == true)
+                    newObj["Value"] = 'true';
+                else
+                    newObj["Value"] = 'false';
+                AdditionalData.push(newObj);
+            }
+        });
+
+        CorporateArr["AdditionalData"] = AdditionalData;
+
+
+        CorporateArr['Type'] = 'C';
+
+        if ($(this).data("acttype") == 'save') {
+            addDataToTable(CorporateArr, "PartiesMaster/SavePartiesMaster", 'corporateTable', 'POST', '#left-panel', corporateTable, hiddenFields, false);
+        }
+        else {
+            //var trid = $(preIndex + " .selected-column").data("trid");
+            //editDataToTable(CorporateArr, "PartiesMaster/EditPartiesMaster", 'corporateTable', 'POST', trid, '#left-panel', corporateTable, hiddenFields);
+            editDataOfTable(CorporateArr, "PartiesMaster/EditPartiesMaster", 'corporateTable', 'POST', corporateTable, "");
+        }
+
+    });
+
+    $(preIndex + ' .del-btn').click(function () {
+        var ChildData = $(preIndex + " .selected-column").data('childdata');
+        ChildData["IsDeleted"] = true;
+        var trid = $(preIndex + " .selected-column").data("trid");
+        deleteDataToTable(ChildData, "PartiesMaster/EditPartiesMaster", 'corporateTable', 'POST', trid, '#left-panel', corporateTable);
+    });
+
+    $(document).on('click', '.tbl-row', function () {
+        $(preIndex + " .elementAddInput").each(function () {
+            if ($(preIndex + ' [data-columnname="' + $(this).data('columnname') + '"]').attr('type') == "checkbox") {
+                if ($(preIndex + ' [data-columnname="' + $(this).data('columnname') + '"]').val() == 'true')
+                    $(preIndex + ' [data-columnname="' + $(this).data('columnname') + '"]').prop("checked", true);
+            }
+        });
     });
 </script>
 

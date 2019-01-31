@@ -46,5 +46,26 @@ namespace Win10WebApp.Controllers
                 return Json(Functions.OutPutResponse(false, ex.Message));
             }
         }
+
+        [Authorize]
+        [HttpPost]
+        public JsonResult EditCurrency(CurrencyMaster currencyMaster)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                  
+                    currencyMaster.UpdatedDate = DateTime.Now;
+                    _repository.Update(currencyMaster);
+                    return Json(Functions.OutPutResponse(true, "Data Updated Succfully", currencyMaster));
+                }
+                return Json(Functions.OutPutResponse(false, "Invalid Data"));
+            }
+            catch (Exception ex)
+            {
+                return Json(Functions.OutPutResponse(false, ex.Message));
+            }
+        }
     }
 }

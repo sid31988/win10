@@ -55,8 +55,12 @@ namespace Win10WebApp.Controllers
         public JsonResult EditAccounting(Accounting accounting) {
             try {
                 if (ModelState.IsValid) {
-                    accounting.UpdatedDate = DateTime.Now;
-                    _repository.Update(accounting);
+
+                    MasterQueries masterQueries = new MasterQueries();
+                    int res = masterQueries.UpdateAccounting(accounting);
+                    int i = masterQueries.SaveAdditionalData(accounting.AdditionalData, (accounting.Id.ToString() + accounting.SubId.ToString()));
+                    //accounting.UpdatedDate = DateTime.Now;
+                    //_repository.Update(accounting);
                     return Json(Functions.OutPutResponse(true, "Data Inserted Succfully", accounting));
                 }
             }

@@ -6,7 +6,7 @@ using Win10WebApp.Repository;
 
 namespace Win10WebApp.Models
 {
-    public class Accounting : ISoftDelete
+    public class Accounting : ICustomColumns
     {
         public int Id { get; set; }
         public int SubId { get; set; }
@@ -21,6 +21,6 @@ namespace Win10WebApp.Models
         public DateTime? CreatedDate { get; set; }
         public DateTime? UpdatedDate { get; set; }
         public bool IsDeleted { get; set; }
-        public List<AdditionalData> AdditionalData {get;set;}
+        public List<AdditionalData> AdditionalData { get;set; }
     }
 }

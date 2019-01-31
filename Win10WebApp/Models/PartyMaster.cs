@@ -6,7 +6,7 @@ using Win10WebApp.Repository;
 
 namespace Win10WebApp.Models
 {
-    public class PartyMaster : ISoftDelete
+    public class PartyMaster : ICustomColumns
     {
         public int Id { get; set; }
         public string Name { get; set; }
@@ -38,5 +38,20 @@ namespace Win10WebApp.Models
         public DateTime? CreatedDate { get; set; }
         public DateTime? UpdatedDate { get; set; }
         public bool IsDeleted { get; set; }
+        public string Residency { get; set; }
+        public char Type { get; set; }  //To identify type of PartyMaster
+        public List<AdditionalData> AdditionalData { get; set; }    //To store additional data pertaining to Profile
+        public string Mobile { get; set; }
+        public string OpeningBalance { get; set; }
+        public string BalancePost { get; set; }
+        public string AddressInBill { get; set; }
+        public string Lock { get; set; }
+        public string Category { get; set; }
+        public string Broker { get; set; }
+        public string Location { get; set; }
+        public string CollectGST { get; set; }
+        public string RBILICNo { get; set; }
+        public DateTime? RBIExp { get; set; }
+        public string ControlAC { get; set; }
     }
 }

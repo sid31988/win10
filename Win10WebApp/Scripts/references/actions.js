@@ -88,7 +88,6 @@ function addDataToTable(data, url, datatableID, type, panelname, table, hiddenAr
 function editDataOfTable(data, url, datatableID, type, table, rowInternalTemplateName) {
     if (typeof table === "undefined") table = null;
     if (typeof rowInternalTemplateName === "undefined" || rowInternalTemplateName.trim() == "") rowInternalTemplateName = null;
-
     var $row = $('#' + datatableID + ' tbody').find('.selected-column');
     var changedData = $row.data("childdata");
     if (typeof changedData === "string") changedData = JSON.parse(changedData);
@@ -96,7 +95,6 @@ function editDataOfTable(data, url, datatableID, type, table, rowInternalTemplat
         var newData = data[key.toUpperCase()];
         changedData[key] = newData !== undefined ? newData : changedData[key];
     }
-
     $('.loader').show();
     $.ajax({
         url: url,
@@ -123,7 +121,8 @@ function editDataOfTable(data, url, datatableID, type, table, rowInternalTemplat
             // An additional check has been added so as to keep intact the existing forms functionality
             // The below new code is applicable for both the existing as well as new forms
             // Generates the row html on the basis of jQuery templating
-            if (rowInternalTemplateName !== undefined || rowInternalTemplateName !== null) {
+            if (!(rowInternalTemplateName == undefined || rowInternalTemplateName == null)) {
+               
                 var changedRow = getHtmlFromTemplate(rowInternalTemplateName, resdata);
                 $row.html(changedRow);
                 //$row.data("childdata", JSON.stringify(childData)); -- This will set the data attribute, but will not be visible on outerHTML attribute
@@ -132,7 +131,6 @@ function editDataOfTable(data, url, datatableID, type, table, rowInternalTemplat
             else {
                 // Some code has already been written for existing screens, kindly place it here, since the above code requires a template for each form
             }
-
             table = $('#' + datatableID).DataTable();
             var x = $(preIndex + " .selected-column");
             $('.loader').hide();

@@ -13,10 +13,11 @@ namespace Win10WebApp.Utility
         public static string REFERENCE = "Reference";
 
 
-        public static Dictionary<string, string> MODULES = new Dictionary<string, string> {
-            ["ACCOUNTING"]= "acc",
+        public static Dictionary<string, string> MODULES = new Dictionary<string, string>
+        {
+            ["ACCOUNTING"] = "acc",
             ["OTHERMASTER"] = "othrmast",
-            ["CURRENCYMASTER"] ="currmast",
+            ["CURRENCYMASTER"] = "currmast",
             ["COUNTRYMASTER"] = "countrymaster",
             ["INDIVIDUAL"] = "ind",
             ["CORPORATE"] = "corporate",
@@ -25,7 +26,12 @@ namespace Win10WebApp.Utility
             ["FRANCHISEES"] = "franchisees",
             ["BROKERS"] = "brokers",
             ["SUPPLIER"] = "supplier",
-            ["RECEIVETRUST"] = "rcvtrust"
+            ["RECEIVETRUST"] = "receivetrust",
+            ["PURCHASED"] = "purchased",
+            ["RECEIVEFOREX"] = "receiveforex",
+            ["ENCASHEDBALANCE"] = "encashedbalance",
+            ["UNSETTLEDFOREXCARD"] = "unsettledforexcard",
+            ["UNSETTLED"] = "unsettled"
         };
 
 
@@ -45,5 +51,5 @@ namespace Win10WebApp.Utility
 
     }
 
-   
+
 }

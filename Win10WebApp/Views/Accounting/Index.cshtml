@@ -33,15 +33,15 @@
                                 {
                                    if (item.Type == "Title")
                                     {
-                                        <tr style="font-weight:bold" class="tbl-row acc-row" data-childdata="@Json.Encode(item)" data-actpanel="#left-panel">
+                                        <tr style="font-weight:bold" class="tbl-row acc-row" data-trid="tr_@item.Id" data-childdata="@Json.Encode(item)" data-actpanel="#left-panel">
 
-                                            <td>
+                                            <td data-trcolumnname="@Html.DisplayNameFor(model => model.Id).ToString().ToUpper()">
                                                 @Html.DisplayFor(modelItem => item.Id)
                                             </td>
-                                            <td>
+                                            <td data-trcolumnname="@Html.DisplayNameFor(model => model.SubId).ToString().ToUpper()">
                                                 @Html.DisplayFor(modelItem => item.SubId)
                                             </td>
-                                            <td>
+                                            <td data-trcolumnname="@Html.DisplayNameFor(model => model.Desc).ToString().ToUpper()">
                                                 @Html.DisplayFor(modelItem => item.Desc)
                                             </td>
 
@@ -50,15 +50,15 @@
                                     }
                                     else
                                     {
-                                        <tr class="tbl-row acc-row" data-childdata="@Json.Encode(item)" data-actpanel="#left-panel">
+                                        <tr class="tbl-row acc-row" data-trid="tr_@item.Id" data-childdata="@Json.Encode(item)" data-actpanel="#left-panel">
 
-                                            <td>
+                                            <td data-trcolumnname="@Html.DisplayNameFor(model => model.Id).ToString().ToUpper()">
                                                 @Html.DisplayFor(modelItem => item.Id)
                                             </td>
-                                            <td>
+                                            <td data-trcolumnname="@Html.DisplayNameFor(model => model.SubId).ToString().ToUpper()">
                                                 @Html.DisplayFor(modelItem => item.SubId)
                                             </td>
-                                            <td>
+                                            <td data-trcolumnname="@Html.DisplayNameFor(model => model.Desc).ToString().ToUpper()">
                                                 @Html.DisplayFor(modelItem => item.Desc)
                                             </td>
 
@@ -310,7 +310,7 @@
                         <div class="form-actions">
                             <button type="button" class="btn btn-primary left-panelbtn add-btn" data-actpanel="#left-panel">Add</button>
                             <button type="button" class="btn btn-warning left-panelbtn edit-btn" data-actpanel="#left-panel">Edit</button>
-                            <button type="button" class="btn btn-danger left-panelbtn del-btn">Delete</button>
+                            <button type="button" class="btn btn-danger left-panelbtn del-btn" data-actpanel="#left-panel">Delete</button>
                             <div class="add-group" style="display: none">
                                 <button type="button" class="btn btn-success left-panelbtn save-btn" data-actpanel="#left-panel" id="btnSaveAct">Save</button>
                                 <button type="button" class="btn btn-info left-panelbtn cancel-btn" data-actpanel="#left-panel">Cancel</button>
@@ -351,10 +351,22 @@
 
 
     $(preIndex + ' #btnSaveAct').click(function () {
+        var ChildData = $(preIndex + " .selected-column").data('childdata');
         var AccountingArr = {};
         var AdditionalData = [];
+        if ($(this).data("acttype") != 'save') {
+            $.each(ChildData, function (key, value) {
+                if (key == "AdditionalData") {
+                    AdditionalData = value;
+                }
+                AccountingArr[key.toUpperCase()] = value;
+            });
+        }
+      
+        
         var hiddenFields = ["AdditionalData", "NOF", "BalancePost", "Balance", "Block", "GrpUnder", "HSNSAC", "Type"];
-        $(preIndex+" .elementInput").each(function () {
+        $(preIndex + " .elementInput").each(function () {
+           // console.log($(this).data('columnname') + " " + $(preIndex + ' [data-columnname="' + $(this).data('columnname') + '"]').val());
             AccountingArr[$(this).data('columnname')] = $(preIndex + ' [data-columnname="' + $(this).data('columnname')+'"]').val();
         });
         if ($(preIndex + ' #dd-acctype').val() == "Bank") {
@@ -362,25 +374,37 @@
                 if ($(preIndex + ' [data-columnname="' + $(this).data('columnname') + '"]').val() != null
                     && $(preIndex + ' [data-columnname="' + $(this).data('columnname') + '"]').val().trim() != "")
                 {
-                    var newObj = {};
-                    newObj["Table"] = "Accountings";
-                    newObj["Column"] = $(this).data('columnname');
-                    newObj["Value"] = $(preIndex + ' [data-columnname="' + $(this).data('columnname') + '"]').val();
-                    AdditionalData.push(newObj);
+                    console.log();
+                    var dataSet = AdditionalData.find(v => v.Column.toUpperCase() == $(this).data('columnname'));
+                   
+                    if (dataSet !== undefined) {
+                        AdditionalData.find(v => v.Column.toUpperCase() == $(this).data('columnname')).Value = $(preIndex + ' [data-columnname="' + $(this).data('columnname') + '"]').val();
+                    } else {
+                        var newObj = {};
+                        newObj["Table"] = "Accountings";
+                        newObj["Column"] = $(this).data('columnname');
+                        newObj["Value"] = $(preIndex + ' [data-columnname="' + $(this).data('columnname') + '"]').val();
+                        AdditionalData.push(newObj);
+                    }
                 }
             });
         }
-        AccountingArr["AdditionalData"] = AdditionalData;
+        AccountingArr["ADDITIONALDATA"] = AdditionalData;
         if ($(this).data("acttype") == 'save') {
+            //console.log(AccountingArr);
             addDataToTable(AccountingArr, "Accounting/SaveAccounting", 'accountingTable', 'POST', '#left-panel', acttable, hiddenFields, false);
         } else {
-
+            //console.log(AccountingArr);
+            var trid = $(preIndex + " .selected-column").data("trid");
+            editDataToTable(AccountingArr, "Accounting/EditAccounting", 'accountingTable', 'POST', trid, '#left-panel', acttable, hiddenFields);
         }
-        
-       
-        
     });
-
+    $(preIndex + ' .del-btn').click(function () {
+        var ChildData = $(preIndex + " .selected-column").data('childdata');
+        ChildData["IsDeleted"] = true;
+        var trid = $(preIndex + " .selected-column").data("trid");
+        deleteDataToTable(ChildData, "Accounting/EditAccounting", 'accountingTable', 'POST', trid, '#left-panel', acttable);
+    });
 </script>
 
 

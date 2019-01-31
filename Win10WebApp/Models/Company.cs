@@ -6,7 +6,7 @@ using Win10WebApp.Repository;
 
 namespace Win10WebApp.Models
 {
-    public class Company : ISoftDelete
+    public class Company //: ICustomColumns
     {
         public string Cocode { get; set; }
         public string Domain { get; set; }
@@ -28,6 +28,7 @@ namespace Win10WebApp.Models
         public string Codbversion { get; set; }
         public string Coystart { get; set; }
         public string Codbquerystring { get; set; }
-        public bool IsDeleted { get; set; }
+        //public Date
+        //public bool IsDeleted { get; set; }
     }
 }

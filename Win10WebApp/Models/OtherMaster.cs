@@ -6,7 +6,7 @@ using Win10WebApp.Repository;
 
 namespace Win10WebApp.Models
 {
-    public class OtherMaster : ISoftDelete
+    public class OtherMaster : ICustomColumns
     {
         public int Id { get; set; }
         public string Name { get; set; }

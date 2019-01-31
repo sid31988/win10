@@ -17,8 +17,10 @@ namespace Win10WebApp.Repository
 
         Boolean IsDeleted { get; set; }
     }
-    public interface ISoftDelete
+    public interface ICustomColumns
     {
         Boolean IsDeleted { get; set; }
+        DateTime? CreatedDate { get; set; }
     }
+   
 }

@@ -32,13 +32,13 @@
                                 @foreach (var item in Model)
                                 {
                                    
-                                        <tr class="tbl-row" data-childdata="@Json.Encode(item)" data-actpanel="#left-panel">
+                                        <tr class="tbl-row" data-childdata="@Json.Encode(item)" data-actpanel="#left-panel" data-trid="tr_@item.Id">
 
                                           
-                                            <td>
+                                            <td data-trcolumnname="@Html.DisplayNameFor(model => model.CurrencyCode).ToString().ToUpper()">
                                                 @Html.DisplayFor(modelItem => item.CurrencyCode)
                                             </td>
-                                            <td>
+                                            <td data-trcolumnname="@Html.DisplayNameFor(model => model.CurrencyName).ToString().ToUpper()">
                                                 @Html.DisplayFor(modelItem => item.CurrencyName)
                                             </td>
 
@@ -77,7 +77,6 @@
                                                                    type="text" placeholder=" " disabled>
                                                             <span class="highlight"></span>
                                                             <label>Currency Name</label>
-
                                                         </div>
                                                     </div>
                                                     <div class="col-md-3">
@@ -125,8 +124,8 @@
                     <div class="col-sm-1">
                         <div class="form-actions">
                             <button type="button" class="btn btn-primary left-panelbtn add-btn" data-actpanel="#left-panel">Add</button>
-                            <button type="button" class="btn btn-warning left-panelbtn edit-btn">Edit</button>
-                            <button type="button" class="btn btn-danger left-panelbtn del-btn">Delete</button>
+                            <button type="button" class="btn btn-warning left-panelbtn edit-btn" data-actpanel="#left-panel">Edit</button>
+                            <button type="button" class="btn btn-danger left-panelbtn del-btn" data-actpanel="#left-panel">Delete</button>
                             <div class="add-group" style="display: none">
                                 <button type="button" class="btn btn-success left-panelbtn save-btn" data-actpanel="#left-panel" id="btnSaveAct">Save</button>
                                 <button type="button" class="btn btn-info left-panelbtn cancel-btn" data-actpanel="#left-panel">Cancel</button>
@@ -146,13 +145,36 @@
     var currencyTable = $('#currencyTable').DataTable();
 
     $(preIndex + ' #btnSaveAct').click(function () {
+        var ChildData = $(preIndex + " .selected-column").data('childdata');
         var CurrencyArr = {};
+        if ($(this).data("acttype") != 'save') {
+            $.each(ChildData, function (key, value) {
+                CurrencyArr[key.toUpperCase()] = value;
+            });
+        }
         var hiddenFields = ["Id", "AFType", "RBI", "Rate", "Position"];
         $(preIndex + " .elementInput").each(function () {
+            //console.log($(this).data('columnname') + " " + $(preIndex + ' [data-columnname="' + $(this).data('columnname') + '"]').val());
             CurrencyArr[$(this).data('columnname')] = $(preIndex + ' [data-columnname="' + $(this).data('columnname') + '"]').val();
         });
-        addDataToTable(CurrencyArr, "CurrencyMaster/SaveCurrency", 'currencyTable', 'POST', '#left-panel', currencyTable, hiddenFields, false)
+        if ($(this).data("acttype") == 'save') {
+            console.log(CurrencyArr);
+            addDataToTable(CurrencyArr, "CurrencyMaster/SaveCurrency", 'currencyTable', 'POST', '#left-panel', currencyTable, hiddenFields, false)
+        } else {
+            var trid = $(preIndex + " .selected-column").data("trid");
+            console.log(CurrencyArr);
+            editDataToTable(CurrencyArr, "CurrencyMaster/EditCurrency", 'currencyTable', 'POST', trid, '#left-panel', currencyTable, hiddenFields  );
+        }
         //console.log(AccountingArr);
 
     });
+
+    $(preIndex + ' .del-btn').click(function () {
+        var ChildData = $(preIndex + " .selected-column").data('childdata');
+        ChildData["IsDeleted"] = true;
+        var trid = $(preIndex + " .selected-column").data("trid");
+        deleteDataToTable(ChildData, "CurrencyMaster/EditCurrency", 'currencyTable', 'POST', trid, '#left-panel', currencyTable);
+    });
+
+
 </script>
