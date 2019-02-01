@@ -255,8 +255,13 @@
     <Content Include="Scripts\component\dataTable\component.dataTable.format.js" />
     <Content Include="Scripts\component\form\component.form.base.js" />
     <Content Include="Scripts\component\form\component.form.events.js" />
-    <Content Include="Scripts\page\page.purchased.js" />
-    <Content Include="Scripts\page\page.receiveTrustMaster.js" />
+    <Content Include="Scripts\page\page.tcMaster.base.js" />
+    <Content Include="Scripts\page\page.tcMaster.encashedDDBalance.js" />
+    <Content Include="Scripts\page\page.tcMaster.purchased.js" />
+    <Content Include="Scripts\page\page.tcMaster.receiveForex.js" />
+    <Content Include="Scripts\page\page.tcMaster.receiveTrust.js" />
+    <Content Include="Scripts\page\page.tcMaster.unsettled.js" />
+    <Content Include="Scripts\page\page.tcMaster.unsettledForexCard.js" />
     <Content Include="Scripts\references\app.min.js" />
     <Content Include="Scripts\references\bootstrap-tabdrop.js" />
     <Content Include="Scripts\references\bootstrap.js" />
