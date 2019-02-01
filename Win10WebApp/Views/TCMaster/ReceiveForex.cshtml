@@ -103,11 +103,11 @@ else
                     Receive Forex Cards
                 </div>
                 <div class="panel-body">
-                    <div id="receiveforexMasterRoot" class="row page-root" data-mode="view">
+                    <div id="receiveForexMasterRoot" class="row page-root" data-mode="view">
 
                         <!--View Design-->
                         <div id="divDatatable" class="col-sm-8 grid-control">
-                            <table class="table display dataTable compact" id="receiveforexTable">
+                            <table class="table display dataTable compact" id="receiveForexTable">
                                 <thead>
                                     <tr>
                                         <th>
@@ -137,9 +137,9 @@ else
                         </div>
 
                         <!--Details Design-->
-                        <div id="divAddEdit" class="editor-control col-sm-4">
-                            <form id="formAddEdit"></form>
-                            <div class="form-actions">
+                        <div class="details-panel editor-control col-sm-4">
+                            <form class="form-add-edit"></form>
+                            <div class="command-panel form-actions">
                                 <div class="form-group col-sm-offset-1">
                                     <button type="button" class="btn btn-primary editor_add" id="btnAddAct">Add</button>
                                     <button type="button" class="btn btn-warning editor_edit" id="btnEditAct">Edit</button>
@@ -157,47 +157,42 @@ else
         </div>
     </div>
     <script type="text/javascript">
-        var receiveforexMasterPage = new page.ReceiveforexMaster("#receiveforexMasterRoot", function () {
-            return {
-                receiveforexTableSelector: "#receiveforexTable",
-                receiveforexTableSettings: function () {
-                    return {
-                        commandDisplay: component.DataTable.CommandDisplayTypes.external,
-                        dateFormat: "MM-dd-yyyy",
-                        tableSettings: {
-                            columns: [
-                                { data: "Date", render: receiveforexMasterPage.receiveforexMasterTable.formatHelper.renderDate },
-                                { data: "Issuer" },
-                                { data: "Curr" },                              
-                                { data: "RefrNo" },
-                                { data: "CardNo" },
-                                { data: "ProxyNo" },
-                                { data: "ExpDate", render: receiveforexMasterPage.receiveforexMasterTable.formatHelper.renderDate }
-                            ],
-                            ajax: "@Url.Action("Find")?tcMasterType=ReceiveForex",
-                            select: true
-                        }
-                    }
-                },
-                receiveforexDetailsPanelSelector: "#divAddEdit",
-                receiveforexFormSelector: "#formAddEdit",
-                receiveforexFormSettings: {
-                },
-                receiveforexCommandSelector: "#divAddEdit div.form-actions",
-                receiveforexCommandSettings: {
-                    addCommandButtonSelector: "button.editor_add",
-                    editCommandButtonSelector: "button.editor_edit",
-                    deleteCommandButtonSelector: "button.editor_delete",
-                    saveCommandButtonSelector: "button.editor_save",
-                    cancelCommandButtonSelector: "button.editor_cancel"
-                },
-                addUrl: "@Url.Action("Add")?tcMasterType=ReceiveForex",
-                editUrl: "@Url.Action("Edit")?tcMasterType=ReceiveForex&Id=[Id]",
-                deleteUrl: "@Url.Action("Delete")/[Id]",
-                saveUrl: "@Url.Action("Save")?tcMasterType=ReceiveForex",
-                addEditCommandGroupSelector: "#formAddEdit div.form-actions div.add-group"
-            }
+        var receiveForexMasterPage = new page.tcMaster.ReceiveForex("#receiveForexMasterRoot", {
+            tableSelector: "#receiveForexTable",
+            tableSettings: {
+                commandDisplay: component.DataTable.CommandDisplayTypes.external,
+                dateFormat: "MM-dd-yyyy",
+                tableSettings: {
+                    columns: [
+                        { data: "Date", render: "renderDate" },
+                        { data: "Issuer" },
+                        { data: "Curr" },
+                        { data: "RefrNo" },
+                        { data: "CardNo" },
+                        { data: "ProxyNo" },
+                        { data: "ExpDate", render: "renderDate" }
+                    ],
+                    ajax: "@Url.Action("Find")?tcMasterType=ReceiveForex",
+                    select: true
+                }
+            },
+            detailsPanelSelector: "#receiveForexMasterRoot .details-panel",
+            formSelector: "#receiveForexMasterRoot .form-add-edit",
+            formSettings: { },
+            commandSelector: "#receiveForexMasterRoot .command-panel",
+            commandSettings: {
+                addCommandButtonSelector: "button.editor_add",
+                editCommandButtonSelector: "button.editor_edit",
+                deleteCommandButtonSelector: "button.editor_delete",
+                saveCommandButtonSelector: "button.editor_save",
+                cancelCommandButtonSelector: "button.editor_cancel"
+            },
+            addUrl: "@Url.Action("Add")?tcMasterType=ReceiveForex",
+            editUrl: "@Url.Action("Edit")?tcMasterType=ReceiveForex&Id=[Id]",
+            deleteUrl: "@Url.Action("Delete")/[Id]",
+            saveUrl: "@Url.Action("Save")?tcMasterType=ReceiveForex",
+            addEditCommandGroupSelector: "#formAddEdit div.form-inline div.add-group"
         });
-        receiveforexMasterPage.initialize();
+        receiveForexMasterPage.initialize();
     </script>
 }

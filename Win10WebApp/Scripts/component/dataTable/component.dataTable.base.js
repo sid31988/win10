@@ -39,18 +39,33 @@ component.DataTable = function (rootSelector, settingsOrFactory) {
         }
     }
 
+    let _tableSettings = null;
+    _this.tableSettings = function () {
+        if (_tableSettings == null) {
+            let settings = _this.settings();
+            _tableSettings = settings.tableSettings;
+            for (let i = 0; i < _tableSettings.columns.length; i++) {
+                let column = _tableSettings.columns[i];
+                if (typeof column.render === "string") {
+                    column.render = _this.formatHelper[column.render];
+                }
+            }
+        }
+        return _tableSettings;
+    }
+
     _this.initialize = function () {
         _this.formatHelper = new component.DataTable.CellFormatHelper(_this);
         let settings = _this.settings();
-        settings.tableSettings.initComplete = function () {
-            selectFirstRowOnce();
+        let tableSettings = _this.tableSettings();
+        tableSettings.initComplete = function () {
+            _this.emit("table.init.complete");
         };
-        _this.dataTable = _this.$root.DataTable(settings.tableSettings);
+        _this.dataTable = _this.$root.DataTable(tableSettings);
         _this.handlers = new component.DataTable.EventHandlers(_this);
         if (settings.commandDisplay === component.DataTable.CommandDisplayTypes.internal) {
             _this.$rowCommandTemplate = getRowCommandTemplate();
         }
-        _selectFirstRowOnce = true;
     }
 
     _this.reloadTable = function () {
@@ -59,26 +74,44 @@ component.DataTable = function (rootSelector, settingsOrFactory) {
 
     }
 
-    let _selectFirstRowOnce = null;
-    let selectFirstRowOnce = function () {
-        if (_selectFirstRowOnce) {
-            _this.selectRow(0);
-            _selectFirstRowOnce = false;
-        }
+    let getRows = function () {
+        return _this.$root.find("tbody tr").toArray() || [];
+    }
+
+    let getSelectedRow = function () {
+        return _this.$root.find("tbody tr.selected");
     }
 
     _this.selectRow = function (rowIndex) {
-        let tableRows = _this.$root.find("tbody tr").toArray();
+        let tableRows = getRows();
         let $row = $(tableRows[rowIndex]);
-        let $selectedRow = _this.$root.find("tr.selected");
+        let $selectedRow = getSelectedRow();
         if (!$row.hasClass("selected")) {
-            $selectedRow.removeClass("selected");
+            if ($selectedRow) $selectedRow.removeClass("selected");
             $row.addClass("selected");
             var data = _this.dataTable.rows(".selected").data()[0];
             if (data !== undefined && data !== null) {
                 _this.emit("table.row.select", data);
             }
         }
+    }
+
+    _this.getRowCount = function () {
+        return _this.dataTable.rows()[0].length;
+    }
+
+    _this.selectRowById = function (keyName, keyValue) {
+        if (_this.getRowCount() == 0) throw "No rows found.";
+        let tableRows = getRows();
+        let rowIndexById = -1;
+        for (var i = 0; i < tableRows.length; i++) {
+            var data = _this.dataTable.rows(tableRows[i]).data()[0];
+            if (data[keyName] === keyValue) {
+                rowIndexById = i;
+                break;
+            }
+        }
+        _this.selectRow(rowIndexById);
     }
 }
 

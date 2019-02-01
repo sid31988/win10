@@ -7,14 +7,14 @@
 {
     <div class="portlet light ">
         <div class="portlet-body form">
-            <div class="panel-group accordion" id="encashedbalance">
+            <div class="panel-group accordion" id="encashedddbalance">
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <h4 class="panel-title">
-                            <a class="accordion-toggle" data-toggle="collapse" data-parent="#encashedbalance" href="#encashedbalance_form"> Details </a>
+                            <a class="accordion-toggle" data-toggle="collapse" data-parent="#encashedddbalance" href="#encashedddbalance_form"> Details </a>
                         </h4>
                     </div>
-                    <div id="encashedbalance_form" class="panel-collapse in">
+                    <div id="encashedddbalance_form" class="panel-collapse in">
                         <div class="panel-body floating-form">
 
 
@@ -121,11 +121,11 @@ else
                    Encashed DD Balance
                 </div>
                 <div class="panel-body">
-                    <div id="encashedBalanceMasterRoot" class="row page-root" data-mode="view">
+                    <div id="encashedDDBalanceMasterRoot" class="row page-root" data-mode="view">
 
                         <!--View Design-->
                         <div id="divDatatable" class="col-sm-8 grid-control">
-                            <table class="table display dataTable compact" id="encashedBalanceTable">
+                            <table class="table display dataTable compact" id="encashedDDBalanceTable">
                                 <thead>
                                     <tr>
                                         <th>
@@ -161,9 +161,9 @@ else
                         </div>
 
                         <!--Details Design-->
-                        <div id="divAddEdit" class="editor-control col-sm-4">
-                            <form id="formAddEdit"></form>
-                            <div class="form-inline">
+                        <div class="details-panel editor-control col-sm-4">
+                            <form class="form-add-edit"></form>
+                            <div class="command-panel form-inline">
                                 <div class="form-group col-sm-offset-1">
                                     <button type="button" class="btn btn-primary editor_add" id="btnAddAct">Add</button>
                                     <button type="button" class="btn btn-warning editor_edit" id="btnEditAct">Edit</button>
@@ -181,49 +181,44 @@ else
         </div>
     </div>
     <script type="text/javascript">
-        var encashedBalanceMasterPage = new page.EncashedBalanceMaster("#encashedBalanceMasterRoot", function () {
-            return {
-                encashedBalanceTableSelector: "#encashedBalanceTable",
-                encashedBalanceTableSettings: function () {
-                    return {
-                        commandDisplay: component.DataTable.CommandDisplayTypes.external,
-                        dateFormat: "MM-dd-yyyy",
-                        tableSettings: {
-                            columns: [
-                                { data: "Date", render: encashedBalanceMasterPage.encashedBalanceMasterTable.formatHelper.renderDate },
-                                { data: "Issuer" },
-                                { data: "Curr" },
-                                { data: "Prefix" },
-                                { data: "StartNo" },
-                                { data: "Nos" },
-                                { data: "EndNo" },
-                                { data: "Deno" },
-                                { data: "Value" }
-                            ],
-                            ajax: "@Url.Action("Find")?tcMasterType=EncashedBalance",
-                            select: true
-                        }
-                    }
-                },
-                encashedBalanceDetailsPanelSelector: "#divAddEdit",
-                encashedBalanceFormSelector: "#formAddEdit",
-                encashedBalanceFormSettings: {
-                },
-                encashedBalanceCommandSelector: "#divAddEdit div.form-inline",
-                encashedBalanceCommandSettings: {
-                    addCommandButtonSelector: "button.editor_add",
-                    editCommandButtonSelector: "button.editor_edit",
-                    deleteCommandButtonSelector: "button.editor_delete",
-                    saveCommandButtonSelector: "button.editor_save",
-                    cancelCommandButtonSelector: "button.editor_cancel"
-                },
-                addUrl: "@Url.Action("Add")?tcMasterType=EncashedBalance",
-                editUrl: "@Url.Action("Edit")?tcMasterType=EncashedBalance&Id=[Id]",
-                deleteUrl: "@Url.Action("Delete")/[Id]",
-                saveUrl: "@Url.Action("Save")?tcMasterType=EncashedBalance",
-                addEditCommandGroupSelector: "#formAddEdit div.form-inline div.add-group"
-            }
+        var encashedDDBalanceMasterPage = new page.tcMaster.EncashedDDBalance("#encashedDDBalanceMasterRoot", {
+            tableSelector: "#encashedDDBalanceTable",
+            tableSettings: {
+                commandDisplay: component.DataTable.CommandDisplayTypes.external,
+                dateFormat: "MM-dd-yyyy",
+                tableSettings: {
+                    columns: [
+                        { data: "Date", render: "renderDate" },
+                        { data: "Issuer" },
+                        { data: "Curr" },
+                        { data: "Prefix" },
+                        { data: "StartNo" },
+                        { data: "Nos" },
+                        { data: "EndNo" },
+                        { data: "Deno" },
+                        { data: "Value" }
+                    ],
+                    ajax: "@Url.Action("Find")?tcMasterType=EncashedDDBalance",
+                    select: true
+                }
+            },
+            detailsPanelSelector: "#encashedDDBalanceMasterRoot .details-panel",
+            formSelector: "#encashedDDBalanceMasterRoot .form-add-edit",
+            formSettings: { },
+            commandSelector: "#encashedDDBalanceMasterRoot .command-panel",
+            commandSettings: {
+                addCommandButtonSelector: "button.editor_add",
+                editCommandButtonSelector: "button.editor_edit",
+                deleteCommandButtonSelector: "button.editor_delete",
+                saveCommandButtonSelector: "button.editor_save",
+                cancelCommandButtonSelector: "button.editor_cancel"
+            },
+            addUrl: "@Url.Action("Add")?tcMasterType=EncashedDDBalance",
+            editUrl: "@Url.Action("Edit")?tcMasterType=EncashedDDBalance&Id=[Id]",
+            deleteUrl: "@Url.Action("Delete")/[Id]",
+            saveUrl: "@Url.Action("Save")?tcMasterType=EncashedDDBalance",
+            addEditCommandGroupSelector: "#formAddEdit div.form-inline div.add-group"
         });
-        encashedBalanceMasterPage.initialize();
+        encashedDDBalanceMasterPage.initialize();
     </script>
 }

@@ -10,11 +10,11 @@
                 Receive T.Cs
             </div>
             <div class="panel-body">
-                <div id="receiverTrustMasterRoot" class="row page-root" data-mode="view">
+                <div id="receiveTrustMasterRoot" class="row page-root" data-mode="view">
 
                     <!--View Design-->
                     <div id="divDatatable" class="col-sm-8 grid-control">
-                        <table class="table display dataTable compact" id="receiverTrustTable">
+                        <table class="table display dataTable compact" id="receiveTrustTable">
                             <thead>
                                 <tr>
                                     <th>
@@ -73,48 +73,43 @@
         <span class="editor_edit"><a href="#" data-key="[key]" class="btn-success btn-sm">Edit</a></span>  |  <span class="editor_delete"><a href="#" data-key="[key]" class="btn-danger btn-sm">Delete</a></span>
     </script>*@
 <script type="text/javascript">
-    var receiverTrustMasterPage = new page.ReceiverTrustMaster("#receiverTrustMasterRoot", function () {
-        return {
-            receiverTrustTableSelector: "#receiverTrustTable",
-            receiverTrustTableSettings: function () {
-                return {
-                    commandDisplay: component.DataTable.CommandDisplayTypes.external,
-                    dateFormat: "MM-dd-yyyy",
-                    tableSettings: {
-                        columns: [
-                            { data: "Date", render: receiverTrustMasterPage.receiverTrustMasterTable.formatHelper.renderDate },
-                            { data: "Issuer" },
-                            { data: "Curr" },
-                            { data: "Prefix" },
-                            { data: "StartNo" },
-                            { data: "Nos" },
-                            { data: "EndNo" },
-                            { data: "Deno" },
-                            { data: "Value" }
-                        ],
-                        ajax: "@Url.Action("Find")",
-                        select: true
-                    }
-                }
-            },
-            receiverTrustDetailsPanelSelector: "#divAddEdit",
-            receiverTrustFormSelector: "#formAddEdit",
-            receiverTrustFormSettings: {
-            },
-            receiverTrustCommandSelector: "#divAddEdit div.form-inline",
-            receiverTrustCommandSettings: {
-                addCommandButtonSelector: "button.editor_add",
-                editCommandButtonSelector: "button.editor_edit",
-                deleteCommandButtonSelector: "button.editor_delete",
-                saveCommandButtonSelector: "button.editor_save",
-                cancelCommandButtonSelector: "button.editor_cancel"
-            },
-            addUrl: "@Url.Action("Add")",
-            editUrl: "@Url.Action("Edit")/[Id]",
-            deleteUrl: "@Url.Action("Delete")/[Id]",
-            saveUrl: "@Url.Action("Save")",
-            addEditCommandGroupSelector: "#formAddEdit div.form-inline div.add-group"
-        }
+    var receiveTrustMasterPage = new page.tcMaster.ReceiveTrust("#receiveTrustMasterRoot", {
+        tableSelector: "#receiveTrustTable",
+        tableSettings: {
+            commandDisplay: component.DataTable.CommandDisplayTypes.external,
+            dateFormat: "MM-dd-yyyy",
+            tableSettings: {
+                columns: [
+                    { data: "Date", render: "renderDate" },
+                    { data: "Issuer" },
+                    { data: "Curr" },
+                    { data: "Prefix" },
+                    { data: "StartNo" },
+                    { data: "Nos" },
+                    { data: "EndNo" },
+                    { data: "Deno" },
+                    { data: "Value" }
+                ],
+                ajax: "@Url.Action("Find")",
+                select: true
+            }
+        },
+        detailsPanelSelector: "#divAddEdit",
+        formSelector: "#formAddEdit",
+        formSettings: { },
+        commandSelector: "#divAddEdit div.form-inline",
+        commandSettings: {
+            addCommandButtonSelector: "button.editor_add",
+            editCommandButtonSelector: "button.editor_edit",
+            deleteCommandButtonSelector: "button.editor_delete",
+            saveCommandButtonSelector: "button.editor_save",
+            cancelCommandButtonSelector: "button.editor_cancel"
+        },
+        addUrl: "@Url.Action("Add")",
+        editUrl: "@Url.Action("Edit")/[Id]",
+        deleteUrl: "@Url.Action("Delete")/[Id]",
+        saveUrl: "@Url.Action("Save")",
+        addEditCommandGroupSelector: "#formAddEdit div.form-inline div.add-group"
     });
-    receiverTrustMasterPage.initialize();
+    receiveTrustMasterPage.initialize();
 </script>

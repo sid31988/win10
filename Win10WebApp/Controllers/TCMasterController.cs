@@ -51,7 +51,7 @@ namespace Win10WebApp.Controllers
             return View(new TCMasterViewModel());
         }
         [Authorize]
-        public ActionResult EncashedBalance()
+        public ActionResult EncashedDDBalance()
         {
             return View(new TCMasterViewModel());
         }
@@ -105,7 +105,7 @@ namespace Win10WebApp.Controllers
         [Authorize]
         public ActionResult Add(string tcMasterType)
         {
-            TCMaster tcMaster = new TCMaster();
+            TCMaster tcMaster = new TCMaster { Type = tcMasterType };
             return View(tcMasterType, new TCMasterViewModel { TCMaster = tcMaster });
         }
 

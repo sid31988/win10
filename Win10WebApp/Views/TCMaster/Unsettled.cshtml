@@ -150,9 +150,9 @@ else
                         </div>
 
                         <!--Details Design-->
-                        <div id="divAddEdit" class="editor-control col-sm-4">
-                            <form id="formAddEdit"></form>
-                            <div class="form-actions">
+                        <div class="details-panel editor-control col-sm-4">
+                            <form class="form-add-edit"></form>
+                            <div class="command-panel form-actions">
                                 <div class="form-group col-sm-offset-1">
                                     <button type="button" class="btn btn-primary editor_add" id="btnAddAct">Add</button>
                                     <button type="button" class="btn btn-warning editor_edit" id="btnEditAct">Edit</button>
@@ -170,44 +170,39 @@ else
         </div>
     </div>
     <script type="text/javascript">
-        var unsettledMasterPage = new page.UnsettledMaster("#unsettledMasterRoot", function () {
-            return {
-                unsettledTableSelector: "#unsettledTable",
-                unsettledTableSettings: function () {
-                    return {
-                        commandDisplay: component.DataTable.CommandDisplayTypes.external,
-                        dateFormat: "MM-dd-yyyy",
-                        tableSettings: {
-                            columns: [
-                                { data: "Date", render: unsettledMasterPage.unsettledMasterTable.formatHelper.renderDate },
-                                { data: "Issuer" },
-                                { data: "Curr" },
-                                { data: "Prefix" },
-                                { data: "StartNo" }                                
-                            ],
-                            ajax: "@Url.Action("Find")?tcMasterType=Unsettled",
-                            select: true
-                        }
-                    }
-                },
-                unsettledDetailsPanelSelector: "#divAddEdit",
-                unsettledFormSelector: "#formAddEdit",
-                unsettledFormSettings: {
-                },
-                unsettledCommandSelector: "#divAddEdit div.form-actions",
-                unsettledCommandSettings: {
-                    addCommandButtonSelector: "button.editor_add",
-                    editCommandButtonSelector: "button.editor_edit",
-                    deleteCommandButtonSelector: "button.editor_delete",
-                    saveCommandButtonSelector: "button.editor_save",
-                    cancelCommandButtonSelector: "button.editor_cancel"
-                },
-                addUrl: "@Url.Action("Add")?tcMasterType=Unsettled",
-                editUrl: "@Url.Action("Edit")?tcMasterType=Unsettled&Id=[Id]",
-                deleteUrl: "@Url.Action("Delete")/[Id]",
-                saveUrl: "@Url.Action("Save")?tcMasterType=Unsettled",
-                addEditCommandGroupSelector: "#formAddEdit div.form-actions div.add-group"
-            }
+        var unsettledMasterPage = new page.tcMaster.Unsettled("#unsettledMasterRoot", {
+            tableSelector: "#unsettledTable",
+            tableSettings: {
+                commandDisplay: component.DataTable.CommandDisplayTypes.external,
+                dateFormat: "MM-dd-yyyy",
+                tableSettings: {
+                    columns: [
+                        { data: "Date", render: "renderDate" },
+                        { data: "Issuer" },
+                        { data: "Curr" },
+                        { data: "Prefix" },
+                        { data: "StartNo" }
+                    ],
+                    ajax: "@Url.Action("Find")?tcMasterType=Unsettled",
+                    select: true
+                }
+            },
+            detailsPanelSelector: "#unsettledMasterRoot .details-panel",
+            formSelector: "#unsettledMasterRoot .form-add-edit",
+            formSettings: { },
+            commandSelector: "#unsettledMasterRoot .command-panel",
+            commandSettings: {
+                addCommandButtonSelector: "button.editor_add",
+                editCommandButtonSelector: "button.editor_edit",
+                deleteCommandButtonSelector: "button.editor_delete",
+                saveCommandButtonSelector: "button.editor_save",
+                cancelCommandButtonSelector: "button.editor_cancel"
+            },
+            addUrl: "@Url.Action("Add")?tcMasterType=Unsettled",
+            editUrl: "@Url.Action("Edit")?tcMasterType=Unsettled&Id=[Id]",
+            deleteUrl: "@Url.Action("Delete")/[Id]",
+            saveUrl: "@Url.Action("Save")?tcMasterType=Unsettled",
+            addEditCommandGroupSelector: "#formAddEdit div.form-inline div.add-group"
         });
         unsettledMasterPage.initialize();
     </script>

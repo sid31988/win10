@@ -2,6 +2,12 @@ var component = component || {};
 component.DataTable.EventHandlers = function (dataTableComponent) {
     let _this = this;
 
+    dataTableComponent.on("table.init.complete", function () {
+        if (dataTableComponent.getRowCount() > 0) {
+            dataTableComponent.selectRow(0);
+        }
+    });
+
     dataTableComponent.dataTable.on("draw", function () {
         dataTableComponent.$root.find(".editor_edit").off("click").on("click", rowEditEventHandler);
         dataTableComponent.$root.find(".editor_delete").off("click").on("click", rowDeleteEventHandler);

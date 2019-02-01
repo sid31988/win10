@@ -38,13 +38,18 @@ component.Base = function (rootSelector, settingsOrFactory) {
     _this.on = function (eventName, eventListener) {
         let event = getOrCreateEvent(eventName);
         event.addEventListener(eventListener);
-        return event;
+        return this;
     }
     _this.emit = function (eventName, eventArgs) {
         let event = getOrCreateEvent(eventName);
         console.log(eventName + " event fired.");
         event.dispatchEvent(eventArgs);
-        return event;
+        return this;
+    }
+    _this.off = function (eventName, eventListener) {
+        let event = getOrCreateEvent(eventName);
+        event.removeEventListener(eventListener);
+        return this;
     }
     _this.enable = function (toggle) {
         _this.$root.enable(toggle);

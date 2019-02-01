@@ -32,6 +32,11 @@ component.Form = function (rootSelector, settings) {
         _this.writeMode = component.Form.WriteMode.Add;
         _this.enable(true);
         _this.emit("form.add.success");
+        _this.focusOnFirstControl();
+    }
+
+    _this.focusOnFirstControl = function () {
+        _this.$root.find("input:visible:eq(0)").focus();
     }
 
     _this.loadAddView = function (addUrl, success, error) {
@@ -97,7 +102,7 @@ component.Form = function (rootSelector, settings) {
         lib.invokeAction(_saveUrl, "POST", postData, function (successData) {
             _this.enable(false);
             _this.writeMode = component.Form.WriteMode.None;
-            _this.emit("form.save.success");
+            _this.emit("form.save.success", successData.data);
             if (typeof success === "function") {
                 success(successData);
             }

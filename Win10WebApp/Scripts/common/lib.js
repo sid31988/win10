@@ -33,16 +33,24 @@ const lib = {
     EventEmitter: function (eventName) {
         let _this = this;
 
-        _this.listeners = [];
+        _this.listeners = {};
 
         _this.addEventListener = function (handler) {
             if(handler === undefined && handler === null) return;
-            _this.listeners.push(handler);
+            _this.listeners[handler] = handler;
+        }
+
+        _this.removeEventListener = function (handler) {
+            if(handler === undefined && handler === null) return;
+            delete _this.listeners[handler];
         }
 
         _this.dispatchEvent = function (eventArgs) {
-            for(var i = 0; i < _this.listeners.length; i++) {
-                _this.listeners[i](eventArgs);
+            for(var key in _this.listeners) {
+                let handler = _this.listeners[key];
+                if (typeof handler === "function") {
+                    handler(eventArgs);
+                }
             }
         }
     },

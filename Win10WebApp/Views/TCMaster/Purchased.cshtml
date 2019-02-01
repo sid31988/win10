@@ -150,9 +150,9 @@ else
                         </div>
 
                         <!--Details Design-->
-                        <div id="divAddEdit" class="editor-control col-sm-4">
-                            <form id="formAddEdit"></form>
-                            <div class="form-actions">
+                        <div class="details-panel editor-control col-sm-4">
+                            <form class="form-add-edit"></form>
+                            <div class="command-panel form-actions">
                                 <div class="form-group col-sm-offset-1">
                                     <button type="button" class="btn btn-primary editor_add" id="btnAddAct">Add</button>
                                     <button type="button" class="btn btn-warning editor_edit" id="btnEditAct">Edit</button>
@@ -170,44 +170,39 @@ else
         </div>
     </div>
     <script type="text/javascript">
-        var purchasedMasterPage = new page.PurchasedMaster("#purchasedMasterRoot", function () {
-            return {
-                purchasedTableSelector: "#purchasedTable",
-                purchasedTableSettings: function () {
-                    return {
-                        commandDisplay: component.DataTable.CommandDisplayTypes.external,
-                        dateFormat: "MM-dd-yyyy",
-                        tableSettings: {
-                            columns: [
-                                { data: "Date", render: purchasedMasterPage.purchasedMasterTable.formatHelper.renderDate },
-                                { data: "Issuer" },
-                                { data: "Curr" },
-                                { data: "Prefix" },
-                                { data: "StartNo" }                                
-                            ],
-                            ajax: "@Url.Action("Find")?tcMasterType=Purchased",
-                            select: true
-                        }
-                    }
-                },
-                purchasedDetailsPanelSelector: "#divAddEdit",
-                purchasedFormSelector: "#formAddEdit",
-                purchasedFormSettings: {
-                },
-                purchasedCommandSelector: "#divAddEdit div.form-actions",
-                purchasedCommandSettings: {
-                    addCommandButtonSelector: "button.editor_add",
-                    editCommandButtonSelector: "button.editor_edit",
-                    deleteCommandButtonSelector: "button.editor_delete",
-                    saveCommandButtonSelector: "button.editor_save",
-                    cancelCommandButtonSelector: "button.editor_cancel"
-                },
-                addUrl: "@Url.Action("Add")?tcMasterType=Purchased",
-                editUrl: "@Url.Action("Edit")?tcMasterType=Purchased&Id=[Id]",
-                deleteUrl: "@Url.Action("Delete")/[Id]",
-                saveUrl: "@Url.Action("Save")?tcMasterType=Purchased",
-                addEditCommandGroupSelector: "#formAddEdit div.form-actions div.add-group"
-            }
+        var purchasedMasterPage = new page.tcMaster.Purchased("#purchasedMasterRoot", {
+            tableSelector: "#purchasedTable",
+            tableSettings: {
+                commandDisplay: component.DataTable.CommandDisplayTypes.external,
+                dateFormat: "MM-dd-yyyy",
+                tableSettings: {
+                    columns: [
+                        { data: "Date", render: "renderDate" },
+                        { data: "Issuer" },
+                        { data: "Curr" },
+                        { data: "Prefix" },
+                        { data: "StartNo" }
+                    ],
+                    ajax: "@Url.Action("Find")?tcMasterType=Purchased",
+                    select: true
+                }
+            },
+            detailsPanelSelector: "#purchasedMasterRoot .details-panel",
+            formSelector: "#purchasedMasterRoot .form-add-edit",
+            formSettings: { },
+            commandSelector: "#purchasedMasterRoot .command-panel",
+            commandSettings: {
+                addCommandButtonSelector: "button.editor_add",
+                editCommandButtonSelector: "button.editor_edit",
+                deleteCommandButtonSelector: "button.editor_delete",
+                saveCommandButtonSelector: "button.editor_save",
+                cancelCommandButtonSelector: "button.editor_cancel"
+            },
+            addUrl: "@Url.Action("Add")?tcMasterType=Purchased",
+            editUrl: "@Url.Action("Edit")?tcMasterType=Purchased&Id=[Id]",
+            deleteUrl: "@Url.Action("Delete")/[Id]",
+            saveUrl: "@Url.Action("Save")?tcMasterType=Purchased",
+            addEditCommandGroupSelector: "#formAddEdit div.form-inline div.add-group"
         });
         purchasedMasterPage.initialize();
     </script>
