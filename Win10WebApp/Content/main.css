@@ -211,27 +211,27 @@
     }
 
 
-div.page-root[data-mode='view'] .grid-control{
+div.page-root[data-mode='view'] .grid-control {
     display: inline-block;
 }
 
-div.page-root[data-mode='view'] .editor-control{
+div.page-root[data-mode='view'] .editor-control {
     display: none;
 }
 
-div.page-root[data-mode='edit'] .grid-control{
+div.page-root[data-mode='edit'] .grid-control {
     display: none;
 }
 
-div.page-root[data-mode='edit'] .editor-control{
+div.page-root[data-mode='edit'] .editor-control {
     display: inline-block;
 }
 
-div.page-root[data-mode='add'] .grid-control{
+div.page-root[data-mode='add'] .grid-control {
     display: none;
 }
 
-div.page-root[data-mode='add'] .editor-control{
+div.page-root[data-mode='add'] .editor-control {
     display: inline-block;
 }
 
@@ -386,4 +386,5 @@ div.page-root[data-mode='add'] .editor-control{
     }
 }
 /***CSS Loader***/
+
 

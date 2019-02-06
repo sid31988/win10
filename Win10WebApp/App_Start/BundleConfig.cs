@@ -54,6 +54,8 @@ namespace Win10WebApp
                     "~/Content/datatables.buttons.min.css",
                     "~/Content/main.css"));
 
+            bundles.Add(new StyleBundle("~/Content/bulkpurchase").Include(
+                     "~/Content/bulkpurchase.css"));
 
         }
     }

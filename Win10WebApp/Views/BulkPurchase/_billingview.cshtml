@@ -1,0 +1,102 @@
+﻿@model Win10WebApp.ViewModels.BulkPurchaseViewModel
+
+<div id="bulkpurchaseBillingPanel" class="panel panel-default col-sm-12" style="padding-bottom:0px;margin-top:4px;">
+    <div class="panel-heading">Bill Details</div>
+    <div class="panel-body" style="padding-bottom:0px">
+        <div class="row col-sm-12" style="margin-top:5px">
+            <div class="col-sm-2 column">
+                <div class="form-group floating-label">
+                    <select class="form-control form-control-sm floating-select elementInput" id="FFMCAD" name="FFMCAD" onclick="this.setAttribute('value', this.value);" value="@Model.BulkPurchase.FFMCAD">                       
+                        <option id="0">Select</option>
+                        @foreach (var item in Model.FFMCAD)
+                        {
+                            <option value="@item.Id">@item.Value</option>
+                        }
+                    </select>
+                    <span class="highlight"></span>
+                    <label>FFMC/AD</label>
+                </div>
+                <div class="floating-label">
+                    <textarea class="form-control floating-input elementInput" rows="1" id="Remark" name="Remark" value="@Model.BulkPurchase.Remark"></textarea>
+                    <span class="highlight"></span>
+                    <label>Remark</label>
+                </div>
+            </div>
+            <div class="column col-sm-3">
+                <div class="floating-label">
+                    <select class="form-control form-control-sm floating-select elementInput" id="DeliveryIn" name="DeliveryIn" value="@Model.BulkPurchase.DeliveryIn" onclick="this.setAttribute('value', this.value);">
+                        <option id="0">Select</option>
+                        @foreach (var item in Model.DeliveryIn)
+                        {
+                            <option value="@item.Id">@item.Value</option>
+                        }
+                    </select>
+                    <span class="highlight"></span>
+                    <label>Delivered In</label>
+                </div>
+                <div class="floating-label">
+                    <input class="form-control floating-input elementInput" id="Reference" name="Reference" type="text" placeholder=" " value="@Model.BulkPurchase.Reference">
+                    <span class="highlight"></span>
+                    <label>Reference</label>
+                </div>
+            </div>
+            <div class="col-sm-3 column">
+                <div class="floating-label">
+                    <select class="form-control form-control-sm floating-select elementInput" id="Broker" name="Broker" value="@Model.BulkPurchase.Broker" onclick="this.setAttribute('value', this.value);">
+                        <option id="0">Select</option>
+                        @foreach (var item in Model.Broker)
+                        {
+                            <option value="@item.Id">@item.Value</option>
+                        }
+                    </select>
+                    <span class="highlight"></span>
+                    <label>Broker</label>
+                </div>
+                <div class="floating-label">
+                    <select class="form-control form-control-sm floating-select elementInput" id="SubBroker" name="SubBroker" value="@Model.BulkPurchase.SubBroker" onclick="this.setAttribute('value', this.value);">
+                        <option id="0">Select</option>
+                        @foreach (var item in Model.SubBroker)
+                        {
+                            <option value="@item.Id">@item.Value</option>
+                        }
+                    </select>
+                    <span class="highlight"></span>
+                    <label>Sub Broker</label>
+                </div>
+            </div>
+            <div class="col-sm-2 column">             
+
+                <div class="floating-label">
+                    <input class="form-control floating-input elementInput" id="date" name="date" value="@Model.BulkPurchase.Date" type="text" placeholder=" " onclick="(this.type='date')">
+                    <span class="highlight"></span>
+                    <label>Date</label>
+                </div>
+                <div class="floating-label">
+                    <select class="form-control form-control-sm floating-select elementInput" id="CostCentre" name="CostCentre" value="@Model.BulkPurchase.CostCentre" onclick="this.setAttribute('value', this.value);">
+                        <option id="0">Select</option>
+                        @foreach (var item in Model.CostCentre)
+                        {
+                            <option value="@item.Id">@item.Value</option>
+                        }
+                    </select>
+                    <span class="highlight"></span>
+                    <label>Cost Centre</label>
+                </div>
+            </div>
+            <div class="col-sm-2 column">
+                <div class="floating-label">
+                    <select class="form-control form-control-sm floating-select elementInput" id="Quota" name="Quota" value="@Model.BulkPurchase.Quota" onclick="this.setAttribute('value', this.value);">
+                        <option id="0">Select</option>
+                        @foreach (var item in Model.Quota)
+                        {
+                            <option value="@item.Id">@item.Value</option>
+                        }
+                    </select>
+                    <span class="highlight"></span>
+                    <label>Quota</label>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

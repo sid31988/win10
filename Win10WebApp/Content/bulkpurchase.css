@@ -1,0 +1,97 @@
+﻿/*Bulk Master*/
+.table-borderless td, .borderless th {
+    border: none !important;
+    padding: 2px !important;
+}
+
+/*.floating-headerpanel-input:focus ~ label, .floating-headerpanel-input:not(:placeholder-shown) ~ label {
+    top: -16px;
+    font-size: 11px;
+    color: #5264AE;
+}
+
+.floating-headerpanel-input {
+    text-transform: uppercase;
+}
+
+.floating-headerpanel-input, .floating-headerpanel-select {
+    font-size: 14px;
+    padding: 4px 4px;
+    display: block;
+    width: 100%;
+    height: 30px;
+    background-color: transparent;
+}
+
+    .floating-headerpanel-input:focus, .floating-select:focus {
+        outline: none;
+        border-bottom: 2px solid #5264AE;
+    }*/
+
+/*#bulkpurchaseBillingPanel*/
+.panel {
+    box-shadow: none;
+}
+/*#bulkpurchaseBillingPanel*/
+.panel-body {
+    padding-bottom: 0px;
+    border: 1px solid;
+    border-top: 0px;
+    border-top-color: rgb(221, 221, 221);
+    border-right-color: rgb(221, 221, 221);
+    border-bottom-color: rgb(221, 221, 221);
+    border-left-color: rgb(221, 221, 221);
+}
+
+.table thead tr th {
+    font-size: 12px;
+}
+
+.nav-pills, .nav-tabs {
+    margin-bottom: 0px;
+}
+
+.panel-heading {
+    padding: 10px 15px;
+    border-bottom: 1px solid transparent;
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+    border-right: 1px solid #eee;
+    border-left: 1px solid #eee;
+    border-top: 1px solid #eee;
+}
+
+.floating-label label {
+    font-size: 11px;
+}
+
+/*.floating-border-input, .floating-input {
+    font-size: 14px;
+    padding: 4px 4px;
+    display: block;
+    width: 100%;
+    height: 30px;
+    background-color: transparent;
+   
+}
+
+    .floating-border-input:focus ~ label, .floating-border-input:not(:placeholder-shown) ~ label {
+        top: -16px;
+        font-size: 11px;
+        color: #5264AE;
+    }
+
+    .floating-border-input:focus, .floating-input:focus {
+        outline: none;
+        border-bottom: 2px solid #808080;
+    }*/
+
+.panel-title {
+    font-size: 14px;
+}
+
+.floating-select:focus ~ label, .floating-select:not([value=""]) ~ label {
+    top: -18px;
+    font-size: 11px;
+    color: #5264AE;
+}

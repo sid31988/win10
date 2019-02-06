@@ -1,0 +1,173 @@
+﻿@model Win10WebApp.ViewModels.BulkPurchaseViewModel
+
+<form class="form-add-edit">
+    <div class="row">
+        <div class="col-md-2">
+            <div class="form-group floating-label">
+                <select class="form-control form-control-sm floating-select elementInput" id="CurrencyName" name="CurrencyName" onclick="this.setAttribute('value', this.value);" value="@Model.BulkPurchaseForex.CurrencyName">
+                    <option id="0">Select</option>
+                    @foreach (var item in Model.CurrencyName)
+                    {
+                        <option value="@item.Id">@item.Value</option>
+                    }
+
+                </select>
+                <span class="highlight"></span>
+                <label>Currency</label>
+            </div>
+        </div>
+        <div class="col-md-2">
+            <div class="form-group floating-label">
+                <select class="form-control form-control-sm floating-select elementInput" id="CurrencyNote" name="CurrencyNote" onclick="this.setAttribute('value', this.value);" value="@Model.BulkPurchaseForex.CurrencyNote">
+                    <option id="0">Select</option>
+                    @foreach (var item in Model.CurrencyNotes)
+                    {
+                        <option value="@item.Id">@item.Value</option>
+                    }
+                </select>
+                <span class="highlight"></span>
+                <label>Currency Notes</label>
+            </div>
+        </div>
+
+        <div class="col-md-2">
+            <div class="form-group floating-label">
+                <input class="form-control floating-input elementInput" id="Quantity" name="Quantity" value="@Model.BulkPurchaseForex.Quantity"
+                       type="text" placeholder=" " onclick="(this.type='number')">
+                <span class="highlight"></span>
+                <label>Quantity</label>
+            </div>
+        </div>
+        <div class="col-md-2">
+            <div class="form-group floating-label">
+                <input class="form-control floating-input elementInput" id="Rate" name="Rate" value="@Model.BulkPurchaseForex.Rate"
+                       type="text" placeholder=" " onclick="(this.type='number')"> <span><b> / 1 </b></span>
+                <span class="highlight"></span>
+                <label>Rate</label>
+            </div>
+        </div>
+        <div class="col-md-2">
+            <div class="form-group floating-label">
+                <input class="form-control floating-input elementInput" id="GrossAmt" name="GrossAmt" value="@Model.BulkPurchaseForex.GrossAmt"
+                       type="text" placeholder=" " onclick="(this.type='number')">
+                <span class="highlight"></span>
+                <label>Gross Amt</label>
+            </div>
+        </div>
+        <div class="col-md-2">
+            <div class="form-group floating-label">
+                <input class="form-control floating-input elementInput" id="CalculatedGross" name="CalculatedGross" value="@Model.BulkPurchaseForex.CalculatedGross"
+                       type="text" placeholder=" " onclick="(this.type='number')">
+                <span class="highlight"></span>
+
+            </div>
+        </div>
+
+        <div class="col-md-1">
+            <div class="form-group floating-label">
+                <select class="form-control form-control-sm floating-select elementInput" id="BrokerPaise" name="BrokerPaise" value="@Model.BulkPurchaseForex.BrokerPaise" onclick="this.setAttribute('value', this.value);">
+                    <option id="0">Select</option>
+                    @foreach (var item in Model.ForexPaiseQty)
+                    {
+                        <option value="@item.Id">@item.Value</option>
+                    }
+                </select>
+                <span class="highlight"></span>
+                <label>Paise/Qty</label>
+            </div>
+        </div>
+        <div class="col-md-1">
+            <div class="form-group floating-label">
+                <input class="form-control floating-input elementInput" id="BrokerPaiseAmt" name="BrokerPaiseAmt" value="@Model.BulkPurchaseForex.BrokerPaiseAmt"
+                       type="text" placeholder=" " onclick="(this.type='number')">
+                <span class="highlight"></span>
+                <label></label>
+            </div>
+        </div>
+        <div class="col-md-1">
+            <div class="form-group floating-label">
+                <input class="form-control floating-input elementInput" id="BrokerCommAmt" name="BrokerCommAmt" value="@Model.BulkPurchaseForex.BrokerCommAmt"
+                       type="text" placeholder=" " onclick="(this.type='number')">
+                <span class="highlight"></span>
+                <label>Comm Amt</label>
+            </div>
+        </div>
+        <div class="col-md-1">
+            <div class="form-group floating-label">
+                <input class="form-control floating-input elementInput" id="BrokerTDSPercentage" name="BrokerTDSPercentage" value="@Model.BulkPurchaseForex.BrokerTDSPercentage"
+                       type="text" placeholder=" " onclick="(this.type='number')">
+                <span class="highlight"></span>
+                <label>TDS%</label>
+            </div>
+        </div>
+        <div class="col-md-1">
+            <div class="form-group floating-label">
+                <input class="form-control floating-input elementInput" id="BrokerTDSAmt" name="BrokerTDSAmt" value="@Model.BulkPurchaseForex.BrokerTDSAmt"
+                       type="text" placeholder=" " onclick="(this.type='number')">
+                <span class="highlight"></span>
+                <label>TDS Amt</label>
+            </div>
+        </div>
+
+        <div class="col-md-1">
+            <div class="form-group floating-label">
+                <select class="form-control form-control-sm floating-select elementInput" id="SubBrokerPaise" name="SubBrokerPaise" value="@Model.BulkPurchaseForex.SubBrokerPaise" onclick="this.setAttribute('value', this.value);">
+                    <option id="0">Select</option>
+                    @foreach (var item in Model.ForexPaiseQty)
+                    {
+                        <option value="@item.Id">@item.Value</option>
+                    }
+                </select>
+                <span class="highlight"></span>
+                <label>Paise/Qty</label>
+            </div>
+        </div>
+        <div class="col-md-1">
+            <div class="form-group floating-label">
+                <input class="form-control floating-input elementInput" id="SubBrokerPaiseAmt" name="SubBrokerPaiseAmt" value="@Model.BulkPurchaseForex.SubBrokerPaiseAmt"
+                       type="text" placeholder=" " onclick="(this.type='number')">
+                <span class="highlight"></span>
+                <label></label>
+            </div>
+        </div>
+        <div class="col-md-1">
+            <div class="form-group floating-label">
+                <input class="form-control floating-input elementInput" id="SubBrokerCommAmt" name="SubBrokerCommAmt" value="@Model.BulkPurchaseForex.SubBrokerCommAmt"
+                       type="text" placeholder=" " onclick="(this.type='number')">
+                <span class="highlight"></span>
+                <label>Comm Amt</label>
+            </div>
+        </div>
+        <div class="col-md-1">
+            <div class="form-group floating-label">
+                <input class="form-control floating-input elementInput" id="SubBrokerTDSPercentage" name="SubBrokerTDSPercentage" value="@Model.BulkPurchaseForex.SubBrokerTDSPercentage"
+                       type="text" placeholder=" " onclick="(this.type='number')">
+                <span class="highlight"></span>
+                <label>TDS%</label>
+            </div>
+        </div>
+        <div class="col-md-1">
+            <div class="form-group floating-label">
+                <input class="form-control floating-input elementInput" id="SubBrokerTDSAmt" name="SubBrokerTDSAmt" value="@Model.BulkPurchaseForex.SubBrokerTDSAmt"
+                       type="text" placeholder=" " onclick="(this.type='number')">
+                <span class="highlight"></span>
+                <label>TDS Amt</label>
+            </div>
+        </div>
+
+        <div class="col-md-1">
+            <div class="form-group">
+                <button type="button" class="btn btn-success btn-sm left-panelbtn editor_save" id="btnSaveAct">Save</button>
+            </div>
+        </div>
+
+        <div class="col-md-1">
+            <div class="form-group">
+                <button type="button" class="btn btn-info btn-sm left-panelbtn editor_cancel" id="btnCancelAct">Cancel</button>
+            </div>
+        </div>
+
+
+    </div>
+
+</form>

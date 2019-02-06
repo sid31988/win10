@@ -181,6 +181,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AccountingController.cs" />
+    <Compile Include="Controllers\BulkPurchaseController.cs" />
     <Compile Include="Controllers\TCMasterController.cs" />
     <Compile Include="Controllers\CountryMasterController.cs" />
     <Compile Include="Controllers\CurrencyMasterController.cs" />
@@ -197,8 +198,10 @@
     </Compile>
     <Compile Include="Models\Accounting.cs" />
     <Compile Include="Models\AdditionalData.cs" />
+    <Compile Include="Models\BulkPurchaseForex.cs" />
     <Compile Include="Models\Company.cs" />
     <Compile Include="Models\CountryMaster.cs" />
+    <Compile Include="Models\BulkPurchase.cs" />
     <Compile Include="Models\TCMaster.cs" />
     <Compile Include="Models\CurrencyMaster.cs" />
     <Compile Include="Models\OtherMaster.cs" />
@@ -210,6 +213,7 @@
     <Compile Include="Startup.cs" />
     <Compile Include="Utility\Constants.cs" />
     <Compile Include="Utility\Functions.cs" />
+    <Compile Include="ViewModels\BulkPurchaseViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-switch.min.css" />
@@ -217,6 +221,7 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\bulkpurchase.css" />
     <Content Include="Content\components-md.min.css" />
     <Content Include="Content\datatables.min.css" />
     <Content Include="Content\default.min.css" />
@@ -326,14 +331,19 @@
     <Content Include="Views\PartiesMaster\Franchisees.cshtml" />
     <Content Include="Views\PartiesMaster\Brokers.cshtml" />
     <Content Include="Views\PartiesMaster\Suppliers.cshtml" />
-    <Content Include="Views\ReceiveTrustMaster\Index.cshtml" />
-    <Content Include="Views\ReceiveTrustMaster\Actions.cshtml" />
     <Content Include="Views\TCMaster\ReceiveTrust.cshtml" />
     <Content Include="Views\TCMaster\Purchased.cshtml" />
     <Content Include="Views\TCMaster\ReceiveForex.cshtml" />
     <Content Include="Views\TCMaster\EncashedDDBalance.cshtml" />
     <Content Include="Views\TCMaster\UnsettledForexCard.cshtml" />
     <Content Include="Views\TCMaster\Unsettled.cshtml" />
+    <Content Include="Views\BulkPurchase\Index.cshtml" />
+    <Content Include="Views\BulkPurchase\_billingview.cshtml" />
+    <Content Include="Views\BulkPurchase\_forexview.cshtml" />
+    <Content Include="Views\BulkPurchase\_paymentview.cshtml" />
+    <Content Include="Views\BulkPurchase\_forexform.cshtml" />
+    <Content Include="Views\BulkPurchase\_forexsummary.cshtml" />
+    <Content Include="Views\BulkPurchase\_forexdatatable.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
