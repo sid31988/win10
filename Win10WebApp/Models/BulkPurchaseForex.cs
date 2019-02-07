@@ -11,6 +11,7 @@ namespace Win10WebApp.Models
     {
         public int Id { get; set; }
         public int BulkPurchaseId { get; set; }
+        public int SequenceNo { get; set; }
         public int? CurrencyName { get; set; }
         public int? CurrencyNote { get; set; }
         public int? Quantity { get; set; }

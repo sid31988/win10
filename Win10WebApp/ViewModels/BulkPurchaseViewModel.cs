@@ -9,14 +9,14 @@ using Win10WebApp.Repository;
 namespace Win10WebApp.ViewModels
 {
     public class BulkPurchaseViewModel
-    {       
+    {
         private Repository<OtherMaster> _otherRepository = null;
         private Repository<CurrencyMaster> _currencyRepository = null;
         private Repository<BulkPurchase> _bulkpurchaseRepository = null;
         private Repository<BulkPurchaseForex> _bulkpurchaseforexRepository = null;
         private MasterQueries _master = null;
         public BulkPurchaseViewModel()
-        {           
+        {
             _otherRepository = new Repository<OtherMaster>();
             _currencyRepository = new Repository<CurrencyMaster>();
             _bulkpurchaseRepository = new Repository<BulkPurchase>();
@@ -27,6 +27,7 @@ namespace Win10WebApp.ViewModels
 
         public BulkPurchase BulkPurchase { get; set; }
         public BulkPurchaseForex BulkPurchaseForex { get; set; }
+        public BulkPurchasePayment BulkPurchasePayment { get; set; }
 
         public List<KeyValuePair> FFMCAD { get; set; } //Type: F 
         public List<KeyValuePair> Broker { get; set; } //Type: R Broker
@@ -40,9 +41,11 @@ namespace Win10WebApp.ViewModels
         public List<KeyValuePair> Quota { get; set; }//Type:Quota(new)
         public List<KeyValuePair> ChargesTax { get; set; } //Type:ChargesTax(new)
         public List<KeyValuePair> SrvChrg { get; set; }//Type:SrvCharge(new)
-
         public List<KeyValuePair> ForexPaiseQty { get; set; } //Type:BrokerPaise(new) applicable to both Broker and Sub Broker Paise/Qty ddl
 
+        public List<KeyValuePair> CashBank { get; set; }
+        public List<KeyValuePair> PaymentReceipt { get; set; }
+        public List<KeyValuePair> Bank { get; set; }
 
         public BulkPurchaseViewModel SetModel()
         {
@@ -50,6 +53,7 @@ namespace Win10WebApp.ViewModels
             {
                 BulkPurchase = new BulkPurchase(),
                 BulkPurchaseForex = new BulkPurchaseForex(),
+                BulkPurchasePayment = new BulkPurchasePayment(),
                 FFMCAD = GetPartyMasterBytype('F'),
                 Broker = GetPartyMasterBytype('R'),
                 SubBroker = GetPartyMasterBytype('R'),
@@ -60,9 +64,12 @@ namespace Win10WebApp.ViewModels
                 Quota = GetOtherMasterBytype("Quota"),
                 ChargesTax = GetOtherMasterBytype("ChargesTax"),
                 SrvChrg = GetOtherMasterBytype("SrvCharge"),
-                ForexPaiseQty = GetOtherMasterBytype("ForexPaiseQty")
+                ForexPaiseQty = GetOtherMasterBytype("ForexPaiseQty"),
+                CashBank = GetOtherMasterBytype("CashBank"),
+                PaymentReceipt = GetOtherMasterBytype("PaymentReceipt"),
+                Bank = GetOtherMasterBytype("Bank")
             };
-            
+
         }
 
 
@@ -70,8 +77,8 @@ namespace Win10WebApp.ViewModels
         {
             switch (type)
             {
-                case 'F':                    
-                    return _master.GetAllPartyMaster(type).Where(p => p.Type.ToString().Equals(type.ToString(),StringComparison.OrdinalIgnoreCase) && p.IsDeleted == false).Select(p => new KeyValuePair() { Id = p.Id, Value = p.Name }).ToList<KeyValuePair>();
+                case 'F':
+                    return _master.GetAllPartyMaster(type).Where(p => p.Type.ToString().Equals(type.ToString(), StringComparison.OrdinalIgnoreCase) && p.IsDeleted == false).Select(p => new KeyValuePair() { Id = p.Id, Value = p.Name }).ToList<KeyValuePair>();
                 case 'R':
                     return _master.GetAllPartyMaster(type).Where(p => p.Type.ToString().Equals(type.ToString(), StringComparison.OrdinalIgnoreCase) && p.IsDeleted == false).Select(p => new KeyValuePair() { Id = p.Id, Value = p.Broker }).ToList<KeyValuePair>();
                 default:
@@ -98,7 +105,6 @@ namespace Win10WebApp.ViewModels
         }
 
 
-
     }
 
     public class KeyValuePair
@@ -106,4 +112,7 @@ namespace Win10WebApp.ViewModels
         public int Id { get; set; }
         public string Value { get; set; }
     }
+
+    public enum EventSource { Forex, Payment }
+    public enum ActionMode { Add, Edit, Delete, Cancel }
 }

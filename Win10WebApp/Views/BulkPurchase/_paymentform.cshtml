@@ -1,0 +1,125 @@
+﻿@model Win10WebApp.ViewModels.BulkPurchaseViewModel
+
+<form class="form-add-edit">
+    <div class="row">
+        <div class="col-md-2">
+            <div class="form-group floating-label">
+                <select class="form-control form-control-sm floating-select elementInput" id="CashBank" name="CashBank" onclick="this.setAttribute('value', this.value);" value="@Model.BulkPurchasePayment.CashBank">
+                    <option id="0">Select</option>
+                    @foreach (var item in Model.CashBank)
+                    {
+                        <option value="@item.Id">@item.Value</option>
+                    }
+
+                </select>
+                <span class="highlight"></span>
+                <label>Currency</label>
+            </div>
+        </div>
+        <div class="col-md-2">
+            <div class="form-group floating-label">
+                <select class="form-control form-control-sm floating-select elementInput" id="PaymentReceipt" name="PaymentReceipt" onclick="this.setAttribute('value', this.value);" value="@Model.BulkPurchasePayment.PaymentReceipt">
+                    <option id="0">Select</option>
+                    @foreach (var item in Model.PaymentReceipt)
+                    {
+                        <option value="@item.Id">@item.Value</option>
+                    }
+                </select>
+                <span class="highlight"></span>
+                <label>Currency Notes</label>
+            </div>
+        </div>
+
+        <div class="col-md-2">
+            <div class="form-group floating-label">
+                <input class="form-control floating-input elementInput" id="ChequeNo" name="ChequeNo" value="@Model.BulkPurchasePayment.ChequeNo"
+                       type="text" placeholder=" ">
+                <span class="highlight"></span>
+                <label>Cheque No</label>
+            </div>
+        </div>
+        <div class="col-md-2">
+            <div class="form-group floating-label">
+                <input class="form-control floating-input elementInput" id="Rate" name="Rate" value="@Model.BulkPurchasePayment.Rate"
+                       type="text" placeholder=" " onclick="(this.type='number')">
+                <span class="highlight"></span>
+                <label>Rate</label>
+            </div>
+        </div>
+        <div class="col-md-2">
+            <div class="form-group floating-label">
+                <input class="form-control floating-input elementInput" id="GrossAmt" name="GrossAmt" value="@Model.BulkPurchasePayment.GrossAmt"
+                       type="text" placeholder=" " onclick="(this.type='number')">
+                <span class="highlight"></span>
+                <label>Gross Amt</label>
+            </div>
+        </div>
+        <div class="col-md-2">
+            <div class="form-group floating-label">
+                <input class="form-control floating-input elementInput" id="CalculatedGross" name="CalculatedGross" value="@Model.BulkPurchasePayment.CalculatedGross"
+                       type="text" placeholder=" " onclick="(this.type='number')">
+                <span class="highlight"></span>
+
+            </div>
+        </div>
+
+        <div class="col-md-2">
+            <div class="form-group floating-label">
+                <input class="form-control floating-input elementInput" id="ChequeDate" name="ChequeDate" value="@Model.BulkPurchasePayment.ChequeDate" type="text" placeholder=" " onclick="(this.type='date')">
+                <span class="highlight"></span>
+                <label>ChequeDate</label>
+            </div>
+        </div>
+        <div class="col-md-2">
+            <div class="form-group floating-label">
+                <input class="form-control floating-input elementInput" id="Amount" name="Amount" value="@Model.BulkPurchasePayment.Amount"
+                       type="text" placeholder=" " onclick="(this.type='number')">
+                <span class="highlight"></span>
+                <label>Amount</label>
+            </div>
+        </div>
+        <div class="col-md-2">
+            <div class="form-group floating-label">
+                <input class="form-control floating-input elementInput" id="Remark" name="Remark" value="@Model.BulkPurchasePayment.Remark"
+                       type="text" placeholder=" ">
+                <span class="highlight"></span>
+                <label>Remark</label>
+            </div>
+        </div>
+        <div class="col-md-1">
+            <div class="form-group floating-label">
+                <select class="form-control form-control-sm floating-select elementInput" id="Bank" name="Bank" value="@Model.BulkPurchasePayment.Bank" onclick="this.setAttribute('value', this.value);">
+                    <option id="0">Select</option>
+                    @foreach (var item in Model.Bank)
+                    {
+                        <option value="@item.Id">@item.Value</option>
+                    }
+                </select>
+                <span class="highlight"></span>
+                <label>Bank</label>
+            </div>
+        </div>
+        <div class="col-md-2">
+            <div class="form-group floating-label">
+                <input class="form-control floating-input elementInput" id="Date" name="Date" value="@Model.BulkPurchasePayment.Date" type="text" placeholder=" " onclick="(this.type='date')">
+                <span class="highlight"></span>
+                <label>Date</label>
+            </div>
+        </div>
+
+        <div class="col-md-1">
+            <div class="form-group">
+                <button type="button" class="btn btn-success btn-sm left-panelbtn editor_save" id="btnSaveAct">Save</button>
+            </div>
+        </div>
+
+        <div class="col-md-1">
+            <div class="form-group">
+                <button type="button" class="btn btn-info btn-sm left-panelbtn editor_cancel" id="btnCancelAct">Cancel</button>
+            </div>
+        </div>
+
+
+    </div>
+
+</form>

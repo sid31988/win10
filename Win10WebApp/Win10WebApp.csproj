@@ -198,6 +198,7 @@
     </Compile>
     <Compile Include="Models\Accounting.cs" />
     <Compile Include="Models\AdditionalData.cs" />
+    <Compile Include="Models\BulkPurchasePayment.cs" />
     <Compile Include="Models\BulkPurchaseForex.cs" />
     <Compile Include="Models\Company.cs" />
     <Compile Include="Models\CountryMaster.cs" />
@@ -213,6 +214,8 @@
     <Compile Include="Startup.cs" />
     <Compile Include="Utility\Constants.cs" />
     <Compile Include="Utility\Functions.cs" />
+    <Compile Include="ViewModels\BulkPurchasePaymentViewModel.cs" />
+    <Compile Include="ViewModels\BulkPurchaseForexViewModel.cs" />
     <Compile Include="ViewModels\BulkPurchaseViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -344,6 +347,8 @@
     <Content Include="Views\BulkPurchase\_forexform.cshtml" />
     <Content Include="Views\BulkPurchase\_forexsummary.cshtml" />
     <Content Include="Views\BulkPurchase\_forexdatatable.cshtml" />
+    <Content Include="Views\BulkPurchase\_paymentdatatable.cshtml" />
+    <Content Include="Views\BulkPurchase\_paymentform.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
