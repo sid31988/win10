@@ -139,18 +139,18 @@ page.BulkPurchase.ForexDetailsForm = function (rootSelector, settings) {
     component.Form.call(this, rootSelector, settings);
 
     let _this = this;
-    _this.$currencyName = _this.$root.find(settings.currencyNameSelector);
-    _this.$currencyNote = _this.$root.find(settings.currencyNoteSelector);
-    _this.$quantity = _this.$root.find(settings.quantitySelector);
-    _this.$rate = _this.$root.find(settings.rateSelector);
-    _this.$grossAmt = _this.$root.find(settings.grossAmtSelector);
-    _this.$calculatedGross = _this.$root.find(settings.calculatedGrossSelector);
+    _this.$currencyName = null;
+    _this.$currencyNote = null;
+    _this.$quantity = null;
+    _this.$rate = null;
+    _this.$grossAmt = null;
+    _this.$calculatedGross = null;
     _this.brokerFields = {
-        $brokerPaise: _this.$root.find(settings.brokerPaiseSelector),
-        $brokerPaiseAmt: _this.$root.find(settings.brokerPaiseAmtSelector),
-        $brokerCommAmt: _this.$root.find(settings.brokerCommAmtSelector),
-        $brokerTdsPercentage: _this.$root.find(settings.brokerTdsPercentageSelector),
-        $brokerTdsAmt: _this.$root.find(settings.brokerTdsAmtSelector),
+        $brokerPaise: null,
+        $brokerPaiseAmt: null,
+        $brokerCommAmt: null,
+        $brokerTdsPercentage: null,
+        $brokerTdsAmt: null,
         enable: function (enable) {
             _this.brokerFields.$brokerPaise.enable(enable);
             _this.brokerFields.$brokerPaiseAmt.enable(enable);
@@ -160,11 +160,11 @@ page.BulkPurchase.ForexDetailsForm = function (rootSelector, settings) {
         }
     };
     _this.subBrokerFields = {
-        $subBrokerPaise: _this.$root.find(settings.subBrokerPaiseSelector),
-        $subBrokerPaiseAmt: _this.$root.find(settings.subBrokerPaiseAmtSelector),
-        $subBrokerCommAmt: _this.$root.find(settings.subBrokerCommAmtSelector),
-        $subBrokerTdsPercentage: _this.$root.find(settings.subBrokerTdsPercentageSelector),
-        $subBrokerTdsAmt: _this.$root.find(settings.subBrokerTdsAmtSelector),
+        $subBrokerPaise: null,
+        $subBrokerPaiseAmt: null,
+        $subBrokerCommAmt: null,
+        $subBrokerTdsPercentage: null,
+        $subBrokerTdsAmt: null,
         enable: function (enable) {
             _this.subBrokerFields.$subBrokerPaise.enable(enable);
             _this.subBrokerFields.$subBrokerPaiseAmt.enable(enable);
@@ -173,6 +173,29 @@ page.BulkPurchase.ForexDetailsForm = function (rootSelector, settings) {
             _this.subBrokerFields.$subBrokerTdsAmt.enable(enable);
         }
     };
+
+    _this.initializeFields = function () {
+        _this.$currencyName = _this.$root.find(settings.currencyNameSelector);
+        _this.$currencyNote = _this.$root.find(settings.currencyNoteSelector);
+        _this.$quantity = _this.$root.find(settings.quantitySelector);
+        _this.$rate = _this.$root.find(settings.rateSelector);
+        _this.$grossAmt = _this.$root.find(settings.grossAmtSelector);
+        _this.$calculatedGross = _this.$root.find(settings.calculatedGrossSelector);
+        _this.brokerFields.$brokerPaise = _this.$root.find(settings.brokerPaiseSelector);
+        _this.brokerFields.$brokerPaiseAmt = _this.$root.find(settings.brokerPaiseAmtSelector);
+        _this.brokerFields.$brokerCommAmt = _this.$root.find(settings.brokerCommAmtSelector);
+        _this.brokerFields.$brokerTdsPercentage = _this.$root.find(settings.brokerTdsPercentageSelector);
+        _this.brokerFields.$brokerTdsAmt = _this.$root.find(settings.brokerTdsAmtSelector);
+        _this.subBrokerFields.$subBrokerPaise = _this.$root.find(settings.subBrokerPaiseSelector);
+        _this.subBrokerFields.$subBrokerPaiseAmt = _this.$root.find(settings.subBrokerPaiseAmtSelector);
+        _this.subBrokerFields.$subBrokerCommAmt = _this.$root.find(settings.subBrokerCommAmtSelector);
+        _this.subBrokerFields.$subBrokerTdsPercentage = _this.$root.find(settings.subBrokerTdsPercentageSelector);
+        _this.subBrokerFields.$subBrokerTdsAmt = _this.$root.find(settings.subBrokerTdsAmtSelector);
+    }
+
+    _this.initialize = function () {
+        _this.initializeFields();
+    }
 }
 
 page.BulkPurchase.ForexCommandPanel = function (rootSelector, settings) {
@@ -262,10 +285,13 @@ page.BulkPurchase.Events = function (bulkPurchasePage) {
         });
 
         bulkPurchasePage.forex.commandPanel.on("command.add", function () {
-            bulkPurchasePage.forex.commandPanel.setCommandMode(component.CommandPanel.CommandMode.Add);
-            //bulkPurchasePage.commandPanel.setCommandMode(component.CommandPanel.CommandMode.None);
             bulkPurchasePage.forex.form.loadAddView(_settings.forexDetailsSettings.addUrl);
-            bulkPurchasePage.payment.form.enable(true);
+        });
+
+        bulkPurchasePage.forex.form.on("form.add.success", function () {
+            bulkPurchasePage.forex.form.initializeFields();
+            bulkPurchasePage.forex.form.enable(true);
+            bulkPurchasePage.forex.commandPanel.setCommandMode(component.CommandPanel.CommandMode.Add);
         });
 
         bulkPurchasePage.forex.commandPanel.on("command.edit", function () {
@@ -273,6 +299,12 @@ page.BulkPurchase.Events = function (bulkPurchasePage) {
             bulkPurchasePage.commandPanel.setCommandMode(component.CommandPanel.CommandMode.None);
             bulkPurchasePage.forex.form.loadEditView(_settings.forexDetailsSettings.editUrl);
             bulkPurchasePage.payment.form.enable(true);
+        });
+
+        bulkPurchasePage.forex.form.on("form.edit.success", function () {
+            bulkPurchasePage.forex.form.initializeFields();
+            bulkPurchasePage.forex.form.enable(true);
+            bulkPurchasePage.forex.commandPanel.setCommandMode(component.CommandPanel.CommandMode.Add);
         });
 
         bulkPurchasePage.forex.commandPanel.on("command.delete", function () {

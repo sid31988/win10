@@ -41,9 +41,9 @@ namespace Win10WebApp.Controllers
             switch (eventSource)
             {
                 case EventSource.Forex:
-                    return Json(_forexmodel.Find(), JsonRequestBehavior.AllowGet);
+                    return Json(new { data = _forexmodel.Find() }, JsonRequestBehavior.AllowGet);
                 case EventSource.Payment:
-                    return Json(_paymentmodel.Find(), JsonRequestBehavior.AllowGet);
+                    return Json(new { data = _paymentmodel.Find() }, JsonRequestBehavior.AllowGet);
                 default:
                     throw new Exception("Invalid Event Source in Find operation..!!");
             }
@@ -56,9 +56,11 @@ namespace Win10WebApp.Controllers
             switch (eventSource)
             {
                 case EventSource.Forex:
-                    return PartialView("_forexform", _forexmodel.Insert());
+                    _model.BulkPurchaseForex = _forexmodel.Insert();
+                    return PartialView("_forexform", _model);
                 case EventSource.Payment:
-                    return PartialView("_paymentform", _paymentmodel.Insert());
+                    _model.BulkPurchasePayment = _paymentmodel.Insert();
+                    return PartialView("_paymentform", _model);
                 default:
                     throw new Exception("Invalid Event Source in Insert operation..!!");
             }
@@ -71,9 +73,11 @@ namespace Win10WebApp.Controllers
             switch (eventSource)
             {
                 case EventSource.Forex:
-                    return PartialView("_forexform", _forexmodel.Edit(id));
+                    _model.BulkPurchaseForex = _forexmodel.Edit(id);
+                    return PartialView("_forexform", _model);
                 case EventSource.Payment:
-                    return PartialView("_paymentform", _paymentmodel.Edit(id));
+                    _model.BulkPurchasePayment = _paymentmodel.Edit(id);
+                    return PartialView("_paymentform", _model);
                 default:
                     throw new Exception("Invalid Event Source in Edit operation..!!");
             }
