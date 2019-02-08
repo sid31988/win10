@@ -56,9 +56,9 @@ namespace Win10WebApp.Controllers
             switch (eventSource)
             {
                 case EventSource.Forex:
-                    return View(_forexmodel.Insert());
+                    return PartialView(_forexmodel.Insert());
                 case EventSource.Payment:
-                    return View(_paymentmodel.Insert());
+                    return PartialView(_paymentmodel.Insert());
                 default:
                     throw new Exception("Invalid Event Source in Insert operation..!!");
             }
@@ -71,9 +71,9 @@ namespace Win10WebApp.Controllers
             switch (eventSource)
             {
                 case EventSource.Forex:
-                    return View(_forexmodel.Edit(id));
+                    return PartialView(_forexmodel.Edit(id));
                 case EventSource.Payment:
-                    return View(_paymentmodel.Edit(id));
+                    return PartialView(_paymentmodel.Edit(id));
                 default:
                     throw new Exception("Invalid Event Source in Edit operation..!!");
             }           
@@ -87,9 +87,9 @@ namespace Win10WebApp.Controllers
             switch (eventSource)
             {
                 case EventSource.Forex:
-                    return View(_forexmodel.Delete(id));
+                    return PartialView(_forexmodel.Delete(id));
                 case EventSource.Payment:
-                    return View(_paymentmodel.Delete(id));
+                    return PartialView(_paymentmodel.Delete(id));
                 default:
                     throw new Exception("Invalid Event Source in Delete operation..!!");
             }
