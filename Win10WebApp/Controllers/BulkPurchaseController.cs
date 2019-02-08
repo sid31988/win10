@@ -65,7 +65,7 @@ namespace Win10WebApp.Controllers
         }
 
         [Authorize]
-        public ActionResult Edit(string source ,int id)
+        public ActionResult Edit(string source, int id)
         {
             EventSource eventSource = (EventSource)Enum.Parse(typeof(EventSource), source, true);
             switch (eventSource)
@@ -76,20 +76,20 @@ namespace Win10WebApp.Controllers
                     return PartialView("_paymentform", _paymentmodel.Edit(id));
                 default:
                     throw new Exception("Invalid Event Source in Edit operation..!!");
-            }           
+            }
         }
 
 
         [Authorize]
-        public ActionResult Delete(string source, int id)
+        public JsonResult Delete(string source, int id)
         {
             EventSource eventSource = (EventSource)Enum.Parse(typeof(EventSource), source, true);
             switch (eventSource)
             {
                 case EventSource.Forex:
-                    return PartialView(_forexmodel.Delete(id));
+                    return Json(Functions.OutPutResponse(true, "Record deleted successfully", _forexmodel.Delete(id)), JsonRequestBehavior.AllowGet);
                 case EventSource.Payment:
-                    return PartialView(_paymentmodel.Delete(id));
+                    return Json(Functions.OutPutResponse(true, "Record deleted successfully", _paymentmodel.Delete(id)), JsonRequestBehavior.AllowGet);
                 default:
                     throw new Exception("Invalid Event Source in Delete operation..!!");
             }
