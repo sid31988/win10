@@ -36,8 +36,16 @@ component.Base = function (rootSelector, settingsOrFactory) {
         return _events[eventName];
     }
     _this.on = function (eventName, eventListener) {
-        let event = getOrCreateEvent(eventName);
-        event.addEventListener(eventListener);
+        if (typeof eventName === "string") {
+            let event = getOrCreateEvent(eventName);
+            event.addEventListener(eventListener);
+        }
+        else {
+            for (let i = 0; i < eventName.length; i++) {
+                let event = getOrCreateEvent(eventName[i]);
+                event.addEventListener(eventListener);
+            }
+        }
         return this;
     }
     _this.emit = function (eventName, eventArgs) {
@@ -51,7 +59,12 @@ component.Base = function (rootSelector, settingsOrFactory) {
         event.removeEventListener(eventListener);
         return this;
     }
+    let _enable = true;
     _this.enable = function (toggle) {
+        if (toggle === undefined || toggle === null) {
+            return _enable;
+        }
+        _enable = toggle;
         _this.$root.enable(toggle);
     }
 }

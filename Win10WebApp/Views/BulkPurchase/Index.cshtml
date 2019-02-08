@@ -24,11 +24,104 @@
                         @{Html.RenderPartial("~/Views/BulkPurchase/_forexview.cshtml", Model);}
                     </div>
                     <div class="tab-pane fade" id="paymentTab">
-                        @{Html.RenderPartial("~/Views/BulkPurchase/_paymentview.cshtml", Model);}
+                        @*{Html.RenderPartial("~/Views/BulkPurchase/_paymentview.cshtml", Model);}*@
                     </div>
                 </div>
             </div>
         </div>
-
+        <script type="text/javascript">
+            var pageRootSelector = "#@Win10WebApp.Utility.Constants.MODULES["BULKPURCHASE"]";
+            var bulkPurchasePage = new page.BulkPurchase(pageRootSelector, {
+                billingFormSelector: "#bulkpurchaseBillingPanel",
+                billingFormSettings: null,
+                forexDetailsSettings: {
+                    dataTableSelector: pageRootSelector + " #forexTable",
+                    tableSettings: {
+                        commandDisplay: component.DataTable.CommandDisplayTypes.external,
+                        dateFormat: "MM-dd-yyyy",
+                        tableSettings: {
+                            columns: [
+                                { data: "Sr", render: "renderRowNo" },
+                                { data: "Currency" },
+                                { data: "AS" },
+                                { data: "Quantity" },
+                                { data: "Rate" },
+                                { data: "GrossAmt" }
+                            ],
+                            ajax: "@Url.Action("Find")?source=Forex",
+                            select: true
+                        }
+                    },
+                    summaryFormSelector: pageRootSelector + " #forexSummaryForm",
+                    summaryFormSettings: null,
+                    detailsFormSelector: pageRootSelector + " #forexDetailsForm",
+                    detailsFormSettings: {
+                        currencyNameSelector: "#CurrencyName",
+                        currencyNoteSelector: "#CurrencyNote",
+                        quantitySelector: "#Quantity",
+                        rateSelector: "#Rate",
+                        grossAmtSelector: "#GrossAmt",
+                        calculatedGrossSelector: "#CalculatedGross",
+                        brokerFields: {
+                            brokerPaiseSelector: "#BrokerPaise",
+                            brokerPaiseAmtSelector: "#BrokerPaiseAmt",
+                            brokerCommAmtSelector: "#BrokerCommAmt",
+                            brokerTdsPercentageSelector: "#BrokerTDSPercentage",
+                            brokerTdsAmtSelector: "#BrokerTDSAmt"
+                        },
+                        subBrokerFields: {
+                            subBrokerPaiseSelector: "#SubBrokerPaise",
+                            subBrokerPaiseAmtSelector: "#SubBrokerPaiseAmt",
+                            subBrokerCommAmtSelector: "#SubBrokerCommAmt",
+                            subBrokerTdsPercentageSelector: "#SubBrokerTDSPercentage",
+                            subBrokerTdsAmtSelector: "#SubBrokerTDSAmt"
+                        }
+                    },
+                    commandPanelSelector: pageRootSelector + " .forex-command-container",
+                    commandPanelSettings: {
+                        addCommandButtonSelector: "#btnAddAct",
+                        editCommandButtonSelector: "#btnEditAct",
+                        deleteCommandButtonSelector: "#btnDeleteAct",
+                        saveCommandButtonSelector: "#btnSaveAct",
+                        cancelCommandButtonSelector: "#btnCancelAct"
+                    },
+                    addUrl: "@Url.Action("Insert")?source=Forex",
+                    editUrl: "@Url.Action("Edit")?source=Forex&id=[Id]",
+                    deleteUrl: "@Url.Action("Delete")?source=Forex&id=[Id]",
+                    saveUrl: "@Url.Action("ForexSave")?action=[action]"
+                },
+                paymentDetailsSettings: {
+                    dataTableSelector: null,
+                    tableSettings: {},
+                    detailsFormSelector: null,
+                    detailsFormSettings: null,
+                    commandPanelSelector: null,
+                    commandPanelSettings: {
+                        addCommandButtonSelector: null,
+                        editCommandButtonSelector: null,
+                        deleteCommandButtonSelector: null,
+                        saveCommandButtonSelector: null,
+                        cancelCommandButtonSelector: null
+                    },
+                    addUrl: null,
+                    editUrl: null,
+                    deleteUrl: null,
+                    saveUrl: null
+                },
+                commandPanelSelector: null,
+                commandPanelSettings: {
+                    addCommandButtonSelector: null,
+                    editCommandButtonSelector: null,
+                    deleteCommandButtonSelector: null,
+                    saveCommandButtonSelector: null,
+                    cancelCommandButtonSelector: null
+                },
+                addUrl: null,
+                editUrl: null,
+                deleteUrl: null,
+                saveUrl: null
+            });
+            bulkPurchasePage.initialize();
+        </script>
     </div>
 </div>

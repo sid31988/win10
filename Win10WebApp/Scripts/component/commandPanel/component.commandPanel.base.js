@@ -102,7 +102,7 @@ component.CommandPanel = function (rootSelector, settings) {
         _this.setCommandMode(component.CommandPanel.CommandMode.None);
     }
 
-    let toggleViewCommands = function (toggle) {
+    _this.toggleViewCommands = function (toggle) {
         if (toggle) {
             _this.$addCommandButton.show();
             _this.$editCommandButton.show();
@@ -115,13 +115,13 @@ component.CommandPanel = function (rootSelector, settings) {
         }
     }
 
-    let enableViewCommands = function (enable) {
+    _this.enableViewCommands = function (enable) {
         _this.$addCommandButton.enable(enable);
         _this.$editCommandButton.enable(enable);
         _this.$deleteCommandButton.enable(enable);
     }
 
-    let toggleAddEditCommands = function (toggle) {
+    _this.toggleAddEditCommands = function (toggle) {
         if (toggle) {
             _this.$saveCommandButton.show();
             _this.$cancelCommandButton.show();
@@ -132,9 +132,46 @@ component.CommandPanel = function (rootSelector, settings) {
         }
     }
 
-    let enableAddEditCommands = function (enable) {
+    _this.enableAddEditCommands = function (enable) {
         _this.$saveCommandButton.enable(enable);
         _this.$cancelCommandButton.enable(enable);
+    }
+
+    _this.enable = function (enable) {
+        _this.enableViewCommands(enable);
+        _this.enableAddEditCommands(enable);
+    }
+
+    _this.setCommandModeToView = function () {
+        _this.enableViewCommands(true);
+        _this.toggleViewCommands(true);
+        _this.enableAddEditCommands(false);
+        _this.toggleAddEditCommands(false);
+        _this.emit("command.mode.view");
+    }
+
+    _this.setCommandModeToAdd = function () {
+        _this.enableViewCommands(false);
+        _this.toggleViewCommands(true);
+        _this.enableAddEditCommands(true);
+        _this.toggleAddEditCommands(true);
+        _this.emit("command.mode.add");
+    }
+
+    _this.setCommandModeToEdit = function () {
+        _this.enableViewCommands(false);
+        _this.toggleViewCommands(true);
+        _this.enableAddEditCommands(true);
+        _this.toggleAddEditCommands(true);
+        _this.emit("command.mode.edit");
+    }
+
+    _this.setCommandModeToNone = function () {
+        _this.enableViewCommands(false);
+        _this.toggleViewCommands(false);
+        _this.enableAddEditCommands(false);
+        _this.toggleAddEditCommands(false);
+        _this.emit("command.mode.none");
     }
 
     let _commandMode = null;
@@ -142,33 +179,21 @@ component.CommandPanel = function (rootSelector, settings) {
         switch (commandMode) {
             // Show only Add, Edit and Delete buttons
             case component.CommandPanel.CommandMode.View:
-                enableViewCommands(true);
-                toggleViewCommands(true);
-                enableAddEditCommands(false);
-                toggleAddEditCommands(false);
+                _this.setCommandModeToView();
             break;
             // Show Add, Edit and Delete buttons in disabled mode
             // Show Save and Cancel in enabled mode
             case component.CommandPanel.CommandMode.Add:
-                enableViewCommands(false);
-                toggleViewCommands(true);
-                enableAddEditCommands(true);
-                toggleAddEditCommands(true);
+                _this.setCommandModeToAdd();
             break;
             // Show Add, Edit and Delete buttons in disabled mode
             // Show Save and Cancel in enabled mode
             case component.CommandPanel.CommandMode.Edit:
-                enableViewCommands(false);
-                toggleViewCommands(true);
-                enableAddEditCommands(true);
-                toggleAddEditCommands(true);
+                _this.setCommandModeToEdit();
             break;
             // Hide all the command buttons
             case component.CommandPanel.CommandMode.None:
-                enableViewCommands(false);
-                toggleViewCommands(false);
-                enableAddEditCommands(false);
-                toggleAddEditCommands(false);
+                _this.setCommandModeToNone();
             break;
             default:
                 throw "Invalid command mode."

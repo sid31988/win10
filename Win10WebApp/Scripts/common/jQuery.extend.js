@@ -20,7 +20,6 @@ $.fn.ajaxLoad = function (actionUrl, data, onSuccess, onError) {
         _this.html(result);
         if (onSuccess !== undefined) onSuccess(result);
     }, function (xhr, status, ex) {
-        _this.log(ex);
         if (onError !== undefined) onError(xhr, status, ex);
     });
 }

@@ -16,4 +16,9 @@ component.DataTable.CellFormatHelper = function (dataTableComponent) {
         templateHtml = replaceAll(templateHtml, "[key]", row.Id);
         return templateHtml;
     }
+
+    let rowCount = 0;
+    _this.renderSrNo = function (data, type, row, meta) {
+        return ++rowCount;
+    }
 }

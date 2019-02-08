@@ -1,6 +1,6 @@
 ﻿@model Win10WebApp.ViewModels.BulkPurchaseViewModel
 
-<form class="form-add-edit">
+<form class="form-add-edit" id="forexDetailsForm">
     <div class="row">
         <div class="col-md-2">
             <div class="form-group floating-label">
@@ -112,7 +112,7 @@
         <div class="col-md-1">
             <div class="form-group floating-label">
                 <select class="form-control form-control-sm floating-select elementInput" id="SubBrokerPaise" name="SubBrokerPaise" value="@Model.BulkPurchaseForex.SubBrokerPaise" onclick="this.setAttribute('value', this.value);">
-                    <option id="0">Select</option>
+                    <option id="0">Select</option>;2
                     @foreach (var item in Model.ForexPaiseQty)
                     {
                         <option value="@item.Id">@item.Value</option>
@@ -155,13 +155,13 @@
             </div>
         </div>
 
-        <div class="col-md-1">
+        <div class="col-md-1 forex-command-container">
             <div class="form-group">
                 <button type="button" class="btn btn-success btn-sm left-panelbtn editor_save" id="btnSaveAct">Save</button>
             </div>
         </div>
 
-        <div class="col-md-1">
+        <div class="col-md-1 forex-command-container">
             <div class="form-group">
                 <button type="button" class="btn btn-info btn-sm left-panelbtn editor_cancel" id="btnCancelAct">Cancel</button>
             </div>

@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    </head>
+    <body>
+        <form id="formExample">
+                <table id="example">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Position</th>
+                                <th>Office</th>
+                                <th>Extn</th>
+                                <th>Start Date</th>
+                                <th>Salary</th>
+                            </tr>
+                        </thead>
+                    </table>
+        </form>
+        <script type="text/javascript" src="https://datatables.net/media/js/site.js?_=5e8f232afab336abc1a1b65046a73460"></script>
+        <script type="text/javascript">
+            $.fn.serializeJson = function () {
+                var o = {};
+                var a = this.serializeArray();
+                $.each(a, function () {
+                    if (o[this.name]) {
+                        if (!o[this.name].push) {
+                            o[this.name] = [o[this.name]];
+                        }
+                        o[this.name].push(this.value || '');
+                    } else {
+                        o[this.name] = this.value || '';
+                    }
+                });
+                return o;
+            };
+            let columns = [ "hidden-tempid", "name", "position", "office", "extn", "start_date", "salary" ];
+            let dt = $('#example').DataTable({ "columnDefs": [
+                {
+                    "render": function (data, type, row) {
+                        if (type !== "display") return data;
+                        let formFields = "";
+                        let rowCount = dt.data().toArray().length;
+                        for (let i = 0; i < row.length; i++) {
+                            let key = columns[i];
+                            let index = rowCount - 1 || 0;
+                            let _data = row[i] || "";
+                            if (key.startsWith("hidden-")) {
+                                formFields += "<span data-" + key.replace("hidden-", "") + "='" + data + "' style='display: none;'></span>"; 
+                            }
+                            else {
+                                formFields += "<input type='text' style='display: none;' name='forex[" + index + "]." + key + "' value='" + _data + "' />"; 
+                            }
+                        }
+                        let ret = data + formFields
+                        console.log(ret);
+                        return ret;
+                    },
+                    "targets": 0
+                }
+            ] });
+
+            function attachExt(dt, columns) {
+                let _tempId = 0;
+                let json2Arr = function (json) {
+                    let row_data = [];
+                    for(let key in json) {
+                        row_data.push(json[key]);
+                    }
+                    return row_data;
+                }
+                let arr2Json = function (arr, columns) {
+                    let row_data = {};
+                    for(let i = 0; i < arr.length; i++) {
+                        row_data[columns[i]] = arr[i];
+                    }
+                    return row_data;
+                }
+
+                dt.addRow = function(json) {
+                    let _json = { "hidden-tempid": ++_tempId };
+                    for (let key in json) {
+                        _json[key] = json[key];
+                    }
+                    let row_data = json2Arr(_json);
+                    this.row.add(row_data).draw(false);
+                    return _tempId;
+                }
+                dt.getRow = function(tempId) {
+                    let $tr = $("#example span[data-tempid='" + tempId + "']").closest("tr");
+                    return this.row($tr);
+                }
+                dt.getRowData = function(tempId) {
+                    let row = this.getRow(tempId);
+                    let row_data = row.data();
+                    return arr2Json(row_data, columns);
+                }
+                dt.updateRow = function(tempId, json) {
+                    let row = this.getRow(tempId);
+                    let row_data = json2Arr(json);
+                    row.data(row_data).draw(false);
+                }
+                dt.deleteRow = function(tempId) {
+                    let row = this.getRow(tempId);
+                    row.remove().draw(false);
+                }
+            }
+
+            attachExt(dt, columns);
+
+            let _id1  = dt.addRow({ "name": "Siddharth", "position": "SSE", "office": "Travelex India", "extn": "63-6251", "start_date": "21-03-2014", "salary": "10.3" });
+            console.log("New row added");
+            let _id2 = dt.addRow({ "name": "Ankush", "position": "SSE", "office": "Travelex India", "extn": "63-6251", "start_date": "21-03-2014", "salary": "10.3" });
+            console.log("New row added");
+            debugger;
+            let _data1 = dt.getRowData(_id1);
+            _data1.position = "Sr. Analyst 1";
+            dt.updateRow(_id1, _data1);
+            console.log("Row updated");
+            let _data2 = dt.getRowData(_id2);
+            _data2.position = "Sr. Analyst 2";
+            dt.updateRow(_id2, _data2);
+            console.log("Row updated");
+            let _id3 = dt.addRow({ "name": "Ankush", "position": "SSE", "office": "Travelex India", "extn": "63-6251", "start_date": "21-03-2014", "salary": "10.3" });
+            dt.deleteRow(_id2);
+            console.log("Row deleted");
+        </script>
+    </body>
+</html>

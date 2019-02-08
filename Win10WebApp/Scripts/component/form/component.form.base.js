@@ -92,12 +92,20 @@ component.Form = function (rootSelector, settings) {
         });
     }
 
-    _this.postSaveData = function (saveUrl, data, success, error) {
-        let postData = _this.$root.serializeJson();
-        data = data || {};
-        for (var key in postData) {
-            data[key] = postData[key];
+    _this.prepareFormData = function (additionalData) {
+        let wasEnabled = _this.enable();
+        if (wasEnabled === false) _this.enable(true);
+        let formData = _this.$root.serializeJson();
+        if (wasEnabled === false) _this.enable(false);
+        additionalData = additionalData || {};
+        for (var key in formData) {
+            additionalData[key] = formData[key];
         }
+        return additionalData;
+    }
+
+    _this.postSaveData = function (saveUrl, data, success, error) {
+        let postData = _this.prepareFormData(data);
         let _saveUrl = lib.replaceTokens(saveUrl, postData);
         lib.invokeAction(_saveUrl, "POST", postData, function (successData) {
             _this.enable(false);
@@ -115,13 +123,7 @@ component.Form = function (rootSelector, settings) {
     }
 
     _this.deleteRecord = function (deleteUrl, data, success, error) {
-        _this.enable(true);
-        let postData = _this.$root.serializeJson();
-        _this.enable(false);
-        data = data || {};
-        for (var key in postData) {
-            data[key] = postData[key];
-        }
+        let postData = _this.prepareFormData(data);
         let _deleteUrl = lib.replaceTokens(deleteUrl, postData);
         lib.invokeAction(_deleteUrl, "POST", postData, function (successData) {
             _this.emit("form.delete.success");

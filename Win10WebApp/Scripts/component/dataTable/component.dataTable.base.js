@@ -1,5 +1,5 @@
 var component = component || {};
-component.DataTable = function (rootSelector, settingsOrFactory) {
+component.DataTable = function DataTable (rootSelector, settingsOrFactory) {
     component.Base.call(this, rootSelector, settingsOrFactory);
     let _this = this;
     let base = {};
@@ -21,7 +21,7 @@ component.DataTable = function (rootSelector, settingsOrFactory) {
     base.settings = _this.settings;
     _this.settings = function () {
         let settings = base.settings();
-        if (settings === undefined || settings === null) throw "Unable to find settings for " + _this.constructor.name + ".";
+        if (settings === undefined || settings === null) throw "Unable to find settings for " + _this.__proto__.constructor.name + ".";
         settings = lib.getOrDefault(settings, defaultSettings);
         return settings;
     }
