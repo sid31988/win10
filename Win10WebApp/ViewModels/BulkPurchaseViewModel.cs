@@ -12,15 +12,15 @@ namespace Win10WebApp.ViewModels
     {
         private Repository<OtherMaster> _otherRepository = null;
         private Repository<CurrencyMaster> _currencyRepository = null;
-        private Repository<BulkPurchase> _bulkpurchaseRepository = null;
-        private Repository<BulkPurchaseForex> _bulkpurchaseforexRepository = null;
+        //private Repository<BulkPurchase> _bulkpurchaseRepository = null;
+        //private Repository<BulkPurchaseForex> _bulkpurchaseforexRepository = null;
         private MasterQueries _master = null;
         public BulkPurchaseViewModel()
         {
             _otherRepository = new Repository<OtherMaster>();
             _currencyRepository = new Repository<CurrencyMaster>();
-            _bulkpurchaseRepository = new Repository<BulkPurchase>();
-            _bulkpurchaseforexRepository = new Repository<BulkPurchaseForex>();
+            //_bulkpurchaseRepository = new Repository<BulkPurchase>();
+            //_bulkpurchaseforexRepository = new Repository<BulkPurchaseForex>();
             _master = new MasterQueries();
 
         }
