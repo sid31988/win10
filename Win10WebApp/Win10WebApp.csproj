@@ -263,6 +263,7 @@
     <Content Include="Scripts\component\dataTable\component.dataTable.format.js" />
     <Content Include="Scripts\component\form\component.form.base.js" />
     <Content Include="Scripts\component\form\component.form.events.js" />
+    <Content Include="Scripts\page\page.bulkPurchase.js" />
     <Content Include="Scripts\page\page.tcMaster.base.js" />
     <Content Include="Scripts\page\page.tcMaster.encashedDDBalance.js" />
     <Content Include="Scripts\page\page.tcMaster.purchased.js" />
