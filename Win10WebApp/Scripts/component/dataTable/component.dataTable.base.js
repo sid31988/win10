@@ -113,6 +113,10 @@ component.DataTable = function DataTable (rootSelector, settingsOrFactory) {
         }
         _this.selectRow(rowIndexById);
     }
+
+    _this.getSelectedRowData = function () {
+        return _this.dataTable.rows(".selected").data()[0];
+    }
 }
 
 component.DataTable.CommandDisplayTypes = {

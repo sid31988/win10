@@ -8,7 +8,12 @@ component.Base = function (rootSelector, settingsOrFactory) {
     let _events = {};
     let _channels = {};
 
-    _this.$root = $(rootSelector);
+    _this.$root = null;
+    _this.getRootElement = function () {
+        _this.$root = $(rootSelector);
+    }
+
+    _this.getRootElement();
 
     let _settings = null;
     _this.settings = function () {

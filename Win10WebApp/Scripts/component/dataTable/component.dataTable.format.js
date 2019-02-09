@@ -18,7 +18,15 @@ component.DataTable.CellFormatHelper = function (dataTableComponent) {
     }
 
     let rowCount = 0;
-    _this.renderSrNo = function (data, type, row, meta) {
-        return ++rowCount;
+    let rowNos = {};
+    _this.renderRowNo = function (data, type, row, meta) {
+        let rowKey = JSON.stringify(row);
+        rowNos[rowKey] = rowNos[rowKey] || ++rowCount;
+        return rowNos[rowKey];
     }
+
+    dataTableComponent.on("table.draw", function () {
+        rowCount = 0;
+        rowNos = {};
+    });
 }
