@@ -95,3 +95,20 @@
     font-size: 11px;
     color: #5264AE;
 }
+
+#forexTable_wrapper .dataTables_filter, .dataTables_info, .dataTables_length {
+    display: none;
+}
+
+.readonlyInputblue {
+    background-color: #0000FF;
+    font-size: 15px;
+    color: #FCFF33;    
+}
+
+.readonlyInputred {
+    background-color: #FF335B;
+    font-size: 15px;
+    color: #FCFF33;    
+}
+

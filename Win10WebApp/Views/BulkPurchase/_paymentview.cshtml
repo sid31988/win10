@@ -4,7 +4,7 @@
         <div class="panel panel-info">
 
             <div class="panel-body">
-                <div id="paymentMasterRoot" class="row page-root">
+                <div id="paymentMasterRoot" class="row page-root" style="margin-top:10px">
 
                     <!--Form Design-->
                     <div id="paymentform" class="floating-form col-sm-12">
@@ -13,13 +13,10 @@
 
 
                     <!--View Design-->
-                    <div id="divDatatable" class="col-sm-12 grid-control">
+                    <div id="divDatatable" class="col-sm-10 grid-control">
                         @{Html.RenderPartial("~/Views/BulkPurchase/_paymentdatatable.cshtml", Model.BulkPurchasePayment);}
                     </div>
-
-                   
-
-
+                    
                 </div>
             </div>
         </div>

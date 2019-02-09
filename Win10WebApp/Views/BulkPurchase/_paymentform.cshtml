@@ -28,7 +28,7 @@
             </div>
         </div>
 
-        <div class="col-md-2">
+        <div class="col-md-1">
             <div class="form-group floating-label">
                 <input class="form-control floating-input elementInput" id="ChequeNo" name="ChequeNo" value="@Model.BulkPurchasePayment.ChequeNo"
                        type="text" placeholder=" ">
@@ -51,7 +51,7 @@
                 <label>Amount</label>
             </div>
         </div>
-        <div class="col-md-2">
+        <div class="col-md-3">
             <div class="form-group floating-label">
                 <input class="form-control floating-input elementInput" id="Remark" name="Remark" value="@Model.BulkPurchasePayment.Remark"
                        type="text" placeholder=" ">
@@ -59,7 +59,7 @@
                 <label>Remark</label>
             </div>
         </div>
-        <div class="col-md-1">
+        <div class="col-md-2">
             <div class="form-group floating-label">
                 <select class="form-control form-control-sm floating-select elementInput" id="Bank" name="Bank" value="@Model.BulkPurchasePayment.Bank" onclick="this.setAttribute('value', this.value);">
                     <option id="0">Select</option>
@@ -80,6 +80,27 @@
             </div>
         </div>
       
+        <div class="col-md-2">
+            <div class="form-group floating-label">
+                <input class="form-control floating-input readonlyInputblue elementInput" id="NetPayable" name="NetPayable" value="@Model.BulkPurchasePayment.NetPayable" type="text" placeholder=" ">
+                <span class="highlight"></span>
+                <label></label>
+            </div>
+        </div>
+        <div class="col-md-2">
+            <div class="form-group floating-label">
+                <input class="form-control floating-input readonlyInputblue elementInput" id="TotalPendingAmount" name="TotalPendingAmount" value="@Model.BulkPurchasePayment.TotalPendingAmount" type="text" placeholder=" " >
+                <span class="highlight"></span>
+                <label></label>
+            </div>
+        </div>
+        <div class="col-md-2">
+            <div class="form-group floating-label">
+                <input class="form-control floating-input readonlyInputred elementInput" id="BalanceAmount" name="BalanceAmount" value="@Model.BulkPurchasePayment.BalanceAmount" type="text" placeholder=" " >
+                <span class="highlight"></span>
+                <label>Balance</label>
+            </div>
+        </div>
         <div class="col-md-1">
             <div class="form-group">
                 <button type="button" class="btn btn-success btn-sm left-panelbtn editor_save" id="btnSaveAct">Save</button>

@@ -20,9 +20,9 @@ namespace Win10WebApp.Models
         public string Remark { get; set; }
         public int? Bank { get; set; }
         public DateTime? Date { get; set; }
-        public double? GrossAmt { get; set; }
-        public double? TotalAmt { get; set; }
-        public double? Balance { get; set; }
+        public double? NetPayable { get; set; }
+        public double? TotalPendingAmount { get; set; }
+        public double? BalanceAmount { get; set; }
         public DateTime? CreatedDate { get; set; }
         public DateTime? UpdatedDate { get; set; }
         public bool IsDeleted { get; set; }
