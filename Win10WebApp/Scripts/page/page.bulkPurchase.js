@@ -604,6 +604,7 @@ page.BulkPurchase.Events = function BulkPurchaseEvents (bulkPurchasePage) {
             forexAction = "Edit";
             bulkPurchasePage.forex.form.initializeFields();
             bulkPurchasePage.forex.form.enable(true);
+            bulkPurchasePage.setBrokerFields();
             // Since the Save and Cancel buttons are part of the form, we will need to re-fetch the controls,
             // so as to maintian uniformity in command events. We are also setting the command mode.
             bulkPurchasePage.forex.commandPanel.initializeCommandButtons();
