@@ -28,68 +28,53 @@ component.CommandPanel = function (rootSelector, settings) {
     }
 
     let getAddCommandButton = function () {
-        if (settings.addCommandButtonSelector === null) {
-            throw "Missing add command button selector";
-        }
-        else {
+        if (settings.addCommandButtonSelector || null !== null) {
             var $el = _this.$root.find(settings.addCommandButtonSelector);
-            if ($el.length === 0) {
-                throw "Unable to find element '" + settings.addCommandButtonSelector + "'"
+            if ($el.length > 0) {
+                return $el;
             }
-            return $el;
         }
+        return $("<button></button>");
     }
 
     let getEditCommandButton = function () {
-        if  (settings.editCommandButtonSelector === null) {
-            throw "Missing edit command button selector";
-        }
-        else {
+        if  (settings.editCommandButtonSelector || null !== null) {
             var $el = _this.$root.find(settings.editCommandButtonSelector);
-            if ($el.length === 0) {
-                throw "Unable to find element '" + settings.editCommandButtonSelector + "'"
+            if ($el.length > 0) {
+                return $el;
             }
-            return $el;
         }
+        return $("<button></button>");
     }
 
     let getDeleteCommandButton = function () {
-        if (settings.deleteCommandButtonSelector == null) {
-            throw "Missing delete command button selector";
-        }
-        else {
+        if (settings.deleteCommandButtonSelector || null !== null) {
             var $el = _this.$root.find(settings.deleteCommandButtonSelector);
-            if ($el.length === 0) {
-                throw "Unable to find element '" + settings.deleteCommandButtonSelector + "'"
+            if ($el.length > 0) {
+                return $el;
             }
-            return $el;
         }
+        return $("<button></button>");
     }
 
     let getSaveCommandButton = function () {
-        if (settings.saveCommandButtonSelector == null) {
-            throw "Missing save command button selector";
-        }
-        else {
+        if (settings.saveCommandButtonSelector || null !== null) {
             var $el = _this.$root.find(settings.saveCommandButtonSelector);
-            if ($el.length === 0) {
-                throw "Unable to find element '" + settings.saveCommandButtonSelector + "'"
+            if ($el.length > 0) {
+                return $el;
             }
-            return $el;
         }
+        return $("<button></button>");
     }
 
     let getCancelCommandButton = function () {
-        if (settings.cancelCommandButtonSelector == null) {
-            throw "Missing cancel command button selector";
-        }
-        else {
+        if (settings.cancelCommandButtonSelector || null !== null) {
             var $el = _this.$root.find(settings.cancelCommandButtonSelector);
-            if ($el.length === 0) {
-                throw "Unable to find element '" + settings.cancelCommandButtonSelector + "'"
+            if ($el.length > 0) {
+                return $el;
             }
-            return $el;
         }
+        return $("<button></button>");
     }
 
     _this.initializeCommandButtons = function () {
@@ -145,6 +130,10 @@ component.CommandPanel = function (rootSelector, settings) {
     _this.enable = function (enable) {
         _this.enableViewCommands(enable);
         _this.enableAddEditCommands(enable);
+    }
+
+    _this.enableRoot = function (enable) {
+        _this.$root.enable(enable, false);
     }
 
     _this.setCommandModeToView = function () {

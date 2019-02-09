@@ -24,10 +24,11 @@ $.fn.ajaxLoad = function (actionUrl, data, onSuccess, onError) {
     });
 }
 
-$.fn.enable = function (toggle) {
+$.fn.enable = function (toggle, recursive) {
+    recursive = recursive === undefined || recursive === null ? true : recursive;
     if (toggle) {
         this.removeAttr("disabled");
-        this.find("*").removeAttr("disabled");
+        if (recursive) this.find("*").removeAttr("disabled");
     }
     else {
         this.attr("disabled", "disabled");

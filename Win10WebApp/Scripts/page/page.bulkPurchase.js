@@ -1,13 +1,144 @@
-var page = page || {};
-page.BulkPurchase = function (rootSelector, settings) {
-    component.Base.call(this, rootSelector, settings);
+//#region Type Definitions
+/**
+ * A json configuration object to hold Billing Form's element selectors and other settings
+ * @typedef {Object} BillingFormSettings
+ * @property {string} ffmcSelector - Selector pointing to the ffmc field
+ * @property {string} deliveredInSelector - Selector pointing to the deliveredin field
+ * @property {string} brokerSelector - Selector pointing to the broker field
+ * @property {string} dateSelector - Selector pointing to the date field
+ * @property {string} quotaSelector - Selector pointing to the quota field
+ * @property {string} remarkSelector - Selector pointing to the remark field
+ * @property {string} subBrokerSelector - Selector pointing to the subbroker field
+ * @property {string} costCentreSelector - Selector pointing to the costcentre field
+ */
+/**
+ * A json configuration object to hold Forex Tab's element selectors and other settings
+ * @typedef {Object} ForexDetailsSettings
+ * @property {string} dataTableSelector - Selector pointing to the forex datatable element
+ * @property {Object} tableSettings - Settings for initializing the jQuery DataTable control
+ * @property {string} summaryFormSelector - Selector pointing to the forex summary form
+ * @property {Object} summaryFormSettings - Settings related to the forex summary form
+ * @property {string} detailsFormSelector - Selector pointing to the forex details form
+ * @property {ForexDetailsFormSettings} detailsFormSettings - Settings related to the forex details form
+ * @property {string} commandPanelSelector - Selector pointing to the forex command panel container
+ * @property {CommandPanelSettings} commandPanelSettings - Settings related to the forex command panel component
+ * @property {string} addUrl - The add ajax url
+ * @property {string} editUrl - The edit ajax url
+ * @property {string} deleteUrl - The delete ajax url
+ * @property {string} saveUrl - The save ajax url
+ */
+/**
+ * A json configuration object to hold Payment Tab's element selectors and other settings
+ * @typedef {Object} PaymentDetailsSettings
+ * @property {string} dataTableSelector - Selector pointing to the payment datatable element
+ * @property {Object} tableSettings - Settings for initializing the jQuery DataTable control
+ * @property {string} summaryFormSelector - Selector pointing to the payment summary form
+ * @property {string} detailsFormSelector - Selector pointing to the payment details form
+ * @property {Object} detailsFormSettings - Settings related to the payment details form
+ * @property {string} commandPanelSelector - Selector pointing to the payment command panel container
+ * @property {CommandPanelSettings} commandPanelSettings - Settings related to the payment command panel component
+ * @property {string} addUrl - The add ajax url
+ * @property {string} editUrl - The edit ajax url
+ * @property {string} deleteUrl - The delete ajax url
+ * @property {string} saveUrl - The save ajax url
+ */
+/**
+ * A json configuration object to hold Command panel's element selectors and other settings
+ * @typedef {Object} CommandPanelSettings
+ * @property {string} addCommandButtonSelector - Selector pointing to the Add command button
+ * @property {string} editCommandButtonSelector - Selector pointing to the Edit command button
+ * @property {string} deleteCommandButtonSelector - Selector pointing to the Delete command button
+ * @property {string} saveCommandButtonSelector - Selector pointing to the Save command button
+ * @property {string} cancelCommandButtonSelector - Selector pointing to the Cancel command button
+ */
+/**
+ * A json configuration object to hold Forex Details Form's element selectors and other settings
+ * @typedef {Object} ForexDetailsFormSettings
+ * @property {string} currencyNameSelector - Selector pointing to the CurrencyName field
+ * @property {string} currencyNoteSelector - Selector pointing to the CurrencyNote field
+ * @property {string} quantitySelector - Selector pointing to the Quantity field
+ * @property {string} rateSelector - Selector pointing to the Rate field
+ * @property {string} grossAmtSelector - Selector pointing to the GrossAmt field
+ * @property {string} calculatedGrossSelector - Selector pointing to the CalculaatedGross field
+ * @property {ForexDetailsBrokerFieldsGroup} brokerFields - A grouping for holding selector references of all the broker fields
+ * @property {ForexDetailsSubBrokerFieldsGroup} subBrokerFields - A grouping for holding selector references of all the subbroker fields
+ */
+/**
+ * A json configuration object to hold the Forex Broker Fields' selector
+ * @typedef {Object} ForexDetailsBrokerFieldsGroup
+ * @property {string} brokerPaiseSelector - Selector pointing to the BrokerPaise field
+ * @property {string} brokerPaiseAmtSelector - Selector pointing to the BrokerPaiseAmt field
+ * @property {string} brokerCommAmtSelector - Selector pointing to the BrokerCommAmt field
+ * @property {string} brokerTdsPercentageSelector - Selector pointing to the BrokerTdsPercentage field
+ * @property {string} brokerTdsAmtSelector - Selector pointing to the BrokerTdsAmt field
+ */
+/**
+ * A json configuration object to hold the Forex Broker Fields' selector
+ * @typedef {Object} ForexDetailsSubBrokerFieldsGroup
+ * @property {string} subBrokerPaiseSelector - Selector pointing to the SubBrokerPaise field
+ * @property {string} subBrokerPaiseAmtSelector - Selector pointing to the SubBrokerPaiseAmt field
+ * @property {string} subBrokerCommAmtSelector - Selector pointing to the SubBrokerCommAmt field
+ * @property {string} subBrokerTdsPercentageSelector - Selector pointing to the SubBrokerTdsPercentage field
+ * @property {string} subBrokerTdsAmtSelector - Selector pointing to the SubBrokerTdsAmt field
+ */
+ /**
+ * The page level settings used to instantiate the BulkPurchasePage object.
+ * @typedef {Object} BulkPurchaseSettings
+ * @property {string} billingFormSelector - Selector pointing to the billing form element
+ * @property {BillingFormSettings} billingFormSettings - Settings related to the billing form component
+ * @property {ForexDetailsSettings} forexDetailsSettings - Settings related to the forex form component
+ * @property {PaymentDetailsSettings} paymentDetailsSettings - Settings related to the payment form component
+ * @property {CommandPanelSettings} commandPanelSettings - Settings related to the main command panel component
+ * @property {string} addUrl - The add ajax url
+ * @property {string} editUrl - The edit ajax url
+ * @property {string} deleteUrl - The delete ajax url
+ * @property {string} saveUrl - The save ajax url
+ */
+//#endregion
 
+/**
+ * The 'page' namespace
+ */
+var page = page || {};
+/**
+ * A prototype to represent the BulkPurchase page ui.
+ * @extends {component.page}
+ * @type BulkPurchasePage
+ */
+page.BulkPurchase = function BulkPurchasePage (rootSelector, settings) {
+    component.Page.call(this, rootSelector, settings);
+
+    /**
+     * A closure variable to hold reference for the execution context of instance
+     * @type page.BulkPurchase
+     */
     let _this = this;
+
+    /**
+     * A closure variable to imitate the super class mechanism, so as to hold older functionality,
+     * before overriding the method
+     * @type component.Page
+     */
     let base = {};
 
+    //#region "Settings: The default settings provision."
+    /**
+     * The default settings used to override the null settings injected via constructor function
+     * @type BulkPurchaseSettings
+     */
     let defaultSettings = {
         billingFormSelector: null,
-        billingFormSettings: null,
+        billingFormSettings: {
+            ffmcSelector: null,
+            deliveredInSelector: null,
+            brokerSelector: null,
+            dateSelector: null,
+            quotaSelector: null,
+            remarkSelector: null,
+            referenceSelector: null,
+            subBrokerSelector: null,
+            costCentreSelector: null
+        },
         forexDetailsSettings: {
             dataTableSelector: null,
             tableSettings: null,
@@ -90,7 +221,9 @@ page.BulkPurchase = function (rootSelector, settings) {
         }
         return _settings;
     }
+    //#endregion
 
+    //#region "Page components"
     _this.billingForm = null;
     _this.forex = {
         dataTable: null,
@@ -105,10 +238,15 @@ page.BulkPurchase = function (rootSelector, settings) {
     }
     _this.commandPanel = null;
     _this.eventHandlers = null;
+    //#endregion
 
-    _this.initialize = function () {
+    /**
+     * Initializes all the internal components of the Bulk Purchase Page.
+     * @returns void
+     */
+    _this.initialize = function initialize () {
         let settings = _this.settings();
-        _this.billingForm = new component.Form(settings.billingFormSelector, settings.billingFormSettings);
+        _this.billingForm = new page.BulkPurchase.BillingForm(settings.billingFormSelector, settings.billingFormSettings);
         _this.forex.dataTable = new component.DataTable(settings.forexDetailsSettings.dataTableSelector, settings.forexDetailsSettings.tableSettings);
         _this.forex.form = new page.BulkPurchase.ForexDetailsForm(settings.forexDetailsSettings.detailsFormSelector, settings.forexDetailsSettings.detailsFormSettings);
         _this.forex.summaryForm = new component.Form(settings.forexDetailsSettings.summaryFormSelector, settings.forexDetailsSettings.summaryFormSettings);
@@ -116,10 +254,11 @@ page.BulkPurchase = function (rootSelector, settings) {
         _this.payment.dataTable = new component.DataTable(settings.paymentDetailsSettings.dataTableSelector, settings.paymentDetailsSettings.tableSettings);
         _this.payment.form = new component.Form(settings.paymentDetailsSettings.detailsFormSelector, settings.paymentDetailsSettings.detailsFormSettings);
         _this.payment.commandPanel = new page.BulkPurchase.PaymentCommandPanel(settings.paymentDetailsSettings.commandPanelSelector, settings.paymentDetailsSettings.commandPanelSettings);
-        _this.commandPanel = new component.CommandPanel(settings.commandPanelSelector, settings.commandPanelSettings);
+        _this.commandPanel = new page.BulkPurchase.MainCommandPanel(settings.commandPanelSelector, settings.commandPanelSettings);
         _this.eventHandlers = new page.BulkPurchase.Events(_this);
         _this.eventHandlers.initialize();
 
+        _this.billingForm.initialize();
         _this.forex.dataTable.initialize();
         _this.forex.form.initialize();
         _this.forex.summaryForm.initialize();
@@ -127,11 +266,80 @@ page.BulkPurchase = function (rootSelector, settings) {
         _this.payment.dataTable.initialize();
         _this.payment.form.initialize();
         _this.payment.commandPanel.initialize();
-        //_this.commandPanel.initialize();
+        _this.commandPanel.initialize();
+        _this.commandPanel.setCommandMode(component.CommandPanel.CommandMode.View);
 
-        //Todo: Remove below code once the outer command buttons are available
-        bulkPurchasePage.forex.commandPanel.setCommandMode(component.CommandPanel.CommandMode.View);
-        bulkPurchasePage.payment.commandPanel.setCommandMode(component.CommandPanel.CommandMode.View);
+        // Disable the main forms and the inner forms i.e. forex and payment
+        _this.enableForms(false, false);
+    }
+
+    /**
+     * Toggles the accessibility of the both the main forms (outer panel) and inner forms (forex and payment)
+     * @param enableInner {boolean} true to enable the inner forms and false to disable the inner forms
+     * @param enableMain {boolean} true to enable the main forms and false to disable the main forms
+     * @returns void
+     */
+    _this.enableForms = function enableForms (enableInner, enableMain) {
+        enableInner = enableInner || false;
+        enableMain = enableMain || false;
+        _this.billingForm.enable(enableMain);
+        _this.forex.form.enable(enableInner);
+        _this.forex.summaryForm.enable(enableMain);
+        _this.payment.form.enable(enableInner);
+    }
+
+    _this.setBrokerFields = function () {
+        _this.forex.form.brokerFields.enable(_this.billingForm.getBrokerValue() !== null);
+        _this.forex.form.subBrokerFields.enable(_this.billingForm.getSubBrokerValue() !== null);
+    }
+}
+
+//#region Custom Forms and Panels
+page.BulkPurchase.BillingForm = function (rootSelector, settings) {
+    component.Form.call(this, rootSelector, settings);
+
+    let _this = this;
+    _this.$ffmc = null;
+    _this.$deliveredIn = null;
+    _this.$broker = null;
+    _this.$date = null;
+    _this.$quota = null;
+    _this.$remark = null;
+    _this.$reference = null;
+    _this.$subBroker = null;
+    _this.$costCentre = null;
+
+    _this.initialize = function () {
+        let _settings = _this.settings();
+        _this.$ffmc = _this.$root.find(_settings.ffmcSelector);
+        _this.$deliveredIn = _this.$root.find(_settings.deliveredInSelector);
+        _this.$broker = _this.$root.find(_settings.brokerSelector);
+        _this.$date = _this.$root.find(_settings.dateSelector);
+        _this.$quota = _this.$root.find(_settings.quotaSelector);
+        _this.$remark = _this.$root.find(_settings.remarkSelector);
+        _this.$reference = _this.$root.find(_settings.referenceSelector);
+        _this.$subBroker = _this.$root.find(_settings.subBrokerSelector);
+        _this.$costCentre = _this.$root.find(_settings.costCentreSelector);
+        _this.initializeEvents();
+    }
+
+    _this.initializeEvents = function () {
+        _this.$broker.off("change").on("change", function () {
+            _this.emit("billingform.broker.change", _this.getBrokerValue());
+        });
+        _this.$subBroker.off("change").on("change", function () {
+            _this.emit("billingform.subbroker.change", _this.getSubBrokerValue());
+        });
+    }
+
+    _this.getBrokerValue = function () {
+        let broker = _this.$broker[0];
+        return broker && broker.value.toLowerCase() != "select" || null;
+    }
+
+    _this.getSubBrokerValue = function () {
+        let subBroker = _this.$subBroker[0];
+        return subBroker && subBroker.value.toLowerCase() != "select" || null;
     }
 }
 
@@ -181,20 +389,41 @@ page.BulkPurchase.ForexDetailsForm = function (rootSelector, settings) {
         _this.$rate = _this.$root.find(settings.rateSelector);
         _this.$grossAmt = _this.$root.find(settings.grossAmtSelector);
         _this.$calculatedGross = _this.$root.find(settings.calculatedGrossSelector);
-        _this.brokerFields.$brokerPaise = _this.$root.find(settings.brokerPaiseSelector);
-        _this.brokerFields.$brokerPaiseAmt = _this.$root.find(settings.brokerPaiseAmtSelector);
-        _this.brokerFields.$brokerCommAmt = _this.$root.find(settings.brokerCommAmtSelector);
-        _this.brokerFields.$brokerTdsPercentage = _this.$root.find(settings.brokerTdsPercentageSelector);
-        _this.brokerFields.$brokerTdsAmt = _this.$root.find(settings.brokerTdsAmtSelector);
-        _this.subBrokerFields.$subBrokerPaise = _this.$root.find(settings.subBrokerPaiseSelector);
-        _this.subBrokerFields.$subBrokerPaiseAmt = _this.$root.find(settings.subBrokerPaiseAmtSelector);
-        _this.subBrokerFields.$subBrokerCommAmt = _this.$root.find(settings.subBrokerCommAmtSelector);
-        _this.subBrokerFields.$subBrokerTdsPercentage = _this.$root.find(settings.subBrokerTdsPercentageSelector);
-        _this.subBrokerFields.$subBrokerTdsAmt = _this.$root.find(settings.subBrokerTdsAmtSelector);
+        _this.brokerFields.$brokerPaise = _this.$root.find(settings.brokerFields.brokerPaiseSelector);
+        _this.brokerFields.$brokerPaiseAmt = _this.$root.find(settings.brokerFields.brokerPaiseAmtSelector);
+        _this.brokerFields.$brokerCommAmt = _this.$root.find(settings.brokerFields.brokerCommAmtSelector);
+        _this.brokerFields.$brokerTdsPercentage = _this.$root.find(settings.brokerFields.brokerTdsPercentageSelector);
+        _this.brokerFields.$brokerTdsAmt = _this.$root.find(settings.brokerFields.brokerTdsAmtSelector);
+        _this.subBrokerFields.$subBrokerPaise = _this.$root.find(settings.subBrokerFields.subBrokerPaiseSelector);
+        _this.subBrokerFields.$subBrokerPaiseAmt = _this.$root.find(settings.subBrokerFields.subBrokerPaiseAmtSelector);
+        _this.subBrokerFields.$subBrokerCommAmt = _this.$root.find(settings.subBrokerFields.subBrokerCommAmtSelector);
+        _this.subBrokerFields.$subBrokerTdsPercentage = _this.$root.find(settings.subBrokerFields.subBrokerTdsPercentageSelector);
+        _this.subBrokerFields.$subBrokerTdsAmt = _this.$root.find(settings.subBrokerFields.subBrokerTdsAmtSelector);
     }
 
     _this.initialize = function () {
         _this.initializeFields();
+    }
+}
+
+page.BulkPurchase.MainCommandPanel = function (rootSelector, settings) {
+    component.CommandPanel.call(this, rootSelector, settings);
+    let _this = this;
+
+    _this.setCommandModeToView = function () {
+        _this.enableViewCommands(true);
+        _this.toggleViewCommands(true);
+        _this.enableAddEditCommands(false);
+        _this.toggleAddEditCommands(true);
+        _this.emit("command.mode.view");
+    }
+
+    _this.setCommandModeToNone = function () {
+        _this.enableViewCommands(false);
+        _this.toggleViewCommands(true);
+        _this.enableAddEditCommands(false);
+        _this.toggleAddEditCommands(true);
+        _this.emit("command.mode.none");
     }
 }
 
@@ -239,44 +468,93 @@ page.BulkPurchase.PaymentCommandPanel = function (rootSelector, settings) {
         _this.emit("command.mode.none");
     }
 }
+//#endregion
 
-page.BulkPurchase.Events = function (bulkPurchasePage) {
+/**
+ * A prototype for event handling mechanism for the BulkPurchase Page
+ * @param bulkPurchasePage {page.BulkPurchase} The page instance
+ */
+page.BulkPurchase.Events = function BulkPurchaseEvents (bulkPurchasePage) {
+
+    /**
+     * A closure variable to hold reference for the execution context of instance
+     * @type page.BulkPurchase.Events
+     */
     let _this = this;
 
-    _this.initializePageEvents = function (settings) {
+    /**
+     * Initializes the page level event mechanism
+     * @param settings {Object} The page settings
+     */
+    this.initializePageEvents = function initializePageEvents(settings) {
+        // On change event of the broker dropdown from billing form.
+        bulkPurchasePage.billingForm.on("billingform.broker.change", function (selectedValue) {
+            if (bulkPurchasePage.forex.commandPanel.isAddMode() || bulkPurchasePage.forex.commandPanel.isEditMode()) {
+                bulkPurchasePage.forex.form.brokerFields.enable(selectedValue !== null);
+            }
+        });
+
+        // On change event of the sub-broker dropdown from billing form
+        bulkPurchasePage.billingForm.on("billingform.subbroker.change", function (selectedValue) {
+            if (bulkPurchasePage.forex.commandPanel.isAddMode() || bulkPurchasePage.forex.commandPanel.isEditMode()) {
+                bulkPurchasePage.forex.form.subBrokerFields.enable(selectedValue !== null);
+            }
+        });
+
+        // On main add click
         bulkPurchasePage.commandPanel.on("command.add", function () {
+            // Toggle command button appearance
             bulkPurchasePage.commandPanel.setCommandMode(component.CommandPanel.CommandMode.Add);
             bulkPurchasePage.forex.commandPanel.setCommandMode(component.CommandPanel.CommandMode.View);
             bulkPurchasePage.payment.commandPanel.setCommandMode(component.CommandPanel.CommandMode.View);
+
+            // Enable the main forms and disable the inner forms i.e. forex and payment
+            bulkPurchasePage.enableForms(false, true);
         });
 
+        // On main edit click
         bulkPurchasePage.commandPanel.on("command.edit", function () {
+            // Toggle command button appearance
             bulkPurchasePage.commandPanel.setCommandMode(component.CommandPanel.CommandMode.Edit);
             bulkPurchasePage.forex.commandPanel.setCommandMode(component.CommandPanel.CommandMode.View);
             bulkPurchasePage.payment.commandPanel.setCommandMode(component.CommandPanel.CommandMode.View);
+
+            // Enable the main forms and disable the inner forms i.e. forex and payment
+            bulkPurchasePage.enableForms(false, true);
         });
 
+        // On main delete click
         bulkPurchasePage.commandPanel.on("command.delete", function () {
         });
 
+        // On main save click
         bulkPurchasePage.commandPanel.on("command.save", function () {
             let summaryFormData = bulkPurchasePage.forex.summaryForm.serializeJson();
             bulkPurchasePage.billingForm.postSaveData(bulkPurchasePage.saveUrl, summaryFormData);
         });
 
+        // On main cancel click
         bulkPurchasePage.commandPanel.on("command.cancel", function () {
             bulkPurchasePage.billingForm.cancelSave();
             bulkPurchasePage.forex.summaryForm.cancelSave();
         });
 
+        // On form successful save and cancel
         bulkPurchasePage.billingForm.on(["form.save.success", "form.cancel"], function () {
             bulkPurchasePage.commandPanel.setCommandMode(component.CommandPanel.CommandMode.View);
             bulkPurchasePage.forex.commandPanel.setCommandMode(component.CommandPanel.CommandMode.None);
             bulkPurchasePage.payment.commandPanel.setCommandMode(component.CommandPanel.CommandMode.None);
+
+            // Disable the main forms and the inner forms i.e. forex and payment
+            bulkPurchasePage.enableForms(false, false);
         });
     }
 
-    _this.initializeForexEvents = function (settings) {
+    /**
+     * Initializes the forex tab level event mechanism
+     * @param settings {Object} The page settings
+     */
+    this.initializeForexEvents = function initializeForexEvents(settings) {
         bulkPurchasePage.forex.commandPanel.on("command.mode.none", function () {
             bulkPurchasePage.forex.form.enable(false);
         });
@@ -308,8 +586,11 @@ page.BulkPurchase.Events = function (bulkPurchasePage) {
             forexAction = "Add";
             bulkPurchasePage.forex.form.initializeFields();
             bulkPurchasePage.forex.form.enable(true);
+            bulkPurchasePage.setBrokerFields();
             bulkPurchasePage.forex.commandPanel.initializeCommandButtons();
             bulkPurchasePage.forex.commandPanel.setCommandMode(component.CommandPanel.CommandMode.Add);
+
+            bulkPurchasePage.commandPanel.enableRoot(false);
         });
 
         // On Forex edit click, get edit form from ajax
@@ -327,6 +608,8 @@ page.BulkPurchase.Events = function (bulkPurchasePage) {
             // so as to maintian uniformity in command events. We are also setting the command mode.
             bulkPurchasePage.forex.commandPanel.initializeCommandButtons();
             bulkPurchasePage.forex.commandPanel.setCommandMode(component.CommandPanel.CommandMode.Edit);
+
+            bulkPurchasePage.commandPanel.enableRoot(false);
         });
 
         // On Forex delete click, delete record via ajax call
@@ -366,6 +649,13 @@ page.BulkPurchase.Events = function (bulkPurchasePage) {
             bulkPurchasePage.forex.dataTable.reloadTable();
             bulkPurchasePage.forex.form.enable(false);
             bulkPurchasePage.forex.commandPanel.setCommandMode(component.CommandPanel.CommandMode.View);
+            if (bulkPurchasePage.commandPanel.isAddMode()) {
+                bulkPurchasePage.commandPanel.setCommandMode(component.CommandPanel.CommandMode.Add);
+            }
+            else if (bulkPurchasePage.commandPanel.isEditMode()) {
+                bulkPurchasePage.commandPanel.setCommandMode(component.CommandPanel.CommandMode.Edit);
+            }
+            bulkPurchasePage.commandPanel.enableRoot(true);
             forexAction = null;
 
             // The below code will execute only once, after a data has been successfully saved
@@ -386,11 +676,22 @@ page.BulkPurchase.Events = function (bulkPurchasePage) {
         bulkPurchasePage.forex.form.on("form.cancel", function () {
             bulkPurchasePage.forex.dataTable.reloadTable();
             bulkPurchasePage.forex.commandPanel.setCommandMode(component.CommandPanel.CommandMode.View);
+            if (bulkPurchasePage.commandPanel.isAddMode()) {
+                bulkPurchasePage.commandPanel.setCommandMode(component.CommandPanel.CommandMode.Add);
+            }
+            else if (bulkPurchasePage.commandPanel.isEditMode()) {
+                bulkPurchasePage.commandPanel.setCommandMode(component.CommandPanel.CommandMode.Edit);
+            }
+            bulkPurchasePage.commandPanel.enableRoot(true);
             forexAction = null;
         });
     }
 
-    _this.initializePaymentEvents = function (settings) {
+    /**
+     * Initializes the payment tab level event mechanism
+     * @param settings {Object} The page settings
+     */
+    this.initializePaymentEvents = function initializePaymentEvents(settings) {
         bulkPurchasePage.payment.commandPanel.on("command.mode.none", function () {
             bulkPurchasePage.payment.form.enable(false);
         });
@@ -428,6 +729,8 @@ page.BulkPurchase.Events = function (bulkPurchasePage) {
             bulkPurchasePage.payment.form.enable(true);
             bulkPurchasePage.payment.commandPanel.initializeCommandButtons();
             bulkPurchasePage.payment.commandPanel.setCommandMode(component.CommandPanel.CommandMode.Add);
+
+            bulkPurchasePage.commandPanel.enableRoot(false);
         });
 
         // On Payment edit click, get edit form from ajax
@@ -439,12 +742,13 @@ page.BulkPurchase.Events = function (bulkPurchasePage) {
         // On Payment form set to Edit mode
         bulkPurchasePage.payment.form.on("form.edit.success", function () {
             paymentAction = "Edit";
-            bulkPurchasePage.payment.form.initializeFields();
             bulkPurchasePage.payment.form.enable(true);
             // Since the Save and Cancel buttons are part of the form, we will need to re-fetch the controls,
             // so as to maintian uniformity in command events. We are also setting the command mode.
             bulkPurchasePage.payment.commandPanel.initializeCommandButtons();
             bulkPurchasePage.payment.commandPanel.setCommandMode(component.CommandPanel.CommandMode.Edit);
+
+            bulkPurchasePage.commandPanel.enableRoot(false);
         });
 
         // On Payment delete click, delete record via ajax call
@@ -484,6 +788,7 @@ page.BulkPurchase.Events = function (bulkPurchasePage) {
             bulkPurchasePage.payment.dataTable.reloadTable();
             bulkPurchasePage.payment.form.enable(false);
             bulkPurchasePage.payment.commandPanel.setCommandMode(component.CommandPanel.CommandMode.View);
+            bulkPurchasePage.commandPanel.enableRoot(true);
             paymentAction = null;
 
             // The below code will execute only once, after a data has been successfully saved
@@ -504,11 +809,16 @@ page.BulkPurchase.Events = function (bulkPurchasePage) {
         bulkPurchasePage.payment.form.on("form.cancel", function () {
             bulkPurchasePage.payment.dataTable.reloadTable();
             bulkPurchasePage.payment.commandPanel.setCommandMode(component.CommandPanel.CommandMode.View);
+            bulkPurchasePage.commandPanel.enableRoot(true);
             paymentAction = null;
         });
     }
 
-    _this.initialize = function () {
+    /**
+     * Initializes the internal components
+     * @returns void
+     */
+    this.initialize = function initialize() {
         let _settings = bulkPurchasePage.settings();
         _this.initializePageEvents(_settings);
         _this.initializeForexEvents(_settings);
