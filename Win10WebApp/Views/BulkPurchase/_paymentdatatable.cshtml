@@ -1,29 +1,40 @@
 ﻿@model Win10WebApp.Models.BulkPurchasePayment
 
-<table class="table display dataTable compact" id="paymentTable">
-    <thead>
-        <tr>
-            <th>
-                Sr
-            </th>
-            <th>
-                Cash/Bank A/c
-            </th>
-            <th>
-                Rcpt/Payment
-            </th>
-            <th>
-                Cheque #
-            </th>
-            <th>
-                Cheque Date
-            </th>
-            <th>
-                Amount
-            </th>
-            <th>
-                Remark
-            </th>
-        </tr>
-    </thead>
-</table>
+<div class="row">
+    <div class="col-sm-10">
+        <table class="table display dataTable compact" id="paymentTable">
+            <thead>
+                <tr>
+                    <th>
+                        Sr
+                    </th>
+                    <th>
+                        Cash/Bank A/c
+                    </th>
+                    <th>
+                        Rcpt/Payment
+                    </th>
+                    <th>
+                        Cheque #
+                    </th>
+                    <th>
+                        Cheque Date
+                    </th>
+                    <th>
+                        Amount
+                    </th>
+                    <th>
+                        Remark
+                    </th>
+                </tr>
+            </thead>
+        </table>
+    </div>
+    <div class="command-panel col-sm-1">
+        <div class="form-action forex-command-container">
+            <button type="button" class="btn btn-primary btn-sm left-panelbtn editor_add" id="btnAddAct">Add</button>
+            <button type="button" class="btn btn-warning btn-sm left-panelbtn editor_edit" id="btnEditAct">Edit</button>
+            <button type="button" class="btn btn-danger btn-sm left-panelbtn editor_delete" id="btnDeleteAct">Delete</button>
+        </div>
+    </div>
+</div>
