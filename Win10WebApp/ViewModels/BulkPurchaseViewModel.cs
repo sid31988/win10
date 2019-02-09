@@ -123,11 +123,13 @@ namespace Win10WebApp.ViewModels
             model.BulkPurchaseForex.IsDeleted = false;
             _bulkpurchaseforexRepository.Insert(model.BulkPurchaseForex);
             _bulkpurchaseforexRepository.Save();
+            BulkPurchaseForexViewModel.ClearSession();
 
             model.BulkPurchasePayment.BulkPurchaseId = model.BulkPurchase.Id;
             model.BulkPurchasePayment.IsDeleted = false;
             _bulkpurchasepaymentRepository.Insert(model.BulkPurchasePayment);
             _bulkpurchasepaymentRepository.Save();
+            BulkPurchasePaymentViewModel.ClearSession();
 
         }
     }
