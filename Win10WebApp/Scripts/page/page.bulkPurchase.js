@@ -124,14 +124,14 @@ page.BulkPurchase = function (rootSelector, settings) {
         _this.forex.form.initialize();
         _this.forex.summaryForm.initialize();
         _this.forex.commandPanel.initialize();
-        //_this.payment.dataTable.initialize();
-        //_this.payment.form.initialize();
-        //_this.payment.commandPanel.initialize();
+        _this.payment.dataTable.initialize();
+        _this.payment.form.initialize();
+        _this.payment.commandPanel.initialize();
         //_this.commandPanel.initialize();
 
         //Todo: Remove below code once the outer command buttons are available
         bulkPurchasePage.forex.commandPanel.setCommandMode(component.CommandPanel.CommandMode.View);
-        //bulkPurchasePage.payment.commandPanel.setCommandMode(component.CommandPanel.CommandMode.View);
+        bulkPurchasePage.payment.commandPanel.setCommandMode(component.CommandPanel.CommandMode.View);
     }
 }
 
@@ -397,6 +397,11 @@ page.BulkPurchase.Events = function (bulkPurchasePage) {
 
         bulkPurchasePage.payment.commandPanel.on("command.mode.view", function () {
             bulkPurchasePage.payment.form.enable(false);
+        });
+
+        // This event will fire only one time, when the DataTable control is initialized
+        bulkPurchasePage.payment.dataTable.on("table.init.complete", function () {
+            bulkPurchasePage.payment.dataTable.$root.css({ "width": "100%" });
         });
 
         // On Payment row select, load the details for selected record

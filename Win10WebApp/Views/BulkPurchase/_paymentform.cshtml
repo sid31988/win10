@@ -1,6 +1,6 @@
 ﻿@model Win10WebApp.ViewModels.BulkPurchaseViewModel
 
-<form class="form-add-edit">
+<form class="form-add-edit" id="paymentDetailsForm">
     <div class="row">
         <div class="col-md-2">
             <div class="form-group floating-label">
@@ -80,18 +80,35 @@
             </div>
         </div>
       
-        <div class="col-md-1">
+        <div class="col-md-1 payment-command-container">
+            <div class="form-group">
+                <button type="button" class="btn btn-primary btn-sm left-panelbtn editor_add" id="btnAddAct">Add</button>
+            </div>
+        </div>
+      
+        <div class="col-md-1 payment-command-container">
+            <div class="form-group">
+                <button type="button" class="btn btn-warning btn-sm left-panelbtn editor_edit" id="btnEditAct">Edit</button>
+            </div>
+        </div>
+      
+        <div class="col-md-1 payment-command-container">
+            <div class="form-group">
+                <button type="button" class="btn btn-danger btn-sm left-panelbtn editor_delete" id="btnDeleteAct">Delete</button>
+            </div>
+        </div>
+      
+        <div class="col-md-1 payment-command-container">
             <div class="form-group">
                 <button type="button" class="btn btn-success btn-sm left-panelbtn editor_save" id="btnSaveAct">Save</button>
             </div>
         </div>
 
-        <div class="col-md-1">
+        <div class="col-md-1 payment-command-container">
             <div class="form-group">
                 <button type="button" class="btn btn-info btn-sm left-panelbtn editor_cancel" id="btnCancelAct">Cancel</button>
             </div>
         </div>
-
 
     </div>
 

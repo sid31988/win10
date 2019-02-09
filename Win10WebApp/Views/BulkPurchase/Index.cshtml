@@ -24,7 +24,7 @@
                         @{Html.RenderPartial("~/Views/BulkPurchase/_forexview.cshtml", Model);}
                     </div>
                     <div class="tab-pane fade" id="paymentTab">
-                        @*{Html.RenderPartial("~/Views/BulkPurchase/_paymentview.cshtml", Model);}*@
+                        @{Html.RenderPartial("~/Views/BulkPurchase/_paymentview.cshtml", Model);}
                     </div>
                 </div>
             </div>
@@ -42,7 +42,7 @@
                         tableSettings: {
                             dom: "r",
                             columns: [
-                                { data: "Id", render: "renderRowNo" },
+                                { data: "Id", name: "Sr", render: "renderRowNo" },
                                 { data: "CurrencyName", name: "Currency" },
                                 { data: "CurrencyNote", name: "As" },
                                 { data: "Quantity" },
@@ -92,22 +92,39 @@
                     saveUrl: "@Url.Action("ForexSave")?action=[action]"
                 },
                 paymentDetailsSettings: {
-                    dataTableSelector: null,
-                    tableSettings: {},
-                    detailsFormSelector: null,
-                    detailsFormSettings: null,
-                    commandPanelSelector: null,
-                    commandPanelSettings: {
-                        addCommandButtonSelector: null,
-                        editCommandButtonSelector: null,
-                        deleteCommandButtonSelector: null,
-                        saveCommandButtonSelector: null,
-                        cancelCommandButtonSelector: null
+                    dataTableSelector: pageRootSelector + " #paymentTable",
+                    tableSettings: {
+                        commandDisplay: component.DataTable.CommandDisplayTypes.external,
+                        dateFormat: "MM-dd-yyyy",
+                        tableSettings: {
+                            dom: "r",
+                            columns: [
+                                { data: "Id", name: "Sr", render: "renderRowNo" },
+                                { data: "CashBank", name: "Cash/Bank A/c" },
+                                { data: "PaymentReceipt", name: "Rcpt/Payment" },
+                                { data: "ChequeNo", name: "Cheque #" },
+                                { data: "ChequeDate", name: "Cheque Date" },
+                                { data: "Amount", name: "Amount" },
+                                { data: "Remark", name: "Remark" }
+                            ],
+                            ajax: "@Url.Action("Find")?source=Payment",
+                            select: true
+                        }
                     },
-                    addUrl: null,
-                    editUrl: null,
-                    deleteUrl: null,
-                    saveUrl: null
+                    detailsFormSelector: pageRootSelector + " #paymentDetailsForm",
+                    detailsFormSettings: null,
+                    commandPanelSelector: pageRootSelector + " .payment-command-container",
+                    commandPanelSettings: {
+                        addCommandButtonSelector: "#btnAddAct",
+                        editCommandButtonSelector: "#btnEditAct",
+                        deleteCommandButtonSelector: "#btnDeleteAct",
+                        saveCommandButtonSelector: "#btnSaveAct",
+                        cancelCommandButtonSelector: "#btnCancelAct"
+                    },
+                    addUrl: "@Url.Action("Insert")?source=Payment",
+                    editUrl: "@Url.Action("Edit")?source=Payment&id=[Id]",
+                    deleteUrl: "@Url.Action("Delete")?source=Payment&id=[Id]",
+                    saveUrl: "@Url.Action("PaymentSave")?action=[action]"
                 },
                 commandPanelSelector: null,
                 commandPanelSettings: {
