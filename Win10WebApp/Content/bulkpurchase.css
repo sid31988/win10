@@ -112,3 +112,16 @@
     color: #FCFF33;    
 }
 
+.form-control[disabled].readonlyInputblue {
+     background-color: #0000FF;
+    font-size: 14px;
+    color: #FCFF33; 
+}
+
+.form-control[disabled].readonlyInputred {
+     background-color: #FF335B;
+    font-size: 14px;
+    color: #FCFF33;  
+}
+
+

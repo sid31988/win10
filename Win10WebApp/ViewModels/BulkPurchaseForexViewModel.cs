@@ -12,7 +12,7 @@ namespace Win10WebApp.ViewModels
     {
         private static int MaxId = 0;
 
-        public void Add(BulkPurchaseForex item) {
+        public void AddItem(BulkPurchaseForex item) {
             item.Id = ++MaxId;
             base.Add(item);
         }
@@ -94,12 +94,12 @@ namespace Win10WebApp.ViewModels
             switch (mode)
             {
                 case ActionMode.Add:
-                    BulkPurchaseForexViewModel.Current.Add(model);
+                    BulkPurchaseForexViewModel.Current.AddItem(model);
                     return model;
                 case ActionMode.Edit:
                     var forex = BulkPurchaseForexViewModel.Current;
                     forex.Remove(forex.Where(i => i.Id == model.Id).FirstOrDefault());
-                    forex.Add(model);
+                    forex.AddItem(model);
                     BulkPurchaseForexViewModel.Current = forex;
                     return model;
                 case ActionMode.Delete:

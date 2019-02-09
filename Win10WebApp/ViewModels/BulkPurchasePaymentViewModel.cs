@@ -7,17 +7,28 @@ using Win10WebApp.Models;
 using Win10WebApp.Repository;
 
 namespace Win10WebApp.ViewModels
-{
+{    
+    public class BulkPurchasePaymentList : List<BulkPurchasePayment>
+    {
+        private static int MaxId = 0;
+
+        public void AddItem(BulkPurchasePayment item)
+        {
+            item.Id = ++MaxId;
+            base.Add(item);
+        }
+    }
+
     public class BulkPurchasePaymentViewModel
     {
-        public static List<BulkPurchasePayment> Current
+        public static BulkPurchasePaymentList Current
         {
             get
             {
-                var payment = HttpContext.Current.Session["payment"] as List<BulkPurchasePayment>;
+                var payment = HttpContext.Current.Session["payment"] as BulkPurchasePaymentList;
                 if (null == payment)
                 {
-                    payment = new List<BulkPurchasePayment>();
+                    payment = new BulkPurchasePaymentList();
                     HttpContext.Current.Session["payment"] = payment;
                 }
 
@@ -33,21 +44,21 @@ namespace Win10WebApp.ViewModels
         {
             BulkPurchasePayment row = new BulkPurchasePayment();
             if (id > 0)
-            {               
+            {
                 var payment = BulkPurchasePaymentViewModel.Current;
                 row = payment.Where(f => f.Id == id).Select(f => f).FirstOrDefault();
                 return row;
             }
             return row;
-            
+
         }
 
-        public List<BulkPurchasePayment> Find()
+        public BulkPurchasePaymentList Find()
         {
             return BulkPurchasePaymentViewModel.Current;
         }
 
-        
+
         public BulkPurchasePayment Insert()
         {
             return new BulkPurchasePayment();
@@ -58,7 +69,7 @@ namespace Win10WebApp.ViewModels
             return FindById(id);
         }
 
-        public List<BulkPurchasePayment> Delete(int id)
+        public BulkPurchasePaymentList Delete(int id)
         {
             var payment = BulkPurchasePaymentViewModel.Current;
             var row = FindById(id);
@@ -67,37 +78,47 @@ namespace Win10WebApp.ViewModels
             return BulkPurchasePaymentViewModel.Current;
         }
 
-        public List<BulkPurchasePayment> Save(BulkPurchasePayment model, string action)
+        public BulkPurchasePaymentList DeleteAll()
+        {
+            var payment = BulkPurchasePaymentViewModel.Current;
+            foreach (var row in payment)
+            {
+                payment.Remove(row);
+            }
+            BulkPurchasePaymentViewModel.Current = payment;
+            return BulkPurchasePaymentViewModel.Current;
+        }
+
+        public BulkPurchasePayment Save(BulkPurchasePayment model, string action)
         {
             ActionMode mode = (ActionMode)Enum.Parse(typeof(ActionMode), action, true);
 
             switch (mode)
             {
                 case ActionMode.Add:
-                    BulkPurchasePaymentViewModel.Current.Add(model);
-                    return BulkPurchasePaymentViewModel.Current;
+                    BulkPurchasePaymentViewModel.Current.AddItem(model);
+                    return model;
                 case ActionMode.Edit:
                     var payment = BulkPurchasePaymentViewModel.Current;
                     payment.Remove(payment.Where(i => i.Id == model.Id).FirstOrDefault());
-                    payment.Add(model);
+                    payment.AddItem(model);
                     BulkPurchasePaymentViewModel.Current = payment;
-                    return BulkPurchasePaymentViewModel.Current;
+                    return model;
                 case ActionMode.Delete:
                     var removepayment = BulkPurchasePaymentViewModel.Current;
                     removepayment.Remove(removepayment.Where(i => i.Id == model.Id).FirstOrDefault());
                     BulkPurchasePaymentViewModel.Current = removepayment;
-                    return BulkPurchasePaymentViewModel.Current;
+                    return model;
                 //case ActionMode.Cancel:
                 //    break;
                 default:
                     break;
-            }            
-            
-            return BulkPurchasePaymentViewModel.Current;
+            }
+
+            return null;
         }
 
 
-    }  
+    }
 
-  
 }
