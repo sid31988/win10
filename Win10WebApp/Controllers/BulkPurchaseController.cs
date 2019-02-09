@@ -21,15 +21,15 @@ namespace Win10WebApp.Controllers
         public BulkPurchaseController()
         {
             _repository = new Repository<BulkPurchase>();
-            _model = new BulkPurchaseViewModel();
+            _model = new BulkPurchaseViewModel().SetModel();
             _forexmodel = new BulkPurchaseForexViewModel();
-            _paymentmodel = new BulkPurchasePaymentViewModel();
+            _paymentmodel = new BulkPurchasePaymentViewModel();            
         }
 
         [Authorize]
         public ActionResult Index()
         {
-            return View(_model.SetModel());
+            return View(_model);
         }
 
 
