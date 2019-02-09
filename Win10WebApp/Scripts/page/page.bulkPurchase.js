@@ -114,7 +114,7 @@ page.BulkPurchase = function (rootSelector, settings) {
         _this.forex.summaryForm = new component.Form(settings.forexDetailsSettings.summaryFormSelector, settings.forexDetailsSettings.summaryFormSettings);
         _this.forex.commandPanel = new page.BulkPurchase.ForexCommandPanel(settings.forexDetailsSettings.commandPanelSelector, settings.forexDetailsSettings.commandPanelSettings);
         _this.payment.dataTable = new component.DataTable(settings.paymentDetailsSettings.dataTableSelector, settings.paymentDetailsSettings.tableSettings);
-        _this.payment.form = new component.Form(settings.paymentDetailsSettings.formSelector, settings.paymentDetailsSettings.formSettings);
+        _this.payment.form = new component.Form(settings.paymentDetailsSettings.detailsFormSelector, settings.paymentDetailsSettings.detailsFormSettings);
         _this.payment.commandPanel = new page.BulkPurchase.PaymentCommandPanel(settings.paymentDetailsSettings.commandPanelSelector, settings.paymentDetailsSettings.commandPanelSettings);
         _this.commandPanel = new component.CommandPanel(settings.commandPanelSelector, settings.commandPanelSettings);
         _this.eventHandlers = new page.BulkPurchase.Events(_this);
@@ -425,7 +425,6 @@ page.BulkPurchase.Events = function (bulkPurchasePage) {
         // On Payment form set to Add mode
         bulkPurchasePage.payment.form.on("form.add.success", function () {
             paymentAction = "Add";
-            bulkPurchasePage.payment.form.initializeFields();
             bulkPurchasePage.payment.form.enable(true);
             bulkPurchasePage.payment.commandPanel.initializeCommandButtons();
             bulkPurchasePage.payment.commandPanel.setCommandMode(component.CommandPanel.CommandMode.Add);
