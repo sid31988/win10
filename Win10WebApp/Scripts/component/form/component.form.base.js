@@ -36,7 +36,7 @@ component.Form = function (rootSelector, settings) {
     }
 
     _this.focusOnFirstControl = function () {
-        _this.$root.find("input:visible:eq(0)").focus();
+        _this.$root.find("select:visible,input:visible,textarea:visible").first().focus();
     }
 
     _this.loadAddView = function (addUrl, success, error) {

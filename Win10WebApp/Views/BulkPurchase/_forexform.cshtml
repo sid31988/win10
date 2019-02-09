@@ -1,6 +1,15 @@
 ﻿@model Win10WebApp.ViewModels.BulkPurchaseViewModel
 
 <form class="form-add-edit" id="forexDetailsForm">
+    <input type="text" name="Id" value="@Model.BulkPurchaseForex.Id" style="display: none;" />
+    <input type="text" name="BulkPurchaseId" value="@Model.BulkPurchaseForex.BulkPurchaseId" style="display: none;" />
+    @if(Model.BulkPurchaseForex.CreatedDate != null) {
+        <input type="text" name="CreatedDate" value="@Model.BulkPurchaseForex.CreatedDate" style="display: none;" />
+    }
+    <input type="text" name="SequenceNo" value="@Model.BulkPurchaseForex.SequenceNo" style="display: none;" />
+    @if(Model.BulkPurchaseForex.UpdatedDate != null) {
+        <input type="text" name="UpdatedDate" value="@Model.BulkPurchaseForex.UpdatedDate" style="display: none;" />
+    }
     <div class="row">
         <div class="col-md-2">
             <div class="form-group floating-label">
@@ -8,7 +17,12 @@
                     <option id="0">Select</option>
                     @foreach (var item in Model.CurrencyName)
                     {
-                        <option value="@item.Id">@item.Value</option>
+                        if (Model.BulkPurchaseForex.CurrencyName.HasValue && item.Id == Model.BulkPurchaseForex.CurrencyName.Value) {
+                            <option value="@item.Id" selected>@item.Value</option>
+                        }
+                        else {
+                            <option value="@item.Id">@item.Value</option>
+                        }
                     }
 
                 </select>
@@ -22,7 +36,12 @@
                     <option id="0">Select</option>
                     @foreach (var item in Model.CurrencyNotes)
                     {
-                        <option value="@item.Id">@item.Value</option>
+                        if (Model.BulkPurchaseForex.CurrencyNote.HasValue && item.Id == Model.BulkPurchaseForex.CurrencyNote.Value) {
+                            <option value="@item.Id" selected>@item.Value</option>
+                        }
+                        else {
+                            <option value="@item.Id">@item.Value</option>
+                        }
                     }
                 </select>
                 <span class="highlight"></span>
@@ -69,7 +88,12 @@
                     <option id="0">Select</option>
                     @foreach (var item in Model.ForexPaiseQty)
                     {
-                        <option value="@item.Id">@item.Value</option>
+                        if (Model.BulkPurchaseForex.BrokerPaise.HasValue && item.Id == Model.BulkPurchaseForex.BrokerPaise.Value) {
+                            <option value="@item.Id" selected>@item.Value</option>
+                        }
+                        else {
+                            <option value="@item.Id">@item.Value</option>
+                        }
                     }
                 </select>
                 <span class="highlight"></span>
@@ -112,10 +136,15 @@
         <div class="col-md-1">
             <div class="form-group floating-label">
                 <select class="form-control form-control-sm floating-select elementInput" id="SubBrokerPaise" name="SubBrokerPaise" value="@Model.BulkPurchaseForex.SubBrokerPaise" onclick="this.setAttribute('value', this.value);">
-                    <option id="0">Select</option>;2
+                    <option id="0">Select</option>
                     @foreach (var item in Model.ForexPaiseQty)
                     {
-                        <option value="@item.Id">@item.Value</option>
+                        if (Model.BulkPurchaseForex.SubBrokerPaise.HasValue && item.Id == Model.BulkPurchaseForex.SubBrokerPaise) {
+                            <option value="@item.Id" selected>@item.Value</option>
+                        }
+                        else {
+                            <option value="@item.Id">@item.Value</option>
+                        }
                     }
                 </select>
                 <span class="highlight"></span>

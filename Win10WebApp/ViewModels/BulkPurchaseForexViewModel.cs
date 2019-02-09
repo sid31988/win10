@@ -8,16 +8,26 @@ using Win10WebApp.Repository;
 
 namespace Win10WebApp.ViewModels
 {
+    public class BulkPurchaseForexList : List<BulkPurchaseForex>
+    {
+        private static int MaxId = 0;
+
+        public void Add(BulkPurchaseForex item) {
+            item.Id = ++MaxId;
+            base.Add(item);
+        }
+    }
+
     public class BulkPurchaseForexViewModel
     {
-        public static List<BulkPurchaseForex> Current
+        public static BulkPurchaseForexList Current
         {
             get
             {
-                var forex = HttpContext.Current.Session["forex"] as List<BulkPurchaseForex>;
+                var forex = HttpContext.Current.Session["forex"] as BulkPurchaseForexList;
                 if (null == forex)
                 {
-                    forex = new List<BulkPurchaseForex>();
+                    forex = new BulkPurchaseForexList();
                     HttpContext.Current.Session["forex"] = forex;
                 }
 
@@ -42,7 +52,7 @@ namespace Win10WebApp.ViewModels
             
         }
 
-        public List<BulkPurchaseForex> Find()
+        public BulkPurchaseForexList Find()
         {
             return BulkPurchaseForexViewModel.Current;
         }
@@ -58,7 +68,7 @@ namespace Win10WebApp.ViewModels
             return FindById(id);
         }
 
-        public List<BulkPurchaseForex> Delete(int id)
+        public BulkPurchaseForexList Delete(int id)
         {
             var forex = BulkPurchaseForexViewModel.Current;
             var row = FindById(id);
@@ -67,7 +77,17 @@ namespace Win10WebApp.ViewModels
             return BulkPurchaseForexViewModel.Current;
         }
 
-        public List<BulkPurchaseForex> Save(BulkPurchaseForex model, string action)
+        public BulkPurchaseForexList DeleteAll()
+        {
+            var forex = BulkPurchaseForexViewModel.Current;
+            foreach(var row in forex) {
+                forex.Remove(row);
+            }
+            BulkPurchaseForexViewModel.Current = forex;
+            return BulkPurchaseForexViewModel.Current;
+        }
+
+        public BulkPurchaseForex Save(BulkPurchaseForex model, string action)
         {
             ActionMode mode = (ActionMode)Enum.Parse(typeof(ActionMode), action, true);
 
@@ -75,25 +95,25 @@ namespace Win10WebApp.ViewModels
             {
                 case ActionMode.Add:
                     BulkPurchaseForexViewModel.Current.Add(model);
-                    return BulkPurchaseForexViewModel.Current;
+                    return model;
                 case ActionMode.Edit:
                     var forex = BulkPurchaseForexViewModel.Current;
                     forex.Remove(forex.Where(i => i.Id == model.Id).FirstOrDefault());
                     forex.Add(model);
                     BulkPurchaseForexViewModel.Current = forex;
-                    return BulkPurchaseForexViewModel.Current;
+                    return model;
                 case ActionMode.Delete:
                     var removeforex = BulkPurchaseForexViewModel.Current;
                     removeforex.Remove(removeforex.Where(i => i.Id == model.Id).FirstOrDefault());
                     BulkPurchaseForexViewModel.Current = removeforex;
-                    return BulkPurchaseForexViewModel.Current;
+                    return model;
                 //case ActionMode.Cancel:
                 //    break;
                 default:
                     break;
             }            
             
-            return BulkPurchaseForexViewModel.Current;
+            return null;
         }
 
 

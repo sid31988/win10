@@ -107,6 +107,7 @@ namespace Win10WebApp.Controllers
             {
                 if (ModelState.IsValid)
                 {
+                    System.Diagnostics.Debug.WriteLine("Forex Save Invoked!!!");
                     return Json(Functions.OutPutResponse(true, "Record saved successfully", _forexmodel.Save(model, action)));
                 }
                 return Json(Functions.OutPutResponse(false, "Record saved failed", ModelState));
@@ -135,5 +136,17 @@ namespace Win10WebApp.Controllers
             }
         }
 
+        [Authorize]
+        [HttpGet]
+        public JsonResult DeleteAll() {
+            try
+            {
+                    return Json(Functions.OutPutResponse(true, "Records deleted successfully", _forexmodel.DeleteAll()), JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(Functions.OutPutResponse(false, ex.Message), JsonRequestBehavior.AllowGet);
+            }
+        }
     }
 }

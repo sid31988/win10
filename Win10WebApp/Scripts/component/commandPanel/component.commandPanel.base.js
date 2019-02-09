@@ -92,13 +92,18 @@ component.CommandPanel = function (rootSelector, settings) {
         }
     }
 
-    _this.initialize = function () {
+    _this.initializeCommandButtons = function () {
+        _this.getRootElement();
         _this.$addCommandButton = getAddCommandButton();
         _this.$editCommandButton = getEditCommandButton();
         _this.$deleteCommandButton = getDeleteCommandButton();
         _this.$saveCommandButton = getSaveCommandButton();
         _this.$cancelCommandButton = getCancelCommandButton();
         _this.handlers = new component.CommandPanel.EventHandlers(_this);
+    }
+
+    _this.initialize = function () {
+        _this.initializeCommandButtons();
         _this.setCommandMode(component.CommandPanel.CommandMode.None);
     }
 
@@ -176,6 +181,7 @@ component.CommandPanel = function (rootSelector, settings) {
 
     let _commandMode = null;
     _this.setCommandMode = function (commandMode) {
+        _commandMode = commandMode;
         switch (commandMode) {
             // Show only Add, Edit and Delete buttons
             case component.CommandPanel.CommandMode.View:
@@ -198,6 +204,18 @@ component.CommandPanel = function (rootSelector, settings) {
             default:
                 throw "Invalid command mode."
         }
+    }
+    _this.isAddMode = function () {
+        return _commandMode == component.CommandPanel.CommandMode.Add;
+    }
+    _this.isEditMode = function () {
+        return _commandMode == component.CommandPanel.CommandMode.Edit;
+    }
+    _this.isViewMode = function () {
+        return _commandMode == component.CommandPanel.CommandMode.View;
+    }
+    _this.isNoneMode = function () {
+        return _commandMode == component.CommandPanel.CommandMode.None;
     }
 }
 

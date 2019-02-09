@@ -40,10 +40,11 @@
                         commandDisplay: component.DataTable.CommandDisplayTypes.external,
                         dateFormat: "MM-dd-yyyy",
                         tableSettings: {
+                            dom: "r",
                             columns: [
-                                { data: "Sr", render: "renderRowNo" },
-                                { data: "Currency" },
-                                { data: "AS" },
+                                { data: "Id", render: "renderRowNo" },
+                                { data: "CurrencyName", name: "Currency" },
+                                { data: "CurrencyNote", name: "As" },
                                 { data: "Quantity" },
                                 { data: "Rate" },
                                 { data: "GrossAmt" }
