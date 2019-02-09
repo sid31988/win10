@@ -34,6 +34,7 @@
                 <button type="button" class="btn btn-primary editor_add" id="btnMainAddAct" style="width:70px;margin-bottom:15px">Add</button>
                 <button type="button" class="btn btn-warning editor_edit" id="btnMainEditAct" style="width:70px;margin-bottom:15px">Edit</button>
                 <button type="button" class="btn btn-danger editor_delete" id="btnMainDeleteAct" style="width:70px;margin-bottom:15px">Delete</button>
+                <button type="button" class="btn btn-success editor_save" id="btnMainSaveAct" style="width:70px;margin-bottom:15px">Save</button>
                 <button type="button" class="btn btn-info editor_cancel" id="btnMainCancelAct" style="width:70px;margin-bottom:15px">Cancel</button>
             </div>
         </div>
@@ -119,7 +120,7 @@
                             columns: [
                                 { data: "Id", name: "Sr", render: "renderRowNo" },
                                 { data: "CashBank", name: "Cash/Bank A/c" },
-                                { data: "PaymentReceipt", name: "Rcpt/Payment" },
+                                { data: "Type", name: "Rcpt/Payment" },
                                 { data: "ChequeNo", name: "Cheque #" },
                                 { data: "ChequeDate", name: "Cheque Date", render: "renderDate" },
                                 { data: "Amount", name: "Amount" },

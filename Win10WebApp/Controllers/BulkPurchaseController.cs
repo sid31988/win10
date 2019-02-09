@@ -29,6 +29,8 @@ namespace Win10WebApp.Controllers
         [Authorize]
         public ActionResult Index()
         {
+            BulkPurchaseForexViewModel.ClearSession();
+            BulkPurchasePaymentViewModel.ClearSession();
             return View(_model);
         }
 

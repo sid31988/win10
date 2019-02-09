@@ -7,7 +7,7 @@ using Win10WebApp.Models;
 using Win10WebApp.Repository;
 
 namespace Win10WebApp.ViewModels
-{    
+{
     public class BulkPurchasePaymentList : List<BulkPurchasePayment>
     {
         private static int MaxId = 0;
@@ -121,8 +121,12 @@ namespace Win10WebApp.ViewModels
 
         public static void ClearSession()
         {
-            BulkPurchasePaymentViewModel.Current.Clear();
-            BulkPurchasePaymentViewModel.Current = null;
+            if (BulkPurchasePaymentViewModel.Current != null)
+            {
+                BulkPurchasePaymentViewModel.Current.Clear();
+                BulkPurchasePaymentViewModel.Current = null;
+            }
+
         }
 
     }

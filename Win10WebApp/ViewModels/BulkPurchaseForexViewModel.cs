@@ -120,8 +120,12 @@ namespace Win10WebApp.ViewModels
 
         public static void ClearSession()
         {
-            BulkPurchaseForexViewModel.Current.Clear();
-            BulkPurchaseForexViewModel.Current = null;
+            if (BulkPurchaseForexViewModel.Current != null)
+            {
+                BulkPurchaseForexViewModel.Current.Clear();
+                BulkPurchaseForexViewModel.Current = null;
+            }
+
         }
 
 

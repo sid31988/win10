@@ -17,7 +17,7 @@
         </div>
         <div class="col-md-2">
             <div class="form-group floating-label">
-                <select class="form-control form-control-sm floating-select elementInput" id="PaymentReceipt" name="PaymentReceipt" onclick="this.setAttribute('value', this.value);" value="@Model.BulkPurchasePayment.Type">                    
+                <select class="form-control form-control-sm floating-select elementInput" id="Type" name="Type" onclick="this.setAttribute('value', this.value);" value="@Model.BulkPurchasePayment.Type">                    
                     @foreach (var item in Model.PaymentReceipt)
                     {
                         <option value="@item.Id">@item.Value</option>
