@@ -12,7 +12,8 @@ namespace Win10WebApp.ViewModels
     {
         private static int MaxId = 0;
 
-        public void AddItem(BulkPurchaseForex item) {
+        public void AddItem(BulkPurchaseForex item)
+        {
             item.Id = ++MaxId;
             base.Add(item);
         }
@@ -43,13 +44,13 @@ namespace Win10WebApp.ViewModels
         {
             BulkPurchaseForex row = new BulkPurchaseForex();
             if (id > 0)
-            {               
+            {
                 var forex = BulkPurchaseForexViewModel.Current;
                 row = forex.Where(f => f.Id == id).Select(f => f).FirstOrDefault();
                 return row;
             }
             return row;
-            
+
         }
 
         public BulkPurchaseForexList Find()
@@ -57,7 +58,7 @@ namespace Win10WebApp.ViewModels
             return BulkPurchaseForexViewModel.Current;
         }
 
-        
+
         public BulkPurchaseForex Insert()
         {
             return new BulkPurchaseForex();
@@ -80,7 +81,8 @@ namespace Win10WebApp.ViewModels
         public BulkPurchaseForexList DeleteAll()
         {
             var forex = BulkPurchaseForexViewModel.Current;
-            foreach(var row in forex) {
+            foreach (var row in forex)
+            {
                 forex.Remove(row);
             }
             BulkPurchaseForexViewModel.Current = forex;
@@ -111,13 +113,19 @@ namespace Win10WebApp.ViewModels
                 //    break;
                 default:
                     break;
-            }            
-            
+            }
+
             return null;
         }
 
+        public static void ClearSession()
+        {
+            BulkPurchaseForexViewModel.Current.Clear();
+            BulkPurchaseForexViewModel.Current = null;
+        }
 
-    }  
 
-  
+    }
+
+
 }

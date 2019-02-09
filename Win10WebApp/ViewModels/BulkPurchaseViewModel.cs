@@ -10,19 +10,20 @@ namespace Win10WebApp.ViewModels
 {
     public class BulkPurchaseViewModel
     {
+        private MasterQueries _master = null;
         private Repository<OtherMaster> _otherRepository = null;
         private Repository<CurrencyMaster> _currencyRepository = null;
-        //private Repository<BulkPurchase> _bulkpurchaseRepository = null;
-        //private Repository<BulkPurchaseForex> _bulkpurchaseforexRepository = null;
-        private MasterQueries _master = null;
+        private Repository<BulkPurchase> _bulkpurchaseRepository = null;
+        private Repository<BulkPurchaseForex> _bulkpurchaseforexRepository = null;
+        private Repository<BulkPurchasePayment> _bulkpurchasepaymentRepository = null;
         public BulkPurchaseViewModel()
         {
+            _master = new MasterQueries();
             _otherRepository = new Repository<OtherMaster>();
             _currencyRepository = new Repository<CurrencyMaster>();
-            //_bulkpurchaseRepository = new Repository<BulkPurchase>();
-            //_bulkpurchaseforexRepository = new Repository<BulkPurchaseForex>();
-            _master = new MasterQueries();
-
+            _bulkpurchaseRepository = new Repository<BulkPurchase>();
+            _bulkpurchaseforexRepository = new Repository<BulkPurchaseForex>();
+            _bulkpurchasepaymentRepository = new Repository<BulkPurchasePayment>();
         }
 
         public BulkPurchase BulkPurchase { get; set; }
@@ -72,7 +73,6 @@ namespace Win10WebApp.ViewModels
 
         }
 
-
         private List<KeyValuePair> GetPartyMasterBytype(char type)
         {
             switch (type)
@@ -104,7 +104,32 @@ namespace Win10WebApp.ViewModels
             return _otherRepository.GetAll().Where(o => o.Type.Equals(type) && o.IsDeleted == false).Select(o => new KeyValuePair() { Id = o.Id, Value = o.Name }).ToList<KeyValuePair>();
         }
 
+        public BulkPurchaseViewModel Add()
+        {
+            BulkPurchaseViewModel model = null;
+            model = SetModel();
+            BulkPurchaseForexViewModel.ClearSession();
+            BulkPurchasePaymentViewModel.ClearSession();
+            return model;
+        }
 
+        public void Save(BulkPurchaseViewModel model)
+        {
+            model.BulkPurchase.IsDeleted = false;
+            _bulkpurchaseRepository.Insert(model.BulkPurchase);
+            _bulkpurchaseRepository.Save();
+
+            model.BulkPurchaseForex.BulkPurchaseId = model.BulkPurchase.Id;
+            model.BulkPurchaseForex.IsDeleted = false;
+            _bulkpurchaseforexRepository.Insert(model.BulkPurchaseForex);
+            _bulkpurchaseforexRepository.Save();
+
+            model.BulkPurchasePayment.BulkPurchaseId = model.BulkPurchase.Id;
+            model.BulkPurchasePayment.IsDeleted = false;
+            _bulkpurchasepaymentRepository.Insert(model.BulkPurchasePayment);
+            _bulkpurchasepaymentRepository.Save();
+
+        }
     }
 
     public class KeyValuePair

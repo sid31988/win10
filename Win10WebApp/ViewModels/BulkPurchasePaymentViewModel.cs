@@ -119,6 +119,12 @@ namespace Win10WebApp.ViewModels
         }
 
 
+        public static void ClearSession()
+        {
+            BulkPurchasePaymentViewModel.Current.Clear();
+            BulkPurchasePaymentViewModel.Current = null;
+        }
+
     }
 
 }

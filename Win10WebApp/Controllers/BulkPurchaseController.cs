@@ -21,7 +21,7 @@ namespace Win10WebApp.Controllers
         public BulkPurchaseController()
         {
             _repository = new Repository<BulkPurchase>();
-            _model = new BulkPurchaseViewModel().SetModel();
+            _model = new BulkPurchaseViewModel();
             _forexmodel = new BulkPurchaseForexViewModel();
             _paymentmodel = new BulkPurchasePaymentViewModel();
         }
@@ -29,7 +29,7 @@ namespace Win10WebApp.Controllers
         [Authorize]
         public ActionResult Index()
         {
-            return View(_model);
+            return View(_model.SetModel());
         }
 
 
@@ -83,7 +83,6 @@ namespace Win10WebApp.Controllers
             }
         }
 
-
         [Authorize]
         public JsonResult Delete(string source, int id)
         {
@@ -96,6 +95,20 @@ namespace Win10WebApp.Controllers
                     return Json(Functions.OutPutResponse(true, "Record deleted successfully", _paymentmodel.Delete(id)), JsonRequestBehavior.AllowGet);
                 default:
                     throw new Exception("Invalid Event Source in Delete operation..!!");
+            }
+        }
+
+        [Authorize]
+        [HttpGet]
+        public JsonResult DeleteAll()
+        {
+            try
+            {
+                return Json(Functions.OutPutResponse(true, "Records deleted successfully", _forexmodel.DeleteAll()), JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(Functions.OutPutResponse(false, ex.Message), JsonRequestBehavior.AllowGet);
             }
         }
 
@@ -136,17 +149,32 @@ namespace Win10WebApp.Controllers
             }
         }
 
+
         [Authorize]
-        [HttpGet]
-        public JsonResult DeleteAll() {
+        public ActionResult Add()
+        {
+            return View("Index", _model.Add());
+        }
+
+        [Authorize]
+        [HttpPost]
+        public JsonResult Save(BulkPurchaseViewModel model)
+        {
             try
             {
-                    return Json(Functions.OutPutResponse(true, "Records deleted successfully", _forexmodel.DeleteAll()), JsonRequestBehavior.AllowGet);
+                if (ModelState.IsValid)
+                {
+                    model.BulkPurchase.IsDeleted = false;
+                    model.Save(model);
+                    return Json(Functions.OutPutResponse(true, "Record inserted successfully", model));
+                }
+                return Json(Functions.OutPutResponse(false, "Invalid Data", ModelState));
             }
             catch (Exception ex)
             {
-                return Json(Functions.OutPutResponse(false, ex.Message), JsonRequestBehavior.AllowGet);
+                return Json(Functions.OutPutResponse(false, ex.Message));
             }
         }
+
     }
 }
