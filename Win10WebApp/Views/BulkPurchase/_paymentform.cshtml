@@ -4,7 +4,7 @@
     <div class="row">
         <div class="col-md-2">
             <div class="form-group floating-label">
-                <select class="form-control form-control-sm floating-select elementInput" id="CashBank" name="CashBank" onclick="this.setAttribute('value', this.value);" value="@Model.BulkPurchasePayment.CashBank">                  
+                <select class="form-control form-control-sm floating-select elementInput" id="CashBank" name="CashBank" onfocus="this.setAttribute('value', this.value);" value="@Model.BulkPurchasePayment.CashBank">                  
                     @foreach (var item in Model.CashBank)
                     {
                         <option value="@item.Id">@item.Value</option>
@@ -17,7 +17,7 @@
         </div>
         <div class="col-md-2">
             <div class="form-group floating-label">
-                <select class="form-control form-control-sm floating-select elementInput" id="Type" name="Type" onclick="this.setAttribute('value', this.value);" value="@Model.BulkPurchasePayment.Type">                    
+                <select class="form-control form-control-sm floating-select elementInput" id="Type" name="Type" onfocus="this.setAttribute('value', this.value);" value="@Model.BulkPurchasePayment.Type">                    
                     @foreach (var item in Model.PaymentReceipt)
                     {
                         <option value="@item.Id">@item.Value</option>
@@ -38,7 +38,7 @@
         </div>
         <div class="col-md-2">
             <div class="form-group floating-label">
-                <input class="form-control floating-input elementInput" id="ChequeDate" name="ChequeDate" value="@Model.BulkPurchasePayment.ChequeDate" type="text" placeholder=" " onclick="(this.type='date')">
+                <input class="form-control floating-input elementInput" id="ChequeDate" name="ChequeDate" value="@Model.BulkPurchasePayment.ChequeDate" type="text" placeholder=" " onfocus="(this.type='date')">
                 <span class="highlight"></span>
                 <label>ChequeDate</label>
             </div>
@@ -46,7 +46,7 @@
         <div class="col-md-2">
             <div class="form-group floating-label">
                 <input class="form-control floating-input elementInput" id="Amount" name="Amount" value="@Model.BulkPurchasePayment.Amount"
-                       type="text" placeholder=" " onclick="(this.type='number')">
+                       type="text" placeholder=" " onfocus="(this.type='number')">
                 <span class="highlight"></span>
                 <label>Amount</label>
             </div>
@@ -61,7 +61,7 @@
         </div>
         <div class="col-md-2">
             <div class="form-group floating-label">
-                <select class="form-control form-control-sm floating-select elementInput" id="Bank" name="Bank" value="@Model.BulkPurchasePayment.Bank" onclick="this.setAttribute('value', this.value);">
+                <select class="form-control form-control-sm floating-select elementInput" id="Bank" name="Bank" value="@Model.BulkPurchasePayment.Bank" onfocus="this.setAttribute('value', this.value);">
                     <option id="0">Select</option>
                     @foreach (var item in Model.Bank)
                     {
@@ -74,7 +74,7 @@
         </div>
         <div class="col-md-2">
             <div class="form-group floating-label">
-                <input class="form-control floating-input elementInput" id="Date" name="Date" value="@Model.BulkPurchasePayment.Date" type="text" placeholder=" " onclick="(this.type='date')">
+                <input class="form-control floating-input elementInput" id="Date" name="Date" value="@Model.BulkPurchasePayment.Date" type="text" placeholder=" " onfocus="(this.type='date')">
                 <span class="highlight"></span>
                 <label>Date</label>
             </div>

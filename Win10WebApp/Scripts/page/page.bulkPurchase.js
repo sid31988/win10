@@ -17,7 +17,7 @@
  * @property {string} dataTableSelector - Selector pointing to the forex datatable element
  * @property {Object} tableSettings - Settings for initializing the jQuery DataTable control
  * @property {string} summaryFormSelector - Selector pointing to the forex summary form
- * @property {Object} summaryFormSettings - Settings related to the forex summary form
+ * @property {ForexSummaryFormSettings} summaryFormSettings - Settings related to the forex summary form
  * @property {string} detailsFormSelector - Selector pointing to the forex details form
  * @property {ForexDetailsFormSettings} detailsFormSettings - Settings related to the forex details form
  * @property {string} commandPanelSelector - Selector pointing to the forex command panel container
@@ -28,19 +28,47 @@
  * @property {string} saveUrl - The save ajax url
  */
 /**
+ * A json configuration object to hold Forex Summary Form's element selectors and other settings
+ * @typedef {Object} ForexSummaryFormSettings
+ * @property {string} grossAmtSelector - Selector pointing to the GrossAmt field
+ * @property {string} fxGstSelector - Selector pointing to the FxGST field
+ * @property {string} tcCardChrgSelector - Selector pointing to the TCCardChrg field
+ * @property {string} srvChrgSelector - Selector pointing to the SrvChrg field
+ * @property {string} srvChrgAmtSelector - Selector pointing to the SrvChrgAmt field
+ * @property {string} stxPercentageSelector - Selector pointing to the STXPercentage field
+ * @property {string} stxAmtSelector - Selector pointing to the STXAmt field
+ * @property {string} chargesTaxSelector - Selector pointing to the ChargesTax field
+ * @property {string} roundOffSelector - Selector pointing to the RoundOff field
+ * @property {string} netPayableSelector - Selector pointing to the NetPayable field
+ */
+/**
  * A json configuration object to hold Payment Tab's element selectors and other settings
  * @typedef {Object} PaymentDetailsSettings
  * @property {string} dataTableSelector - Selector pointing to the payment datatable element
  * @property {Object} tableSettings - Settings for initializing the jQuery DataTable control
- * @property {string} summaryFormSelector - Selector pointing to the payment summary form
  * @property {string} detailsFormSelector - Selector pointing to the payment details form
- * @property {Object} detailsFormSettings - Settings related to the payment details form
+ * @property {PaymentDetailsFormSettings} detailsFormSettings - Settings related to the payment details form
  * @property {string} commandPanelSelector - Selector pointing to the payment command panel container
  * @property {CommandPanelSettings} commandPanelSettings - Settings related to the payment command panel component
  * @property {string} addUrl - The add ajax url
  * @property {string} editUrl - The edit ajax url
  * @property {string} deleteUrl - The delete ajax url
  * @property {string} saveUrl - The save ajax url
+ */
+/**
+ * A json configuration objec to hold Payment Detals Form's element selectors and other settings
+ * @typedef {Object} PaymentDetailsFormSettings
+ * @property {string} cashBankSelector - Selector pointing to the CashBank field
+ * @property {string} typeSelector - Selector pointing to the Type field
+ * @property {string} chequeNoSelector - Selector pointing to the ChequeNo field
+ * @property {string} chequeDateSelector - Selector pointing to the ChequeDate field
+ * @property {string} amountSelector - Selector pointing to the Amount field
+ * @property {string} remarkSelector - Selector pointing to the Remark field
+ * @property {string} bankSelector - Selector pointing to the Bank field
+ * @property {string} dateSelector - Selector pointing to the Date field
+ * @property {string} netPayableSelector - Selector pointing to the NetPayable field
+ * @property {string} totalPendingAmountSelector - Selector pointing to the TotalPendingAmount field
+ * @property {string} balanceAmountSelector - Selector pointing to the BalanceAmount field
  */
 /**
  * A json configuration object to hold Command panel's element selectors and other settings
@@ -93,6 +121,7 @@
  * @property {string} editUrl - The edit ajax url
  * @property {string} deleteUrl - The delete ajax url
  * @property {string} saveUrl - The save ajax url
+ * @property {string} cancelUrl - The cancel ajax url
  */
 //#endregion
 
@@ -143,7 +172,18 @@ page.BulkPurchase = function BulkPurchasePage (rootSelector, settings) {
             dataTableSelector: null,
             tableSettings: null,
             summaryFormSelector: null,
-            summaryFormSettings: null,
+            summaryFormSettings: {
+                grossAmtSelector: null,
+                fxGstSelector: null,
+                tcCardChrgSelector: null,
+                srvChrgSelector: null,
+                srvChrgAmtSelector: null,
+                stxPercentageSelector: null,
+                stxAmtSelector: null,
+                chargesTaxSelector: null,
+                roundOffSelector: null,
+                netPayableSelector: null
+            },
             detailsFormSelector: null,
             detailsFormSettings: {
                 currencyNameSelector: null,
@@ -184,7 +224,19 @@ page.BulkPurchase = function BulkPurchasePage (rootSelector, settings) {
             dataTableSelector: null,
             tableSettings: null,
             detailsFormSelector: null,
-            detailsFormSettings: null,
+            detailsFormSettings: {
+                cashBankSelector: null,
+                typeSelector: null,
+                chequeNoSelector: null,
+                chequeDateSelector: null,
+                amountSelector: null,
+                remarkSelector: null,
+                bankSelector: null,
+                dateSelector: null,
+                netPayableSelector: null,
+                totalPendingAmountSelector: null,
+                balanceAmountSelector: null
+            },
             commandPanelSelector: null,
             commandPanelSettings: {
                 addCommandButtonSelector: null,
@@ -209,12 +261,17 @@ page.BulkPurchase = function BulkPurchasePage (rootSelector, settings) {
         addUrl: null,
         editUrl: null,
         deleteUrl: null,
-        saveUrl: null
+        saveUrl: null,
+        cancelUrl: null
     };
 
     base.settings = _this.settings;
     let _settings = null;
-    _this.settings = function () {
+    /**
+     * Gets the component level settings (either json or a factory method) and compares with the default settings, for getting the final settings object.
+     * @returns {BulkPurchaseSettings}
+     */
+    this.settings = function settings () {
         if (_settings === null) {
             _settings = base.settings();
             _settings = lib.getOrDefault(_settings, defaultSettings);
@@ -224,35 +281,39 @@ page.BulkPurchase = function BulkPurchasePage (rootSelector, settings) {
     //#endregion
 
     //#region "Page components"
-    _this.billingForm = null;
-    _this.forex = {
+    /**
+     * The billing form component
+     * @type {page.BulkPurchase.BillingForm}
+     */
+    this.billingForm = null;
+    this.forex = {
         dataTable: null,
         form: null,
         summaryForm: null,
         commandPanel: null
     };
-    _this.payment = {
+    this.payment = {
         dataTable: null,
         form: null,
         commandPanel: null
     }
-    _this.commandPanel = null;
-    _this.eventHandlers = null;
+    this.commandPanel = null;
+    this.eventHandlers = null;
     //#endregion
 
     /**
      * Initializes all the internal components of the Bulk Purchase Page.
      * @returns void
      */
-    _this.initialize = function initialize () {
+    this.initialize = function initialize () {
         let settings = _this.settings();
         _this.billingForm = new page.BulkPurchase.BillingForm(settings.billingFormSelector, settings.billingFormSettings);
         _this.forex.dataTable = new component.DataTable(settings.forexDetailsSettings.dataTableSelector, settings.forexDetailsSettings.tableSettings);
         _this.forex.form = new page.BulkPurchase.ForexDetailsForm(settings.forexDetailsSettings.detailsFormSelector, settings.forexDetailsSettings.detailsFormSettings);
-        _this.forex.summaryForm = new component.Form(settings.forexDetailsSettings.summaryFormSelector, settings.forexDetailsSettings.summaryFormSettings);
+        _this.forex.summaryForm = new page.BulkPurchase.ForexSummaryForm(settings.forexDetailsSettings.summaryFormSelector, settings.forexDetailsSettings.summaryFormSettings);
         _this.forex.commandPanel = new page.BulkPurchase.ForexCommandPanel(settings.forexDetailsSettings.commandPanelSelector, settings.forexDetailsSettings.commandPanelSettings);
         _this.payment.dataTable = new component.DataTable(settings.paymentDetailsSettings.dataTableSelector, settings.paymentDetailsSettings.tableSettings);
-        _this.payment.form = new component.Form(settings.paymentDetailsSettings.detailsFormSelector, settings.paymentDetailsSettings.detailsFormSettings);
+        _this.payment.form = new page.BulkPurchase.PaymentDetailsForm(settings.paymentDetailsSettings.detailsFormSelector, settings.paymentDetailsSettings.detailsFormSettings);
         _this.payment.commandPanel = new page.BulkPurchase.PaymentCommandPanel(settings.paymentDetailsSettings.commandPanelSelector, settings.paymentDetailsSettings.commandPanelSettings);
         _this.commandPanel = new page.BulkPurchase.MainCommandPanel(settings.commandPanelSelector, settings.commandPanelSettings);
         _this.eventHandlers = new page.BulkPurchase.Events(_this);
@@ -295,35 +356,39 @@ page.BulkPurchase = function BulkPurchasePage (rootSelector, settings) {
 }
 
 //#region Custom Forms and Panels
-page.BulkPurchase.BillingForm = function (rootSelector, settings) {
+page.BulkPurchase.BillingForm = function BillingForm (rootSelector, settings) {
     component.Form.call(this, rootSelector, settings);
-
+    let base = {};
     let _this = this;
-    _this.$ffmc = null;
-    _this.$deliveredIn = null;
-    _this.$broker = null;
-    _this.$date = null;
-    _this.$quota = null;
-    _this.$remark = null;
-    _this.$reference = null;
-    _this.$subBroker = null;
-    _this.$costCentre = null;
+    this.$ffmc = null;
+    this.$deliveredIn = null;
+    this.$broker = null;
+    this.$date = null;
+    this.$quota = null;
+    this.$remark = null;
+    this.$reference = null;
+    this.$subBroker = null;
+    this.$costCentre = null;
 
-    _this.initialize = function () {
-        let _settings = _this.settings();
-        _this.$ffmc = _this.$root.find(_settings.ffmcSelector);
-        _this.$deliveredIn = _this.$root.find(_settings.deliveredInSelector);
-        _this.$broker = _this.$root.find(_settings.brokerSelector);
-        _this.$date = _this.$root.find(_settings.dateSelector);
-        _this.$quota = _this.$root.find(_settings.quotaSelector);
-        _this.$remark = _this.$root.find(_settings.remarkSelector);
-        _this.$reference = _this.$root.find(_settings.referenceSelector);
-        _this.$subBroker = _this.$root.find(_settings.subBrokerSelector);
-        _this.$costCentre = _this.$root.find(_settings.costCentreSelector);
+    this.initializeFields = function () {
+        let settings = _this.settings();
+        _this.$ffmc = _this.$root.find(settings.ffmcSelector);
+        _this.$deliveredIn = _this.$root.find(settings.deliveredInSelector);
+        _this.$broker = _this.$root.find(settings.brokerSelector);
+        _this.$date = _this.$root.find(settings.dateSelector);
+        _this.$quota = _this.$root.find(settings.quotaSelector);
+        _this.$remark = _this.$root.find(settings.remarkSelector);
+        _this.$reference = _this.$root.find(settings.referenceSelector);
+        _this.$subBroker = _this.$root.find(settings.subBrokerSelector);
+        _this.$costCentre = _this.$root.find(settings.costCentreSelector);
+    }
+
+    this.initialize = function () {
+        _this.initializeFields();
         _this.initializeEvents();
     }
 
-    _this.initializeEvents = function () {
+    this.initializeEvents = function () {
         _this.$broker.off("change").on("change", function () {
             _this.emit("billingform.broker.change", _this.getBrokerValue());
         });
@@ -332,14 +397,26 @@ page.BulkPurchase.BillingForm = function (rootSelector, settings) {
         });
     }
 
-    _this.getBrokerValue = function () {
+    this.getBrokerValue = function () {
         let broker = _this.$broker[0];
         return broker && broker.value.toLowerCase() != "select" || null;
     }
 
-    _this.getSubBrokerValue = function () {
+    this.getSubBrokerValue = function () {
         let subBroker = _this.$subBroker[0];
         return subBroker && subBroker.value.toLowerCase() != "select" || null;
+    }
+
+    base.cancelSave = this.cancelSave;
+    /**
+     * The outer or main cancel ajax implementation. Clears the session data for forex and payment.
+     * @param cancelUrl {string} The cancel ajax url
+     * @returns {void} void
+     */
+    this.cancelSave = function (cancelUrl) {
+        lib.invokeAction(cancelUrl, null, function () {
+            base.cancelSave();
+        });
     }
 }
 
@@ -403,6 +480,103 @@ page.BulkPurchase.ForexDetailsForm = function (rootSelector, settings) {
 
     _this.initialize = function () {
         _this.initializeFields();
+    }
+}
+
+page.BulkPurchase.ForexSummaryForm = function (rootSelector, settings) {
+    component.Form.call(this, rootSelector, settings);
+    let base = {};
+    let _this = this;
+    this.$grossAmt = null;
+    this.$fxGst = null;
+    this.$tcCardChrg = null;
+    this.$srvChrg = null;
+    this.$srvChrgAmt = null;
+    this.$stxPercentage = null;
+    this.$stxAmt = null;
+    this.$chargesTax = null;
+    this.$roundOff = null;
+    this.$netPayable = null;
+    
+    this.initializeFields = function initializeFields() {
+        let settings = _this.settings();
+        _this.$grossAmt = _this.$root.find(settings.grossAmtSelector);
+        _this.$fxGst = _this.$root.find(settings.fxGstSelector);
+        _this.$tcCardChrg = _this.$root.find(settings.tcCardChrgSelector);
+        _this.$srvChrg = _this.$root.find(settings.srvChrgSelector);
+        _this.$srvChrgAmt = _this.$root.find(settings.srvChrgAmtSelector);
+        _this.$stxPercentage = _this.$root.find(settings.stxPercentageSelector);
+        _this.$stxAmt = _this.$root.find(settings.stxAmtSelector);
+        _this.$chargesTax = _this.$root.find(settings.chargesTaxSelector);
+        _this.$roundOff = _this.$root.find(settings.roundOffSelector);
+        _this.$netPayable = _this.$root.find(settings.netPayableSelector);
+    }
+
+    this.initialize = function initialize() {
+        _this.initializeFields();
+    }
+
+    base.enable = this.enable;
+    this.enable = function enable(enable) {
+        if (enable === null || enable === undefined) {
+            return base.enable();
+        }
+        else {
+            base.enable(enable);
+            // Readonly fields
+            _this.$grossAmt.enable(false);
+            _this.$netPayable.enable(false);
+        }
+    }
+}
+
+page.BulkPurchase.PaymentDetailsForm = function PaymentDetailsForm (rootSelector, settings) {
+    component.Form.call(this, rootSelector, settings);
+    let base = {};
+    let _this = this;
+    this.$cashBank = null;
+    this.$type = null;
+    this.$chequeNo = null;
+    this.$chequeDate = null;
+    this.$amount = null;
+    this.$remark = null;
+    this.$bank = null;
+    this.$date = null;
+    this.$netPayable = null;
+    this.$totalPendingAmount = null;
+    this.$balanceAmount = null;
+
+    this.initializeFields = function initializeFields() {
+        let settings = _this.settings();
+        _this.$cashBank = _this.$root.find(settings.cashBankSelector);
+        _this.$type = _this.$root.find(settings.typeSelector);
+        _this.$chequeNo = _this.$root.find(settings.chequeNoSelector);
+        _this.$chequeDate = _this.$root.find(settings.chequeDateSelector);
+        _this.$amount = _this.$root.find(settings.amountSelector);
+        _this.$remark = _this.$root.find(settings.remarkSelector);
+        _this.$bank = _this.$root.find(settings.bankSelector);
+        _this.$date = _this.$root.find(settings.dateSelector);
+        _this.$netPayable = _this.$root.find(settings.netPayableSelector);
+        _this.$totalPendingAmount = _this.$root.find(settings.totalPendingAmountSelector);
+        _this.$balanceAmount = _this.$root.find(settings.balanceAmountSelector);
+    }
+
+    this.initialize = function () {
+        _this.initializeFields();
+    }
+
+    base.enable = this.enable;
+    this.enable = function enable(enable) {
+        if (enable === null || enable === undefined) {
+            return base.enable();
+        }
+        else {
+            base.enable(enable);
+            // Readonly fields
+            _this.$netPayable.enable(false);
+            _this.$totalPendingAmount.enable(false);
+            _this.$balanceAmount.enable(false);
+        }
     }
 }
 
@@ -484,7 +658,7 @@ page.BulkPurchase.Events = function BulkPurchaseEvents (bulkPurchasePage) {
 
     /**
      * Initializes the page level event mechanism
-     * @param settings {Object} The page settings
+     * @param settings {BulkPurchaseSettings} The page settings
      */
     this.initializePageEvents = function initializePageEvents(settings) {
         // On change event of the broker dropdown from billing form.
@@ -530,12 +704,12 @@ page.BulkPurchase.Events = function BulkPurchaseEvents (bulkPurchasePage) {
         // On main save click
         bulkPurchasePage.commandPanel.on("command.save", function () {
             let summaryFormData = bulkPurchasePage.forex.summaryForm.serializeJson();
-            bulkPurchasePage.billingForm.postSaveData(bulkPurchasePage.saveUrl, summaryFormData);
+            bulkPurchasePage.billingForm.postSaveData(settings.saveUrl, summaryFormData);
         });
 
         // On main cancel click
         bulkPurchasePage.commandPanel.on("command.cancel", function () {
-            bulkPurchasePage.billingForm.cancelSave();
+            bulkPurchasePage.billingForm.cancelSave(settings.cancelUrl);
             bulkPurchasePage.forex.summaryForm.cancelSave();
         });
 
@@ -563,16 +737,20 @@ page.BulkPurchase.Events = function BulkPurchaseEvents (bulkPurchasePage) {
             bulkPurchasePage.forex.form.enable(false);
         });
 
+        let supressForexFormEditSuccess = false;
         // On Forex row select, load the details for selected record
         bulkPurchasePage.forex.dataTable.on("table.row.select", function (eventArgs) {
-            if (bulkPurchasePage.forex.commandPanel.isViewMode()) {
-                bulkPurchasePage.forex.form.loadEditView(settings.forexDetailsSettings.editUrl, eventArgs, function () {
-                    // We will need to disable the form and set the command mode to view, in order to get
-                    // the desired behaviour
+            if (bulkPurchasePage.forex.commandPanel.isNoneMode() || bulkPurchasePage.forex.commandPanel.isViewMode()) {
+                supressForexFormEditSuccess = true;
+            }
+            bulkPurchasePage.forex.form.loadEditView(settings.forexDetailsSettings.editUrl, eventArgs, function () {
+                // We will need to disable the form and set the command mode to view, in order to get
+                // the desired behaviour
+                if (bulkPurchasePage.forex.commandPanel.isViewMode()) {
                     bulkPurchasePage.forex.form.enable(false);
                     bulkPurchasePage.forex.commandPanel.setCommandMode(component.CommandPanel.CommandMode.View);
-                });
-            }
+                }
+            });
         });
     
         // On Forex add click, get add form from ajax
@@ -601,6 +779,10 @@ page.BulkPurchase.Events = function BulkPurchaseEvents (bulkPurchasePage) {
 
         // On Forex form set to Edit mode
         bulkPurchasePage.forex.form.on("form.edit.success", function () {
+            if (supressForexFormEditSuccess) {
+                supressForexFormEditSuccess = false;
+                return;
+            }
             forexAction = "Edit";
             bulkPurchasePage.forex.form.initializeFields();
             bulkPurchasePage.forex.form.enable(true);
@@ -727,6 +909,7 @@ page.BulkPurchase.Events = function BulkPurchaseEvents (bulkPurchasePage) {
         // On Payment form set to Add mode
         bulkPurchasePage.payment.form.on("form.add.success", function () {
             paymentAction = "Add";
+            bulkPurchasePage.payment.form.initializeFields();
             bulkPurchasePage.payment.form.enable(true);
             bulkPurchasePage.payment.commandPanel.initializeCommandButtons();
             bulkPurchasePage.payment.commandPanel.setCommandMode(component.CommandPanel.CommandMode.Add);
@@ -743,6 +926,7 @@ page.BulkPurchase.Events = function BulkPurchaseEvents (bulkPurchasePage) {
         // On Payment form set to Edit mode
         bulkPurchasePage.payment.form.on("form.edit.success", function () {
             paymentAction = "Edit";
+            bulkPurchasePage.payment.form.initializeFields();
             bulkPurchasePage.payment.form.enable(true);
             // Since the Save and Cancel buttons are part of the form, we will need to re-fetch the controls,
             // so as to maintian uniformity in command events. We are also setting the command mode.
@@ -789,6 +973,12 @@ page.BulkPurchase.Events = function BulkPurchaseEvents (bulkPurchasePage) {
             bulkPurchasePage.payment.dataTable.reloadTable();
             bulkPurchasePage.payment.form.enable(false);
             bulkPurchasePage.payment.commandPanel.setCommandMode(component.CommandPanel.CommandMode.View);
+            if (bulkPurchasePage.commandPanel.isAddMode()) {
+                bulkPurchasePage.commandPanel.setCommandMode(component.CommandPanel.CommandMode.Add);
+            }
+            else if (bulkPurchasePage.commandPanel.isEditMode()) {
+                bulkPurchasePage.commandPanel.setCommandMode(component.CommandPanel.CommandMode.Edit);
+            }
             bulkPurchasePage.commandPanel.enableRoot(true);
             paymentAction = null;
 
@@ -810,6 +1000,12 @@ page.BulkPurchase.Events = function BulkPurchaseEvents (bulkPurchasePage) {
         bulkPurchasePage.payment.form.on("form.cancel", function () {
             bulkPurchasePage.payment.dataTable.reloadTable();
             bulkPurchasePage.payment.commandPanel.setCommandMode(component.CommandPanel.CommandMode.View);
+            if (bulkPurchasePage.commandPanel.isAddMode()) {
+                bulkPurchasePage.commandPanel.setCommandMode(component.CommandPanel.CommandMode.Add);
+            }
+            else if (bulkPurchasePage.commandPanel.isEditMode()) {
+                bulkPurchasePage.commandPanel.setCommandMode(component.CommandPanel.CommandMode.Edit);
+            }
             bulkPurchasePage.commandPanel.enableRoot(true);
             paymentAction = null;
         });
@@ -820,9 +1016,9 @@ page.BulkPurchase.Events = function BulkPurchaseEvents (bulkPurchasePage) {
      * @returns void
      */
     this.initialize = function initialize() {
-        let _settings = bulkPurchasePage.settings();
-        _this.initializePageEvents(_settings);
-        _this.initializeForexEvents(_settings);
-        _this.initializePaymentEvents(_settings);
+        let settings = bulkPurchasePage.settings();
+        _this.initializePageEvents(settings);
+        _this.initializeForexEvents(settings);
+        _this.initializePaymentEvents(settings);
     }
 }

@@ -73,7 +73,18 @@
                         }
                     },
                     summaryFormSelector: pageRootSelector + " #forexSummaryForm",
-                    summaryFormSettings: null,
+                    summaryFormSettings: {
+                        grossAmtSelector: "#GrossAmt",
+                        fxGstSelector: "#FxGST",
+                        tcCardChrgSelector: "#TCCardChrg",
+                        srvChrgSelector: "#SrvChrg",
+                        srvChrgAmtSelector: "#SrvChrgAmt",
+                        stxPercentageSelector: "#STXPercentage",
+                        stxAmtSelector: "#STXAmt",
+                        chargesTaxSelector: "#ChargesTax",
+                        roundOffSelector: "#RoundOff",
+                        netPayableSelector: "#NetPayable"
+                    },
                     detailsFormSelector: pageRootSelector + " #forexDetailsForm",
                     detailsFormSettings: {
                         currencyNameSelector: "#CurrencyName",
@@ -131,7 +142,19 @@
                         }
                     },
                     detailsFormSelector: pageRootSelector + " #paymentDetailsForm",
-                    detailsFormSettings: null,
+                    detailsFormSettings: {
+                        cashBankSelector: "#CashBank",
+                        typeSelector: "#Type",
+                        chequeNoSelector: "#ChequeNo",
+                        chequeDateSelector: "#ChequeDate",
+                        amountSelector: "#Amount",
+                        remarkSelector: "#Remark",
+                        bankSelector: "#Bank",
+                        dateSelector: "#Date",
+                        netPayableSelector: "#NetPayable",
+                        totalPendingAmountSelector: "#TotalPendingAmount",
+                        balanceAmountSelector: "#BalanceAmount"
+                    },
                     commandPanelSelector: pageRootSelector + " .payment-command-container",
                     commandPanelSettings: {
                         addCommandButtonSelector: "#btnAddAct",
@@ -150,12 +173,14 @@
                     addCommandButtonSelector: "#btnMainAddAct",
                     editCommandButtonSelector: "#btnMainEditAct",
                     deleteCommandButtonSelector: "#btnMainDeleteAct",
+                    saveCommandButtonSelector: "#btnMainSaveAct",
                     cancelCommandButtonSelector: "#btnMainCancelAct"
                 },
                 addUrl: null,
                 editUrl: null,
                 deleteUrl: null,
-                saveUrl: null
+                saveUrl: "@Url.Action("Save")?action=[action]",
+                cancelUrl: null
             });
             bulkPurchasePage.initialize();
         </script>

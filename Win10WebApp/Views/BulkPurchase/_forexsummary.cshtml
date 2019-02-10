@@ -12,7 +12,7 @@
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group floating-label">
-                            <input class="form-control floating-input readonlyInputblue elementInput" id="GrossAmt" name="GrossAmt" value="@Model.BulkPurchase.GrossAmt"
+                            <input class="form-control floating-input readonlyInputblue elementInput" id="GrossAmt" name="BulkPurchase.GrossAmt" value="@Model.BulkPurchase.GrossAmt"
                                    type="text" placeholder=" ">
                             <span class="highlight"></span>
                             <label>Gross Amt</label>
@@ -21,7 +21,7 @@
                     </div>
                     <div class="col-md-6">
                         <div class="form-group floating-label">
-                            <input class="form-control floating-input elementInput" id="FxGST" name="FxGST" value="@Model.BulkPurchase.FxGST"
+                            <input class="form-control floating-input elementInput" id="FxGST" name="BulkPurchase.FxGST" value="@Model.BulkPurchase.FxGST"
                                    type="text" placeholder=" " onclick="(this.type='number')">
                             <span class="highlight"></span>
                             <label>Fx STX</label>
@@ -30,7 +30,7 @@
                     </div>
                     <div class="col-md-6">
                         <div class="form-group floating-label">
-                            <input class="form-control floating-input elementInput" id="TCCardChrg" name="TCCardChrg" value="@Model.BulkPurchase.TCCardChrg"
+                            <input class="form-control floating-input elementInput" id="TCCardChrg" name="BulkPurchase.TCCardChrg" value="@Model.BulkPurchase.TCCardChrg"
                                    type="text" placeholder=" " onclick="(this.type='number')">
                             <span class="highlight"></span>
                             <label>TC/Card Charge</label>
@@ -39,7 +39,7 @@
                     </div>
                     <div class="col-md-6">
                         <div class="form-group floating-label">
-                            <select class="form-control form-control-sm floating-select elementInput" id="SrvChrg" name="SrvChrg" value="@Model.BulkPurchase.SrvChrg" onclick="this.setAttribute('value', this.value);">
+                            <select class="form-control form-control-sm floating-select elementInput" id="SrvChrg" name="BulkPurchase.SrvChrg" value="@Model.BulkPurchase.SrvChrg" onclick="this.setAttribute('value', this.value);">
                                 <option id="0">Select</option>
                                 @foreach (var item in Model.ChargesTax)
                                 {
@@ -52,7 +52,7 @@
                     </div>
                     <div class="col-md-6">
                         <div class="form-group floating-label">
-                            <input class="form-control floating-input elementInput" id="SrvChrgAmt" name="SrvChrgAmt" value="@Model.BulkPurchase.SrvChrgAmt"
+                            <input class="form-control floating-input elementInput" id="SrvChrgAmt" name="BulkPurchase.SrvChrgAmt" value="@Model.BulkPurchase.SrvChrgAmt"
                                    type="text" placeholder=" " onclick="(this.type='number')">
                             <span class="highlight"></span>
                             <label></label>
@@ -62,7 +62,7 @@
 
                     <div class="col-md-6">
                         <div class="form-group floating-label">
-                            <input class="form-control floating-input elementInput" id="STXPercentage" name="STXPercentage" value="@Model.BulkPurchase.STXPercentage"
+                            <input class="form-control floating-input elementInput" id="STXPercentage" name="BulkPurchase.STXPercentage" value="@Model.BulkPurchase.STXPercentage"
                                    type="text" placeholder=" " onclick="(this.type='number')">
                             <span class="highlight"></span>
                             <label>STX %</label>
@@ -71,7 +71,7 @@
                     </div>
                     <div class="col-md-6">
                         <div class="form-group floating-label">
-                            <input class="form-control floating-input elementInput" id="STXAmt" name="STXAmt" value="@Model.BulkPurchase.STXAmt"
+                            <input class="form-control floating-input elementInput" id="STXAmt" name="BulkPurchase.STXAmt" value="@Model.BulkPurchase.STXAmt"
                                    type="text" placeholder=" " onclick="(this.type='number')">
                             <span class="highlight"></span>
                             <label></label>
@@ -80,7 +80,7 @@
                     </div>
                     <div class="col-md-6">
                         <div class="form-group floating-label">
-                            <select class="form-control form-control-sm floating-select elementInput" id="ChargesTax" name="ChargesTax" value="@Model.BulkPurchase.ChargesTax" onclick="this.setAttribute('value', this.value);">
+                            <select class="form-control form-control-sm floating-select elementInput" id="ChargesTax" name="BulkPurchase.ChargesTax" value="@Model.BulkPurchase.ChargesTax" onclick="this.setAttribute('value', this.value);">
                                 <option id="0">Select</option>
                                 @foreach (var item in Model.ChargesTax)
                                 {
@@ -93,7 +93,7 @@
                     </div>
                     <div class="col-md-6">
                         <div class="form-group floating-label">
-                            <input class="form-control floating-input elementInput" id="RoundOff" name="RoundOff" value="@Model.BulkPurchase.RoundOff"
+                            <input class="form-control floating-input elementInput" id="RoundOff" name="BulkPurchase.RoundOff" value="@Model.BulkPurchase.RoundOff"
                                    type="text" placeholder=" " onclick="(this.type='number')">
                             <span class="highlight"></span>
                             <label>Round Off</label>
@@ -101,7 +101,7 @@
                     </div>
                     <div class="col-md-6">
                         <div class="form-group floating-label">
-                            <input class="form-control floating-input readonlyInputblue elementInput" id="NetPayable" name="NetPayable" value="@Model.BulkPurchase.NetPayable"
+                            <input class="form-control floating-input readonlyInputblue elementInput" id="NetPayable" name="BulkPurchase.NetPayable" value="@Model.BulkPurchase.NetPayable"
                                    type="text" placeholder=" ">
                             <span class="highlight"></span>
                             <label>NetPayable</label>
