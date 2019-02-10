@@ -414,9 +414,7 @@ page.BulkPurchase.BillingForm = function BillingForm (rootSelector, settings) {
      * @returns {void} void
      */
     this.cancelSave = function (cancelUrl) {
-        lib.invokeAction(cancelUrl, null, function () {
-            base.cancelSave();
-        });
+        base.cancelSave();
     }
 }
 
@@ -929,8 +927,8 @@ page.BulkPurchase.Events = function BulkPurchaseEvents (bulkPurchasePage) {
 
         // On Payment form set to Edit mode
         bulkPurchasePage.payment.form.on("form.edit.success", function () {
-            if (supressForexFormEditSuccess) {
-                supressForexFormEditSuccess = false;
+            if (supressPaymentFormEditSuccess) {
+                supressPaymentFormEditSuccess = false;
                 return;
             }
             paymentAction = "Edit";

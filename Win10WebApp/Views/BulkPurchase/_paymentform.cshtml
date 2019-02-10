@@ -1,13 +1,19 @@
 ﻿@model Win10WebApp.ViewModels.BulkPurchaseViewModel
 
 <form class="form-add-edit" id="paymentDetailsForm">
+    <input type="text" name="Id" value="@Model.BulkPurchasePayment.Id" style="display: none;" />
     <div class="row">
         <div class="col-md-2">
             <div class="form-group floating-label">
                 <select class="form-control form-control-sm floating-select elementInput" id="CashBank" name="CashBank" onfocus="this.setAttribute('value', this.value);" value="@Model.BulkPurchasePayment.CashBank">                  
                     @foreach (var item in Model.CashBank)
                     {
-                        <option value="@item.Id">@item.Value</option>
+                        if (Model.BulkPurchasePayment.CashBank.HasValue && Model.BulkPurchasePayment.CashBank.Value == item.Id) {
+                            <option value="@item.Id" selected>@item.Value</option>
+                        }
+                        else {
+                            <option value="@item.Id">@item.Value</option>
+                        }
                     }
 
                 </select>
@@ -20,7 +26,12 @@
                 <select class="form-control form-control-sm floating-select elementInput" id="Type" name="Type" onfocus="this.setAttribute('value', this.value);" value="@Model.BulkPurchasePayment.Type">                    
                     @foreach (var item in Model.PaymentReceipt)
                     {
-                        <option value="@item.Id">@item.Value</option>
+                        if (Model.BulkPurchasePayment.Type.HasValue && Model.BulkPurchasePayment.Type.Value == item.Id) {
+                            <option value="@item.Id" selected>@item.Value</option>
+                        }
+                        else {
+                            <option value="@item.Id">@item.Value</option>
+                        }
                     }
                 </select>
                 <span class="highlight"></span>
@@ -65,7 +76,12 @@
                     <option id="0">Select</option>
                     @foreach (var item in Model.Bank)
                     {
-                        <option value="@item.Id">@item.Value</option>
+                        if (Model.BulkPurchasePayment.Bank.HasValue && Model.BulkPurchasePayment.Bank.Value == item.Id) {
+                            <option value="@item.Id" selected>@item.Value</option>
+                        }
+                        else {
+                            <option value="@item.Id">@item.Value</option>
+                        }
                     }
                 </select>
                 <span class="highlight"></span>
