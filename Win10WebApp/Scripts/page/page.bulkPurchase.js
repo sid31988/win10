@@ -703,7 +703,7 @@ page.BulkPurchase.Events = function BulkPurchaseEvents (bulkPurchasePage) {
 
         // On main save click
         bulkPurchasePage.commandPanel.on("command.save", function () {
-            let summaryFormData = bulkPurchasePage.forex.summaryForm.serializeJson();
+            let summaryFormData = bulkPurchasePage.forex.summaryForm.prepareFormData();
             bulkPurchasePage.billingForm.postSaveData(settings.saveUrl, summaryFormData);
         });
 
@@ -888,16 +888,20 @@ page.BulkPurchase.Events = function BulkPurchaseEvents (bulkPurchasePage) {
             bulkPurchasePage.payment.dataTable.$root.css({ "width": "100%" });
         });
 
+        let supressPaymentFormEditSuccess = false;
         // On Payment row select, load the details for selected record
         bulkPurchasePage.payment.dataTable.on("table.row.select", function (eventArgs) {
-            if (bulkPurchasePage.payment.commandPanel.isViewMode()) {
-                bulkPurchasePage.payment.form.loadEditView(settings.paymentDetailsSettings.editUrl, eventArgs, function () {
-                    // We will need to disable the form and set the command mode to view, in order to get
-                    // the desired behaviour
+            if (bulkPurchasePage.payment.commandPanel.isNoneMode() || bulkPurchasePage.payment.commandPanel.isViewMode()) {
+                supressPaymentFormEditSuccess = true;
+            }
+            bulkPurchasePage.payment.form.loadEditView(settings.paymentDetailsSettings.editUrl, eventArgs, function () {
+                // We will need to disable the form and set the command mode to view, in order to get
+                // the desired behaviour
+                if (bulkPurchasePage.payment.commandPanel.isViewMode()) {
                     bulkPurchasePage.payment.form.enable(false);
                     bulkPurchasePage.payment.commandPanel.setCommandMode(component.CommandPanel.CommandMode.View);
-                });
-            }
+                }
+            });
         });
     
         // On Payment add click, get add form from ajax
@@ -925,6 +929,10 @@ page.BulkPurchase.Events = function BulkPurchaseEvents (bulkPurchasePage) {
 
         // On Payment form set to Edit mode
         bulkPurchasePage.payment.form.on("form.edit.success", function () {
+            if (supressForexFormEditSuccess) {
+                supressForexFormEditSuccess = false;
+                return;
+            }
             paymentAction = "Edit";
             bulkPurchasePage.payment.form.initializeFields();
             bulkPurchasePage.payment.form.enable(true);
