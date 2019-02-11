@@ -23,7 +23,7 @@ namespace Win10WebApp.Controllers
             _repository = new Repository<BulkPurchase>();
             _model = new BulkPurchaseViewModel().SetModel();
             _forexmodel = new BulkPurchaseForexViewModel();
-            _paymentmodel = new BulkPurchasePaymentViewModel();            
+            _paymentmodel = new BulkPurchasePaymentViewModel();
         }
 
         [Authorize]
@@ -122,6 +122,9 @@ namespace Win10WebApp.Controllers
             {
                 if (ModelState.IsValid)
                 {
+                    //_model.BulkPurchase.GrossAmt = BulkPurchaseForexViewModel.Current.Sum(s => s.GrossAmt) ?? 0;
+                    //_model.BulkPurchase.NetPayable = _model.BulkPurchase.GrossAmt;
+                    //_model.BulkPurchasePayment.NetPayable = _model.BulkPurchase.GrossAmt; 
                     System.Diagnostics.Debug.WriteLine("Forex Save Invoked!!!");
                     return Json(Functions.OutPutResponse(true, "Record saved successfully", _forexmodel.Save(model, action)));
                 }
@@ -139,6 +142,9 @@ namespace Win10WebApp.Controllers
         {
             try
             {
+               // model.NetPayable = _model.BulkPurchase.NetPayable ?? 1000;
+                //model.TotalPendingAmount = BulkPurchasePaymentViewModel.Current.Sum(p => p.Amount) ?? 0;
+                //model.BalanceAmount = (model.NetPayable - model.TotalPendingAmount) ?? 0;
                 if (ModelState.IsValid)
                 {
                     return Json(Functions.OutPutResponse(true, "Record saved successfully", _paymentmodel.Save(model, action)));

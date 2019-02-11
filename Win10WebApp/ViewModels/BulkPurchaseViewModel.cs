@@ -119,17 +119,35 @@ namespace Win10WebApp.ViewModels
             _bulkpurchaseRepository.Insert(model.BulkPurchase);
             _bulkpurchaseRepository.Save();
 
-            model.BulkPurchaseForex.BulkPurchaseId = model.BulkPurchase.Id;
-            model.BulkPurchaseForex.IsDeleted = false;
-            _bulkpurchaseforexRepository.Insert(model.BulkPurchaseForex);
-            _bulkpurchaseforexRepository.Save();
-            BulkPurchaseForexViewModel.ClearSession();
 
-            model.BulkPurchasePayment.BulkPurchaseId = model.BulkPurchase.Id;
-            model.BulkPurchasePayment.IsDeleted = false;
-            _bulkpurchasepaymentRepository.Insert(model.BulkPurchasePayment);
-            _bulkpurchasepaymentRepository.Save();
-            BulkPurchasePaymentViewModel.ClearSession();
+            var forex = BulkPurchaseForexViewModel.Current;
+            if (forex != null && forex.Count > 0)
+            {
+                foreach (var row in forex)
+                {
+                    row.BulkPurchaseId = model.BulkPurchase.Id;
+                    row.IsDeleted = false;
+                    row.Id = 0;
+                    _bulkpurchaseforexRepository.Insert(row);
+                    _bulkpurchaseforexRepository.Save();
+                }
+                BulkPurchaseForexViewModel.ClearSession();
+            }
+
+
+            var payment = BulkPurchasePaymentViewModel.Current;
+            if (payment != null && payment.Count > 0)
+            {
+                foreach (var row in payment)
+                {
+                    row.BulkPurchaseId = model.BulkPurchase.Id;
+                    row.IsDeleted = false;
+                    row.Id = 0;
+                    _bulkpurchasepaymentRepository.Insert(row);
+                    _bulkpurchasepaymentRepository.Save();
+                }
+                BulkPurchaseForexViewModel.ClearSession();
+            }
 
         }
     }

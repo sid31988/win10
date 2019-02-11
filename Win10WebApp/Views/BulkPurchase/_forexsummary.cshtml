@@ -39,8 +39,7 @@
                     </div>
                     <div class="col-md-6">
                         <div class="form-group floating-label">
-                            <select class="form-control form-control-sm floating-select elementInput" id="SrvChrg" name="BulkPurchase.SrvChrg" value="@Model.BulkPurchase.SrvChrg" onclick="this.setAttribute('value', this.value);">
-                                <option id="0">Select</option>
+                            <select class="form-control form-control-sm floating-select elementInput" id="SrvChrg" name="BulkPurchase.SrvChrg" value="@Model.BulkPurchase.SrvChrg" onclick="this.setAttribute('value', this.value);">                                
                                 @foreach (var item in Model.ChargesTax)
                                 {
                                     <option value="@item.Id">@item.Value</option>
@@ -80,8 +79,7 @@
                     </div>
                     <div class="col-md-6">
                         <div class="form-group floating-label">
-                            <select class="form-control form-control-sm floating-select elementInput" id="ChargesTax" name="BulkPurchase.ChargesTax" value="@Model.BulkPurchase.ChargesTax" onclick="this.setAttribute('value', this.value);">
-                                <option id="0">Select</option>
+                            <select class="form-control form-control-sm floating-select elementInput" id="ChargesTax" name="BulkPurchase.ChargesTax" value="@Model.BulkPurchase.ChargesTax" onclick="this.setAttribute('value', this.value);">                                
                                 @foreach (var item in Model.ChargesTax)
                                 {
                                     <option value="@item.Id">@item.Value</option>
@@ -101,7 +99,7 @@
                     </div>
                     <div class="col-md-6">
                         <div class="form-group floating-label">
-                            <input class="form-control floating-input readonlyInputblue elementInput" id="NetPayable" name="BulkPurchase.NetPayable" value="@Model.BulkPurchase.NetPayable"
+                            <input class="form-control floating-input readonlyInputred elementInput" id="NetPayable" name="BulkPurchase.NetPayable" value="@Model.BulkPurchase.NetPayable"
                                    type="text" placeholder=" ">
                             <span class="highlight"></span>
                             <label>NetPayable</label>

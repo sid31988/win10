@@ -96,17 +96,27 @@ namespace Win10WebApp.ViewModels
             switch (mode)
             {
                 case ActionMode.Add:
+                   // model.TotalPendingAmount = ((BulkPurchasePaymentViewModel.Current.Sum(p => p.Amount) ?? 0) + model.Amount) ?? 0;
+                   // model.BalanceAmount = (model.NetPayable - model.TotalPendingAmount) ?? 0;
                     BulkPurchasePaymentViewModel.Current.AddItem(model);
                     return model;
                 case ActionMode.Edit:
                     var payment = BulkPurchasePaymentViewModel.Current;
                     payment.Remove(payment.Where(i => i.Id == model.Id).FirstOrDefault());
+
+                   // model.TotalPendingAmount = ((payment.Sum(p => p.Amount) ?? 0) + model.Amount) ?? 0;
+                   // model.BalanceAmount = (model.NetPayable - model.TotalPendingAmount) ?? 0;
+
                     payment.AddItem(model);
                     BulkPurchasePaymentViewModel.Current = payment;
                     return model;
                 case ActionMode.Delete:
                     var removepayment = BulkPurchasePaymentViewModel.Current;
                     removepayment.Remove(removepayment.Where(i => i.Id == model.Id).FirstOrDefault());
+
+                   // model.TotalPendingAmount = removepayment.Sum(p => p.Amount) ?? 0;
+                   // model.BalanceAmount = (model.NetPayable - model.TotalPendingAmount) ?? 0;
+
                     BulkPurchasePaymentViewModel.Current = removepayment;
                     return model;
                 //case ActionMode.Cancel:

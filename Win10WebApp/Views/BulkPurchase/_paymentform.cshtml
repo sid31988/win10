@@ -44,14 +44,14 @@
                 <input class="form-control floating-input elementInput" id="ChequeNo" name="ChequeNo" value="@Model.BulkPurchasePayment.ChequeNo"
                        type="text" placeholder=" ">
                 <span class="highlight"></span>
-                <label>Cheque No</label>
+                <label>Chq No</label>
             </div>
         </div>
         <div class="col-md-2">
             <div class="form-group floating-label">
                 <input class="form-control floating-input elementInput" id="ChequeDate" name="ChequeDate" value="@Model.BulkPurchasePayment.ChequeDate" type="text" placeholder=" " onfocus="(this.type='date')">
                 <span class="highlight"></span>
-                <label>ChequeDate</label>
+                <label>Chq Date</label>
             </div>
         </div>
         <div class="col-md-2">
@@ -72,8 +72,7 @@
         </div>
         <div class="col-md-2">
             <div class="form-group floating-label">
-                <select class="form-control form-control-sm floating-select elementInput" id="Bank" name="Bank" value="@Model.BulkPurchasePayment.Bank" onfocus="this.setAttribute('value', this.value);">
-                    <option id="0">Select</option>
+                <select class="form-control form-control-sm floating-select elementInput" id="Bank" name="Bank" value="@Model.BulkPurchasePayment.Bank" onfocus="this.setAttribute('value', this.value);">                    
                     @foreach (var item in Model.Bank)
                     {
                         if (Model.BulkPurchasePayment.Bank.HasValue && Model.BulkPurchasePayment.Bank.Value == item.Id) {
@@ -131,25 +130,6 @@
                 <button type="button" class="btn btn-info btn-sm left-panelbtn editor_cancel" id="btnCancelAct">Cancel</button>
             </div>
         </div>
-<!-- 
-        <div class="col-md-1 payment-command-container" style="display:none">
-            <div class="form-group">
-                <button type="button" class="btn btn-primary btn-sm left-panelbtn editor_add" id="btnAddAct">Add</button>
-            </div>
-        </div>
-
-        <div class="col-md-1 payment-command-container" style="display:none">
-            <div class="form-group">
-                <button type="button" class="btn btn-warning btn-sm left-panelbtn editor_edit" id="btnEditAct">Edit</button>
-            </div>
-        </div>
-
-        <div class="col-md-1 payment-command-container" style="display:none">
-            <div class="form-group">
-                <button type="button" class="btn btn-danger btn-sm left-panelbtn editor_delete" id="btnDeleteAct">Delete</button>
-            </div>
-        </div> -->
-
        
 </form>
 

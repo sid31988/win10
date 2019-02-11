@@ -6,8 +6,7 @@
         <div class="row col-sm-12" style="margin-top:10px">
             <div class="col-sm-2 column">
                 <div class="form-group floating-label">
-                    <select class="form-control form-control-sm floating-select elementInput" id="FFMCAD" name="BulkPurchase.FFMCAD" onclick="this.setAttribute('value', this.value);" value="@Model.BulkPurchase.FFMCAD">                       
-                        <option id="0">Select</option>
+                    <select class="form-control form-control-sm floating-select elementInput" id="FFMCAD" name="BulkPurchase.FFMCAD" onclick="this.setAttribute('value', this.value);" value="@Model.BulkPurchase.FFMCAD">                        
                         @foreach (var item in Model.FFMCAD)
                         {
                             <option value="@item.Id">@item.Value</option>
@@ -24,8 +23,7 @@
             </div>
             <div class="column col-sm-3">
                 <div class="floating-label">
-                    <select class="form-control form-control-sm floating-select elementInput" id="DeliveryIn" name="BulkPurchase.DeliveryIn" value="@Model.BulkPurchase.DeliveryIn" onclick="this.setAttribute('value', this.value);">
-                        <option id="0">Select</option>
+                    <select class="form-control form-control-sm floating-select elementInput" id="DeliveryIn" name="BulkPurchase.DeliveryIn" value="@Model.BulkPurchase.DeliveryIn" onclick="this.setAttribute('value', this.value);">                        
                         @foreach (var item in Model.DeliveryIn)
                         {
                             <option value="@item.Id">@item.Value</option>
@@ -43,7 +41,7 @@
             <div class="col-sm-3 column">
                 <div class="floating-label">
                     <select class="form-control form-control-sm floating-select elementInput" id="Broker" name="BulkPurchase.Broker" value="@Model.BulkPurchase.Broker" onclick="this.setAttribute('value', this.value);">
-                        <option id="0">Select</option>
+                        <option id="0">None</option>
                         @foreach (var item in Model.Broker)
                         {
                             <option value="@item.Id">@item.Value</option>
@@ -54,7 +52,7 @@
                 </div>
                 <div class="floating-label">
                     <select class="form-control form-control-sm floating-select elementInput" id="SubBroker" name="BulkPurchase.SubBroker" value="@Model.BulkPurchase.SubBroker" onclick="this.setAttribute('value', this.value);">
-                        <option id="0">Select</option>
+                        <option id="0">None</option>
                         @foreach (var item in Model.SubBroker)
                         {
                             <option value="@item.Id">@item.Value</option>
@@ -72,8 +70,7 @@
                     <label>Date</label>
                 </div>
                 <div class="floating-label">
-                    <select class="form-control form-control-sm floating-select elementInput" id="CostCentre" name="BulkPurchase.CostCentre" value="@Model.BulkPurchase.CostCentre" onclick="this.setAttribute('value', this.value);">
-                        <option id="0">Select</option>
+                    <select class="form-control form-control-sm floating-select elementInput" id="CostCentre" name="BulkPurchase.CostCentre" value="@Model.BulkPurchase.CostCentre" onclick="this.setAttribute('value', this.value);">                        
                         @foreach (var item in Model.CostCentre)
                         {
                             <option value="@item.Id">@item.Value</option>
@@ -85,8 +82,7 @@
             </div>
             <div class="col-sm-2 column">
                 <div class="floating-label">
-                    <select class="form-control form-control-sm floating-select elementInput" id="Quota" name="BulkPurchase.Quota" value="@Model.BulkPurchase.Quota" onclick="this.setAttribute('value', this.value);">
-                        <option id="0">Select</option>
+                    <select class="form-control form-control-sm floating-select elementInput" id="Quota" name="BulkPurchase.Quota" value="@Model.BulkPurchase.Quota" onclick="this.setAttribute('value', this.value);">                        
                         @foreach (var item in Model.Quota)
                         {
                             <option value="@item.Id">@item.Value</option>
