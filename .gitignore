@@ -262,3 +262,9 @@ __pycache__/
 
 # Additional command files
 *.bat
+
+#jsconfig
+jsconfig.json
+
+#datatable.html
+datatable.html

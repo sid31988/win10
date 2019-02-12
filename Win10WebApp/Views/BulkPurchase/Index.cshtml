@@ -62,8 +62,8 @@
                             dom: "r",
                             columns: [
                                 { data: "Id", name: "Sr", render: "renderRowNo" },
-                                { data: "CurrencyName", name: "Currency" },
-                                { data: "CurrencyNote", name: "As" },
+                                { data: "CurrencyName", name: "Currency", render: "renderCurrencyName" },
+                                { data: "CurrencyNote", name: "As", render: "renderCurrencyNote" },
                                 { data: "Quantity" },
                                 { data: "Rate" },
                                 { data: "GrossAmt" }
@@ -130,8 +130,8 @@
                             dom: "r",
                             columns: [
                                 { data: "Id", name: "Sr", render: "renderRowNo" },
-                                { data: "CashBank", name: "Cash/Bank A/c" },
-                                { data: "Type", name: "Rcpt/Payment" },
+                                { data: "CashBank", name: "Cash/Bank A/c", render: "renderCashBank" },
+                                { data: "Type", name: "Rcpt/Payment", render: "renderType" },
                                 { data: "ChequeNo", name: "Cheque #" },
                                 { data: "ChequeDate", name: "Cheque Date", render: "renderDate" },
                                 { data: "Amount", name: "Amount" },

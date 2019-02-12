@@ -11,7 +11,7 @@ component.DataTable.EventHandlers = function (dataTableComponent) {
     dataTableComponent.dataTable.on("draw", function () {
         dataTableComponent.$root.find(".editor_edit").off("click").on("click", rowEditEventHandler);
         dataTableComponent.$root.find(".editor_delete").off("click").on("click", rowDeleteEventHandler);
-        dataTableComponent.emit("table.draw");
+        dataTableComponent.emit("table.draw", { data: dataTableComponent.data() });
     });
 
     dataTableComponent.$root.on("click", "tr", function () {

@@ -54,8 +54,8 @@ component.DataTable = function DataTable (rootSelector, settingsOrFactory) {
         return _tableSettings;
     }
 
-    _this.initialize = function () {
-        _this.formatHelper = new component.DataTable.CellFormatHelper(_this);
+    _this.initialize = function (formatHelper) {
+        _this.formatHelper = formatHelper instanceof component.DataTable.CellFormatHelper && formatHelper || new component.DataTable.CellFormatHelper(_this);
         let settings = _this.settings();
         let tableSettings = _this.tableSettings();
         tableSettings.initComplete = function () {
@@ -66,6 +66,17 @@ component.DataTable = function DataTable (rootSelector, settingsOrFactory) {
         if (settings.commandDisplay === component.DataTable.CommandDisplayTypes.internal) {
             _this.$rowCommandTemplate = getRowCommandTemplate();
         }
+
+        _this.$root.on("xhr.dt", function (e, settings, json, xhr) {
+            _data = new Array();
+            _data.push(...json.data);
+            _this.emit("table.xhr", { data: json.data, settings: settings, xhr: xhr });
+        });
+    }
+
+    let _data = new Array();
+    _this.data = function () {
+        return _data;
     }
 
     _this.reloadTable = function () {

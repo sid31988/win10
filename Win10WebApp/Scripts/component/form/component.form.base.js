@@ -1,17 +1,48 @@
+/**
+ * The component namespace
+ */
 var component = component || {};
-component.Form = function (rootSelector, settings) {
+/**
+ * The form component constructor function
+ * @constructor
+ * @extends component.ViewableControl
+ * @param rootSelector {string} The root element jQuery selector
+ * @param settings {Object} The component level settings
+ */
+component.Form = function Form(rootSelector, settings) {
     component.ViewableControl.call(this, rootSelector, settings);
+    /**
+     * A closure variable to hold the object scope reference.
+     * @type component.Form
+     */
     let _this = this;
+
+    /**
+     * A closure variable to host the base class functionality
+     * @type component.ViewableControl
+     */
     let base = {};
 
-    _this.handlers = new component.Form.Events(_this);
-    _this.writeMode = component.Form.WriteMode.None;
+    /**
+     * The component event handler
+     * @type component.Form.Events
+     */
+    this.handlers = new component.Form.Events(this);
 
-    let defaultSettings = {
-    };
+    /**
+     * The form component status i.e. None, Add and Edit
+     * @type component.Form.WriteMode
+     */
+    this.writeMode = component.Form.WriteMode.None;
 
-    base.settings = _this.settings;
-    _this.settings = function () {
+    /**
+     * The component level default settings
+     * @type Object
+     */
+    let defaultSettings = { };
+
+    base.settings = this.settings;
+    this.settings = function () {
         let settings = base.settings();
         settings = lib.getOrDefault(settings, defaultSettings);
         return settings;
@@ -27,19 +58,46 @@ component.Form = function (rootSelector, settings) {
 
     let _addViewHtml = null;
 
-    let loadAddViewSuccessHandler = function (newHtml) {
+    let loadAddViewSuccessHandler = function (newHtml, htmlOnly) {
         _addViewHtml = newHtml;
-        _this.writeMode = component.Form.WriteMode.Add;
-        _this.enable(true);
-        _this.emit("form.add.success");
-        _this.focusOnFirstControl();
+        if (!htmlOnly) {
+            _this.enable(true);
+            _this.writeMode = component.Form.WriteMode.Add;
+            _this.emit("form.add.success");
+            _this.focusOnFirstControl();
+        }
     }
 
-    _this.focusOnFirstControl = function () {
+    /**
+     * Sets focus on the first visible and enabled form field
+     */
+    this.focusOnFirstControl = function focusOnFirstControl() {
         _this.$root.find("select:visible,input:visible,textarea:visible").first().focus();
     }
 
-    _this.loadAddView = function (addUrl, success, error) {
+    /**
+     * The ajax success callback
+     * @param successData {string} The ajax response
+     */
+    function success(successData) { }
+    /**
+     * The ajax error callback
+     * @param xhr {XmlHttpResponse} The error response
+     * @param status {string} The error resposne status
+     * @param ex {Error} The error or exception object
+     */
+    function error(xhr, status, ex) { }
+
+    /**
+     * Makes an ajax call to load the add view i.e. empty form
+     * @param addUrl {string} The add ajax url
+     * @param data {Object} The data to be passed along with the ajax request
+     * @param success {success} The callback that handles the ajax success response
+     * @param error {error} The callback that handles the ajax error response
+     * @param htmlOnly {boolean} true to render only the html and false to render the html and raise the event
+     */
+    this.loadAddView = function loadAddView(addUrl, success, error, htmlOnly) {
+        htmlOnly = htmlOnly === null || htmlOnly === undefined ? false : htmlOnly;
         try {
             backupViewBeforeAdd();
             if (_addViewHtml == null) {
@@ -74,13 +132,24 @@ component.Form = function (rootSelector, settings) {
     }
 
     let _editViewHtml = null;
-    _this.loadEditView = function (editUrl, data, success, error) {
+    /**
+     * Makes an ajax call to load the edit view for a data record
+     * @param editUrl {string} The edit ajax url
+     * @param data {Object} The data to be passed along with the ajax request
+     * @param success {success} The callback that handles the ajax success response
+     * @param error {error} The callback that handles the ajax error response
+     * @param htmlOnly {boolean} true to render only the html and false to render the html and raise the event
+     */
+    this.loadEditView = function loadEditView(editUrl, data, success, error, htmlOnly) {
+        htmlOnly = htmlOnly === null || htmlOnly === undefined ? false : htmlOnly;
         let _editUrl = lib.replaceTokens(editUrl, data);
         _this.loadPartialView(_editUrl, null, function (successData) {
             _editViewHtml = successData;
-            _this.writeMode = component.Form.WriteMode.Edit;
             _this.enable(false);
-            _this.emit("form.edit.success");
+            if (!htmlOnly) {
+                _this.writeMode = component.Form.WriteMode.Edit;
+                _this.emit("form.edit.success");
+            }
             if (typeof success === "function") {
                 success(successData);
             }
@@ -92,11 +161,15 @@ component.Form = function (rootSelector, settings) {
         });
     }
 
-    _this.prepareFormData = function (additionalData) {
-        let wasEnabled = _this.enable();
-        if (wasEnabled === false) _this.enable(true);
+    /**
+     * Gets a json representation of the form fields
+     * @param additionalData {Object} This json object will be merged with the final output
+     */
+    this.prepareFormData = function prepareFormData(additionalData) {
+        //let wasEnabled = _this.enable();
+        //if (wasEnabled === false) _this.enable(true);
         let formData = _this.$root.serializeJson();
-        if (wasEnabled === false) _this.enable(false);
+        //if (wasEnabled === false) _this.enable(false);
         additionalData = additionalData || {};
         for (var key in formData) {
             additionalData[key] = formData[key];
@@ -104,7 +177,14 @@ component.Form = function (rootSelector, settings) {
         return additionalData;
     }
 
-    _this.postSaveData = function (saveUrl, data, success, error) {
+    /**
+     * Makes an ajax call to save the form data
+     * @param saveUrl {string} The save ajax url
+     * @param data {Object} The data to be passed along with the ajax request
+     * @param success {success} The callback that handles the ajax success response
+     * @param error {error} The callback that handles the ajax error response
+     */
+    this.postSaveData = function postSaveData(saveUrl, data, success, error) {
         let postData = _this.prepareFormData(data);
         let _saveUrl = lib.replaceTokens(saveUrl, postData);
         lib.invokeAction(_saveUrl, "POST", postData, function (successData) {
@@ -122,7 +202,14 @@ component.Form = function (rootSelector, settings) {
         });
     }
 
-    _this.deleteRecord = function (deleteUrl, data, success, error) {
+    /**
+     * Makes an ajax call to delete the form data
+     * @param deleteUrl {string} The delete ajax url
+     * @param data {Object} The data to be passed along with the ajax request
+     * @param success {success} The callback that handles the ajax success response
+     * @param error {error} The callback that handles the ajax error response
+     */
+    this.deleteRecord = function deleteRecord(deleteUrl, data, success, error) {
         let postData = _this.prepareFormData(data);
         let _deleteUrl = lib.replaceTokens(deleteUrl, postData);
         lib.invokeAction(_deleteUrl, "POST", postData, function (successData) {
@@ -138,7 +225,10 @@ component.Form = function (rootSelector, settings) {
         });
     }
 
-    _this.cancelSave = function () {
+    /**
+     * Cancels the form activity and restores the previous state
+     */
+    this.cancelSave = function cancelSave() {
         switch(_this.writeMode) {
             case component.Form.WriteMode.Add:
                 //_this.$root.html(_addViewHtml);
@@ -156,8 +246,51 @@ component.Form = function (rootSelector, settings) {
         _this.emit("form.cancel");
     }
 
-    _this.initialize = function () {
+    this.raiseChange = function () {
+        let newFormData = _this.prepareFormData();
+        _this.emit("form.change", newFormData);
+    }
 
+    this.trackChanges = function () {
+        try {
+            _this.trackChanges.lock = _this.trackChanges.lock || false;
+            if (!_this.trackChanges.lock) {
+                _this.trackChanges.formData = _this.trackChanges.formData || _this.prepareFormData();
+                let newFormData = _this.prepareFormData();
+                let oldDataJsonStr = JSON.stringify(_this.trackChanges.formData);
+                let newDataJsonStr = JSON.stringify(newFormData);
+                if (oldDataJsonStr !== newDataJsonStr) {
+                    _this.trackChanges.formData = newFormData;
+                    _this.emit("form.change", newFormData);
+                }
+                _this.trackChanges.lock = false;
+                _this.trackChanges.timeoutId = _this.trackChanges.timeoutId || 0;
+                clearTimeout(_this.trackChanges.timeoutId);
+                _this.trackChanges.timeoutId = setTimeout(function () {
+                    _this.trackChanges();
+                }, 500);
+            }
+        }
+        catch (ex) {
+            // No error messages
+        }
+    }
+
+    //this.trackChanges();
+
+    /**
+     * Initializes the component, inner elements and other settings
+     */
+    this.initialize = function initialize() {
+    }
+
+    /**
+     * Resets the form fields
+     * @returns {void} void
+     */
+    this.reset = function reset() {
+        let formFields = this.$root.formFields();
+        
     }
 }
 

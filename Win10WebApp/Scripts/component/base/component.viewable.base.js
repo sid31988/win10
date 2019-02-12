@@ -11,7 +11,13 @@ component.ViewableControl = function (rootSelector, settings) {
     };
 
     base.settings = _this.settings;
-    _this.settings = function () {
+
+    /**
+     * A json object or a json factory function, which contains component level settings.
+     * @override component.Base.settings
+     * @returns {Object} Object
+     */
+    this.settings = function () {
         let settings = base.settings();
         settings = lib.getOrDefault(settings, defaultSettings);
         return settings;
