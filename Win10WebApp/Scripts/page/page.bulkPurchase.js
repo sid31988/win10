@@ -302,12 +302,30 @@ page.BulkPurchase = function BulkPurchasePage (rootSelector, settings) {
         dataTable: null,
         form: null,
         summaryForm: null,
-        commandPanel: null
+        commandPanel: null,
+        empty: function () {
+            _this.forex.form.loadAddView(settings.forexDetailsSettings.addUrl, function () {
+                // We will need to disable the form and set the command mode to view, in order to get
+                // the desired behaviour
+                _this.payment.form.initializeFields();
+                _this.forex.form.enable(false);
+                _this.forex.commandPanel.setCommandMode(component.CommandPanel.CommandMode.View);
+            });
+        }
     };
     this.payment = {
         dataTable: null,
         form: null,
-        commandPanel: null
+        commandPanel: null,
+        empty: function () {
+            _this.payment.form.loadAddView(settings.paymentDetailsSettings.addUrl, function () {
+                // We will need to disable the form and set the command mode to view, in order to get
+                // the desired behaviour
+                _this.payment.form.initializeFields();
+                _this.payment.form.enable(false);
+                _this.payment.commandPanel.setCommandMode(component.CommandPanel.CommandMode.View);
+            });
+        }
     }
     this.commandPanel = null;
     this.eventHandlers = null;
@@ -916,7 +934,9 @@ page.BulkPurchase.Events = function BulkPurchaseEvents (bulkPurchasePage) {
                 bulkPurchasePage.payment.commandPanel.setCommandMode(component.CommandPanel.CommandMode.None);
             }
             bulkPurchasePage.forex.dataTable.reloadTable();
+            bulkPurchasePage.forex.empty();
             bulkPurchasePage.payment.dataTable.reloadTable();
+            bulkPurchasePage.payment.empty();
 
             // Enable the main forms and disable the inner forms i.e. forex and payment
             bulkPurchasePage.enableForms(true, false, true, false);
@@ -1057,12 +1077,7 @@ page.BulkPurchase.Events = function BulkPurchaseEvents (bulkPurchasePage) {
                     bulkPurchasePage.forex.dataTable.selectRow(0);
                 }
                 else {
-                    bulkPurchasePage.forex.form.loadAddView(settings.forexDetailsSettings.addUrl, function () {
-                        // We will need to disable the form and set the command mode to view, in order to get
-                        // the desired behaviour
-                        bulkPurchasePage.forex.form.enable(false);
-                        bulkPurchasePage.forex.commandPanel.setCommandMode(component.CommandPanel.CommandMode.View);
-                    });
+                    bulkPurchasePage.forex.empty();
                 }
                 bulkPurchasePage.forex.dataTable.off("table.draw", selectFirstRowOnDraw);
             }
@@ -1207,12 +1222,7 @@ page.BulkPurchase.Events = function BulkPurchaseEvents (bulkPurchasePage) {
                     bulkPurchasePage.payment.dataTable.selectRow(0);
                 }
                 else {
-                    bulkPurchasePage.payment.form.loadAddView(settings.paymentDetailsSettings.addUrl, function () {
-                        // We will need to disable the form and set the command mode to view, in order to get
-                        // the desired behaviour
-                        bulkPurchasePage.payment.form.enable(false);
-                        bulkPurchasePage.payment.commandPanel.setCommandMode(component.CommandPanel.CommandMode.View);
-                    });
+                    bulkPurchasePage.payment.empty();
                 }
                 bulkPurchasePage.payment.dataTable.off("table.draw", selectFirstRowOnDraw);
             }
