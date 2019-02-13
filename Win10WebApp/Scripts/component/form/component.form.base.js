@@ -290,7 +290,22 @@ component.Form = function Form(rootSelector, settings) {
      */
     this.reset = function reset() {
         let formFields = this.$root.formFields();
-        
+        setTimeout(function() {
+            for(var i = 0; i < formFields.length; i++) {
+                switch (formFields[i].tagName.toLowerCase()) {
+                    case "input":
+                        $(formFields[i]).val("");
+                        break;
+                    case "select":
+                        let $firstOption = $(formFields[i]).find("option:eq(0)");
+                        $(formFields[i]).val($firstOption.val());
+                        break;
+                    case "textarea":
+                        $(formFields[i]).val("");
+                        break;
+                }
+            }
+        }, 0);
     }
 }
 

@@ -302,30 +302,12 @@ page.BulkPurchase = function BulkPurchasePage (rootSelector, settings) {
         dataTable: null,
         form: null,
         summaryForm: null,
-        commandPanel: null,
-        empty: function () {
-            _this.forex.form.loadAddView(settings.forexDetailsSettings.addUrl, function () {
-                // We will need to disable the form and set the command mode to view, in order to get
-                // the desired behaviour
-                _this.payment.form.initializeFields();
-                _this.forex.form.enable(false);
-                _this.forex.commandPanel.setCommandMode(component.CommandPanel.CommandMode.View);
-            });
-        }
+        commandPanel: null
     };
     this.payment = {
         dataTable: null,
         form: null,
-        commandPanel: null,
-        empty: function () {
-            _this.payment.form.loadAddView(settings.paymentDetailsSettings.addUrl, function () {
-                // We will need to disable the form and set the command mode to view, in order to get
-                // the desired behaviour
-                _this.payment.form.initializeFields();
-                _this.payment.form.enable(false);
-                _this.payment.commandPanel.setCommandMode(component.CommandPanel.CommandMode.View);
-            });
-        }
+        commandPanel: null
     }
     this.commandPanel = null;
     this.eventHandlers = null;
@@ -934,9 +916,11 @@ page.BulkPurchase.Events = function BulkPurchaseEvents (bulkPurchasePage) {
                 bulkPurchasePage.payment.commandPanel.setCommandMode(component.CommandPanel.CommandMode.None);
             }
             bulkPurchasePage.forex.dataTable.reloadTable();
-            bulkPurchasePage.forex.empty();
+            bulkPurchasePage.forex.form.reset();
+            bulkPurchasePage.billingForm.reset();
+            bulkPurchasePage.forex.summaryForm.reset();
             bulkPurchasePage.payment.dataTable.reloadTable();
-            bulkPurchasePage.payment.empty();
+            bulkPurchasePage.payment.form.reset();
 
             // Enable the main forms and disable the inner forms i.e. forex and payment
             bulkPurchasePage.enableForms(true, false, true, false);

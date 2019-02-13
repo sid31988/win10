@@ -41,7 +41,7 @@
             <div class="col-sm-3 column">
                 <div class="floating-label">
                     <select class="form-control form-control-sm floating-select elementInput" id="Broker" name="BulkPurchase.Broker" value="@Model.BulkPurchase.Broker" onclick="this.setAttribute('value', this.value);">
-                        <option id="0">None</option>
+                        <option value="0">None</option>
                         @foreach (var item in Model.Broker)
                         {
                             <option value="@item.Id">@item.Value</option>
@@ -52,7 +52,7 @@
                 </div>
                 <div class="floating-label">
                     <select class="form-control form-control-sm floating-select elementInput" id="SubBroker" name="BulkPurchase.SubBroker" value="@Model.BulkPurchase.SubBroker" onclick="this.setAttribute('value', this.value);">
-                        <option id="0">None</option>
+                        <option value="0">None</option>
                         @foreach (var item in Model.SubBroker)
                         {
                             <option value="@item.Id">@item.Value</option>
