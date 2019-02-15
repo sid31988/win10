@@ -21,22 +21,27 @@ namespace Win10WebApp.ViewModels
 
     public class BulkPurchasePaymentViewModel
     {
+        private static string MasterType;
+        public BulkPurchasePaymentViewModel(string masterType)
+        {
+            MasterType = masterType;
+        }
         public static BulkPurchasePaymentList Current
         {
             get
-            {
-                var payment = HttpContext.Current.Session["payment"] as BulkPurchasePaymentList;
+            {                
+                var payment = HttpContext.Current.Session[MasterType + "payment"] as BulkPurchasePaymentList;
                 if (null == payment)
                 {
                     payment = new BulkPurchasePaymentList();
-                    HttpContext.Current.Session["payment"] = payment;
+                    HttpContext.Current.Session[MasterType + "payment"] = payment;
                 }
 
                 return payment;
             }
             set
             {
-                HttpContext.Current.Session["payment"] = value;
+                HttpContext.Current.Session[MasterType + "payment"] = value;
             }
         }
 
@@ -96,27 +101,17 @@ namespace Win10WebApp.ViewModels
             switch (mode)
             {
                 case ActionMode.Add:
-                   // model.TotalPendingAmount = ((BulkPurchasePaymentViewModel.Current.Sum(p => p.Amount) ?? 0) + model.Amount) ?? 0;
-                   // model.BalanceAmount = (model.NetPayable - model.TotalPendingAmount) ?? 0;
                     BulkPurchasePaymentViewModel.Current.AddItem(model);
                     return model;
                 case ActionMode.Edit:
                     var payment = BulkPurchasePaymentViewModel.Current;
                     payment.Remove(payment.Where(i => i.Id == model.Id).FirstOrDefault());
-
-                   // model.TotalPendingAmount = ((payment.Sum(p => p.Amount) ?? 0) + model.Amount) ?? 0;
-                   // model.BalanceAmount = (model.NetPayable - model.TotalPendingAmount) ?? 0;
-
                     payment.AddItem(model);
                     BulkPurchasePaymentViewModel.Current = payment;
                     return model;
                 case ActionMode.Delete:
                     var removepayment = BulkPurchasePaymentViewModel.Current;
                     removepayment.Remove(removepayment.Where(i => i.Id == model.Id).FirstOrDefault());
-
-                   // model.TotalPendingAmount = removepayment.Sum(p => p.Amount) ?? 0;
-                   // model.BalanceAmount = (model.NetPayable - model.TotalPendingAmount) ?? 0;
-
                     BulkPurchasePaymentViewModel.Current = removepayment;
                     return model;
                 //case ActionMode.Cancel:

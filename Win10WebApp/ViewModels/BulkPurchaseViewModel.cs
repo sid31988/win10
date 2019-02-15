@@ -116,6 +116,7 @@ namespace Win10WebApp.ViewModels
         public void Save(BulkPurchaseViewModel model)
         {
             model.BulkPurchase.IsDeleted = false;
+            model.BulkPurchase.CreatedDate = DateTime.Now;
             _bulkpurchaseRepository.Insert(model.BulkPurchase);
             _bulkpurchaseRepository.Save();
 
@@ -127,6 +128,7 @@ namespace Win10WebApp.ViewModels
                 {
                     row.BulkPurchaseId = model.BulkPurchase.Id;
                     row.IsDeleted = false;
+                    row.CreatedDate = DateTime.Now;
                     row.Id = 0;
                     _bulkpurchaseforexRepository.Insert(row);
                     _bulkpurchaseforexRepository.Save();
@@ -140,13 +142,15 @@ namespace Win10WebApp.ViewModels
             {
                 foreach (var row in payment)
                 {
+
                     row.BulkPurchaseId = model.BulkPurchase.Id;
                     row.IsDeleted = false;
+                    row.CreatedDate = DateTime.Now;
                     row.Id = 0;
                     _bulkpurchasepaymentRepository.Insert(row);
                     _bulkpurchasepaymentRepository.Save();
                 }
-                BulkPurchaseForexViewModel.ClearSession();
+                BulkPurchasePaymentViewModel.ClearSession();
             }
 
         }

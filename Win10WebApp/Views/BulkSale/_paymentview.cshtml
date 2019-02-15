@@ -1,0 +1,24 @@
+﻿@model Win10WebApp.ViewModels.BulkPurchaseViewModel
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-info">
+
+            <div class="panel-body">
+                <div id="paymentMasterRoot" class="row page-root" style="margin-top:10px">
+
+                    <!--Form Design-->
+                    <div id="paymentform" class="floating-form col-sm-12">
+                        @{Html.RenderPartial("~/Views/BulkSale/_paymentform.cshtml", Model);}
+                    </div>
+
+
+                    <!--View Design-->
+                    <div id="divDatatable" class="col-sm-12 grid-control">
+                        @{Html.RenderPartial("~/Views/BulkSale/_paymentdatatable.cshtml", Model.BulkPurchasePayment);}
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

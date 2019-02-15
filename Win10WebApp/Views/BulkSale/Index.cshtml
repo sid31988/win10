@@ -4,27 +4,27 @@
 }
 @Styles.Render("~/Content/bulkpurchase")
 
-<div class="row" id="@Win10WebApp.Utility.Constants.MODULES["BULKPURCHASE"]">
+<div class="row" id="@Win10WebApp.Utility.Constants.MODULES["BULKSALE"]">
     <div class="col-md-15">
-        @{Html.RenderPartial("~/Views/BulkPurchase/_billingview.cshtml",Model);}
+        @{Html.RenderPartial("~/Views/BulkSale/_billingview.cshtml",Model);}
 
         <div class="col-md-12">
             <div class="tabbable tabbable-tabdrop">
                 <ul class="nav nav-tabs" id="menu-nav">
                     <li class="active">
-                        <a href="#bulkpurchaseforexTab" data-toggle="tab">Forex Details</a>
+                        <a href="#bulksaleforexTab" data-toggle="tab">Forex Details</a>
                     </li>
                     <li>
-                        <a href="#bulkpurchasepaymentTab" data-toggle="tab">Payment Details</a>
+                        <a href="#bulksalepaymentTab" data-toggle="tab">Payment Details</a>
                     </li>
 
                 </ul>
                 <div class="tab-content" id="menu-tab">
-                    <div class="tab-pane fade in active" id="bulkpurchaseforexTab">
-                        @{Html.RenderPartial("~/Views/BulkPurchase/_forexview.cshtml", Model);}
+                    <div class="tab-pane fade in active" id="bulksaleforexTab">
+                        @{Html.RenderPartial("~/Views/BulkSale/_forexview.cshtml", Model);}
                     </div>
-                    <div class="tab-pane fade" id="bulkpurchasepaymentTab">
-                        @{Html.RenderPartial("~/Views/BulkPurchase/_paymentview.cshtml", Model);}
+                    <div class="tab-pane fade" id="bulksalepaymentTab">
+                        @{Html.RenderPartial("~/Views/BulkSale/_paymentview.cshtml", Model);}
                     </div>
                 </div>
             </div>
@@ -39,9 +39,9 @@
             </div>
         </div>
         <script type="text/javascript">
-            var pageRootSelector = "#@Win10WebApp.Utility.Constants.MODULES["BULKPURCHASE"]";
+            var pageRootSelector = "#@Win10WebApp.Utility.Constants.MODULES["BULKSALE"]";
             var bulkPurchasePage = new page.BulkPurchase(pageRootSelector, {
-                billingFormSelector: pageRootSelector + " #bulkpurchaseBillingPanel",
+                billingFormSelector: pageRootSelector + " #bulksalesBillingPanel",
                 billingFormSettings: {
                     ffmcSelector: "#FFMCAD",
                     deliveredInSelector: "#DeliveryIn",

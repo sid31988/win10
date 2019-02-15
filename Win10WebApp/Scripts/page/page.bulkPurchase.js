@@ -109,20 +109,20 @@
  * @property {string} subBrokerTdsPercentageSelector - Selector pointing to the SubBrokerTdsPercentage field
  * @property {string} subBrokerTdsAmtSelector - Selector pointing to the SubBrokerTdsAmt field
  */
- /**
- * The page level settings used to instantiate the BulkPurchasePage object.
- * @typedef {Object} BulkPurchaseSettings
- * @property {string} billingFormSelector - Selector pointing to the billing form element
- * @property {BillingFormSettings} billingFormSettings - Settings related to the billing form component
- * @property {ForexDetailsSettings} forexDetailsSettings - Settings related to the forex form component
- * @property {PaymentDetailsSettings} paymentDetailsSettings - Settings related to the payment form component
- * @property {CommandPanelSettings} commandPanelSettings - Settings related to the main command panel component
- * @property {string} addUrl - The add ajax url
- * @property {string} editUrl - The edit ajax url
- * @property {string} deleteUrl - The delete ajax url
- * @property {string} saveUrl - The save ajax url
- * @property {string} cancelUrl - The cancel ajax url
- */
+/**
+* The page level settings used to instantiate the BulkPurchasePage object.
+* @typedef {Object} BulkPurchaseSettings
+* @property {string} billingFormSelector - Selector pointing to the billing form element
+* @property {BillingFormSettings} billingFormSettings - Settings related to the billing form component
+* @property {ForexDetailsSettings} forexDetailsSettings - Settings related to the forex form component
+* @property {PaymentDetailsSettings} paymentDetailsSettings - Settings related to the payment form component
+* @property {CommandPanelSettings} commandPanelSettings - Settings related to the main command panel component
+* @property {string} addUrl - The add ajax url
+* @property {string} editUrl - The edit ajax url
+* @property {string} deleteUrl - The delete ajax url
+* @property {string} saveUrl - The save ajax url
+* @property {string} cancelUrl - The cancel ajax url
+*/
 //#endregion
 
 /** The component namespace */
@@ -146,7 +146,7 @@ const PaymentTypes = {
  * @extends {component.page}
  * @type BulkPurchasePage
  */
-page.BulkPurchase = function BulkPurchasePage (rootSelector, settings) {
+page.BulkPurchase = function BulkPurchasePage(rootSelector, settings) {
     component.Page.call(this, rootSelector, settings);
 
     /**
@@ -283,7 +283,7 @@ page.BulkPurchase = function BulkPurchasePage (rootSelector, settings) {
      * Gets the component level settings (either json or a factory method) and compares with the default settings, for getting the final settings object.
      * @returns {BulkPurchaseSettings}
      */
-    this.settings = function settings () {
+    this.settings = function settings() {
         if (_settings === null) {
             _settings = base.settings();
             _settings = lib.getOrDefault(_settings, defaultSettings);
@@ -317,7 +317,7 @@ page.BulkPurchase = function BulkPurchasePage (rootSelector, settings) {
      * Initializes all the internal components of the Bulk Purchase Page.
      * @returns void
      */
-    this.initialize = function initialize () {
+    this.initialize = function initialize() {
         let settings = _this.settings();
         _this.billingForm = new page.BulkPurchase.BillingForm(settings.billingFormSelector, settings.billingFormSettings);
         _this.forex.dataTable = new component.DataTable(settings.forexDetailsSettings.dataTableSelector, settings.forexDetailsSettings.tableSettings);
@@ -353,10 +353,10 @@ page.BulkPurchase = function BulkPurchasePage (rootSelector, settings) {
     _this.calculateAmounts = function () {
         let netPayable = _this.forex.summaryForm.getNetPayable();
         let paymentData = _this.payment.dataTable.data();
-        let paymentAmounts = paymentData.filter(x => x.Type == PaymentTypes.Payment).map(x => x.Amount);
-        let receiptAmounts = paymentData.filter(x => x.Type == PaymentTypes.Receipt).map(x => x.Amount);
-        let totalPaymentAmount = paymentAmounts.length > 0 ? paymentAmounts.reduce((a, b) => a + b) : 0;
-        let totalReceiptAmount = receiptAmounts.length > 0 ? receiptAmounts.reduce((a, b) => a + b) : 0;
+        let paymentAmounts = paymentData.filter(x => x.Type == PaymentTypes.Payment).map(x => x.Amount).length > 0 ? paymentData.filter(x => x.Type == PaymentTypes.Payment).map(x => x.Amount) : [0];
+        let receiptAmounts = paymentData.filter(x => x.Type == PaymentTypes.Receipt).map(x => x.Amount).length > 0 ? paymentData.filter(x => x.Type == PaymentTypes.Receipt).map(x => x.Amount) : [0]
+        let totalPaymentAmount = _this.payment.form.$type.val() == PaymentTypes.Payment ? paymentAmounts.reduce((a, b) => a + b) + parseFloat(_this.payment.form.$amount.val() || 0) : paymentAmounts.reduce((a, b) => a + b);
+        let totalReceiptAmount = _this.payment.form.$type.val() == PaymentTypes.Receipt ? receiptAmounts.reduce((a, b) => a + b) + parseFloat(_this.payment.form.$amount.val() || 0) : receiptAmounts.reduce((a, b) => a + b);
         _this.payment.form.calculateAmounts(netPayable, totalPaymentAmount, totalReceiptAmount);
     }
 
@@ -368,7 +368,7 @@ page.BulkPurchase = function BulkPurchasePage (rootSelector, settings) {
      * @param paymentForm {boolean} true to enable the payment form and false to disable the payment form
      * @returns void
      */
-    _this.enableForms = function enableForms (billingForm, forexForm, forexSummaryForm, paymentForm) {
+    _this.enableForms = function enableForms(billingForm, forexForm, forexSummaryForm, paymentForm) {
         billingForm = billingForm || false;
         forexForm = forexForm || false;
         forexSummaryForm = forexSummaryForm || false;
@@ -393,7 +393,7 @@ page.BulkPurchase = function BulkPurchasePage (rootSelector, settings) {
  * @param settings {"Object"|"()=>Object"} The settings json object or settings json factory function
  * @extends component.Form
  */
-page.BulkPurchase.BillingForm = function BillingForm (rootSelector, settings) {
+page.BulkPurchase.BillingForm = function BillingForm(rootSelector, settings) {
     component.Form.call(this, rootSelector, settings);
     let base = {};
     let _this = this;
@@ -516,7 +516,7 @@ page.BulkPurchase.ForexDetailsForm = function ForexDetailsForm(rootSelector, set
      * @type {JQueryStaticExtend}
      */
     this.$calculatedGross = null;
-    
+
     /**
      * Method to toggle accessbility of the broker fields
      * @callback enableBrokerFieldsCallback
@@ -549,7 +549,7 @@ page.BulkPurchase.ForexDetailsForm = function ForexDetailsForm(rootSelector, set
             _this.brokerFields.$brokerTdsAmt.enable(enable);
         }
     };
-    
+
     /**
      * Method to toggle accessbility of the subBroker fields
      * @callback enableSubBrokerFieldsCallback
@@ -658,7 +658,7 @@ page.BulkPurchase.ForexSummaryForm = function (rootSelector, settings) {
     this.$chargesTax = null;
     this.$roundOff = null;
     this.$netPayable = null;
-    
+
     this.initializeFields = function initializeFields() {
         let settings = _this.settings();
         _this.$grossAmt = _this.$root.find(settings.grossAmtSelector);
@@ -704,7 +704,7 @@ page.BulkPurchase.ForexSummaryForm = function (rootSelector, settings) {
  * @param settings {"Object"|"()=>Object"} The settings json object or settings json factory function
  * @extends component.Form
  */
-page.BulkPurchase.PaymentDetailsForm = function PaymentDetailsForm (rootSelector, settings) {
+page.BulkPurchase.PaymentDetailsForm = function PaymentDetailsForm(rootSelector, settings) {
     component.Form.call(this, rootSelector, settings);
     let base = {};
     let _this = this;
@@ -877,7 +877,7 @@ page.BulkPurchase.PaymentCommandPanel = function (rootSelector, settings) {
  * A prototype for event handling mechanism for the BulkPurchase Page
  * @param bulkPurchasePage {page.BulkPurchase} The page instance
  */
-page.BulkPurchase.Events = function BulkPurchaseEvents (bulkPurchasePage) {
+page.BulkPurchase.Events = function BulkPurchaseEvents(bulkPurchasePage) {
 
     /**
      * A closure variable to hold reference for the execution context of instance
@@ -988,7 +988,7 @@ page.BulkPurchase.Events = function BulkPurchaseEvents (bulkPurchasePage) {
                 }
             }, null, true);
         });
-    
+
         bulkPurchasePage.forex.dataTable.on("table.xhr", function (eventArgs) {
             let grossAmounts = eventArgs.data.map(x => x.Rate * x.Quantity);
             if ((grossAmounts || false) && grossAmounts.length > 0) {
@@ -1133,7 +1133,7 @@ page.BulkPurchase.Events = function BulkPurchaseEvents (bulkPurchasePage) {
         bulkPurchasePage.payment.dataTable.on("table.init.complete", function () {
             bulkPurchasePage.payment.dataTable.$root.css({ "width": "100%" });
         });
-    
+
         bulkPurchasePage.payment.dataTable.on("table.xhr", function (eventArgs) {
             bulkPurchasePage.calculateAmounts();
         });
@@ -1150,7 +1150,7 @@ page.BulkPurchase.Events = function BulkPurchaseEvents (bulkPurchasePage) {
                 }
             }, null, true);
         });
-    
+
         // On Payment add click, get add form from ajax
         bulkPurchasePage.payment.commandPanel.on("command.add", function () {
             bulkPurchasePage.payment.form.loadAddView(settings.paymentDetailsSettings.addUrl);
@@ -1215,6 +1215,7 @@ page.BulkPurchase.Events = function BulkPurchaseEvents (bulkPurchasePage) {
 
         // On Payment save click, save data via ajax call
         bulkPurchasePage.payment.commandPanel.on("command.save", function () {
+            bulkPurchasePage.calculateAmounts();
             bulkPurchasePage.payment.form.postSaveData(settings.paymentDetailsSettings.saveUrl, { action: paymentAction });
         });
 
@@ -1278,7 +1279,7 @@ page.BulkPurchase.Events = function BulkPurchaseEvents (bulkPurchasePage) {
  * @constructor
  * @param bulkPurchasePage {page.BulkPurchase} The page instance
  */
-page.BulkPurchase.ForexDataTableHelper = function ForexDataTableHelper (bulkPurchasePage) {
+page.BulkPurchase.ForexDataTableHelper = function ForexDataTableHelper(bulkPurchasePage) {
     component.DataTable.CellFormatHelper.call(this, bulkPurchasePage.forex.dataTable);
 
     /**
@@ -1304,7 +1305,7 @@ page.BulkPurchase.ForexDataTableHelper.prototype.__proto__ = component.DataTable
  * @constructor
  * @param bulkPurchasePage {page.BulkPurchase} The page instance
  */
-page.BulkPurchase.PaymentDataTableHelper = function PaymentDataTableHelper (bulkPurchasePage) {
+page.BulkPurchase.PaymentDataTableHelper = function PaymentDataTableHelper(bulkPurchasePage) {
     component.DataTable.CellFormatHelper.call(this, bulkPurchasePage.payment.dataTable);
 
     /**

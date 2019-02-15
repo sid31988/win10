@@ -39,6 +39,7 @@ namespace Win10WebApp.Models
         public double? NetPayable { get; set; }
         public double? TotalPendingAmount { get; set; }
         public double? BalanceAmount { get; set; }
+        public string MasterType { get; set; }
         public DateTime? CreatedDate { get; set; }
         public DateTime? UpdatedDate { get; set; }
         public bool IsDeleted { get; set; }

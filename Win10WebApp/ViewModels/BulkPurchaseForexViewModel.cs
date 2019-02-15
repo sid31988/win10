@@ -21,22 +21,29 @@ namespace Win10WebApp.ViewModels
 
     public class BulkPurchaseForexViewModel
     {
+        private static string MasterType;
+        public BulkPurchaseForexViewModel(string masterType)
+        {
+            MasterType = masterType;
+        }
+
+
         public static BulkPurchaseForexList Current
         {
             get
-            {
-                var forex = HttpContext.Current.Session["forex"] as BulkPurchaseForexList;
+            {                
+                var forex = HttpContext.Current.Session[MasterType + "forex"] as BulkPurchaseForexList;
                 if (null == forex)
                 {
                     forex = new BulkPurchaseForexList();
-                    HttpContext.Current.Session["forex"] = forex;
+                    HttpContext.Current.Session[MasterType + "forex"] = forex;
                 }
 
                 return forex;
             }
             set
             {
-                HttpContext.Current.Session["forex"] = value;
+                HttpContext.Current.Session[MasterType + "forex"] = value;
             }
         }
 

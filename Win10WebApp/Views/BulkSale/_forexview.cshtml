@@ -1,0 +1,30 @@
+﻿@model Win10WebApp.ViewModels.BulkPurchaseViewModel
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-info">
+
+            <div class="panel-body">
+                <div id="forexMasterRoot" class="row page-root" style="margin-top:10px">
+
+                    <!--Form Design-->
+                    <div id="forexform" class="floating-form col-sm-12">
+                        @{Html.RenderPartial("~/Views/BulkSale/_forexform.cshtml", Model);}
+                    </div>
+
+
+                    <!--View Design-->
+                    <div id="divDatatable" class="col-sm-6 grid-control" style="margin-top:10px">
+                        @{Html.RenderPartial("~/Views/BulkSale/_forexdatatable.cshtml", Model.BulkPurchaseForex);}
+                    </div>
+
+                    <!--Details Design-->
+                    <div id="forexSummary" class="details-panel editor-control col-sm-6"  style="margin-top:10px">
+                        @{Html.RenderPartial("~/Views/BulkSale/_forexsummary.cshtml", Model);}
+                    </div>
+
+
+                </div>              
+            </div>
+        </div>
+    </div>
+</div>

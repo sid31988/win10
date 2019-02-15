@@ -1,0 +1,136 @@
+﻿@model Win10WebApp.ViewModels.BulkPurchaseViewModel
+
+<form class="form-add-edit" id="paymentDetailsForm">
+    <input type="text" name="Id" value="@Model.BulkPurchasePayment.Id" style="display: none;" />
+    <div class="row">
+        <div class="col-md-2">
+            <div class="form-group floating-label">
+                <select class="form-control form-control-sm floating-select elementInput" id="CashBank" name="CashBank" onfocus="this.setAttribute('value', this.value);" value="@Model.BulkPurchasePayment.CashBank">                  
+                    @foreach (var item in Model.CashBank)
+                    {
+                        if (Model.BulkPurchasePayment.CashBank.HasValue && Model.BulkPurchasePayment.CashBank.Value == item.Id) {
+                            <option value="@item.Id" selected>@item.Value</option>
+                        }
+                        else {
+                            <option value="@item.Id">@item.Value</option>
+                        }
+                    }
+
+                </select>
+                <span class="highlight"></span>
+                <label>Cash/Bank</label>
+            </div>
+        </div>
+        <div class="col-md-2">
+            <div class="form-group floating-label">
+                <select class="form-control form-control-sm floating-select elementInput" id="Type" name="Type" onfocus="this.setAttribute('value', this.value);" value="@Model.BulkPurchasePayment.Type">                    
+                    @foreach (var item in Model.PaymentReceipt)
+                    {
+                        if (Model.BulkPurchasePayment.Type.HasValue && Model.BulkPurchasePayment.Type.Value == item.Id) {
+                            <option value="@item.Id" selected>@item.Value</option>
+                        }
+                        else {
+                            <option value="@item.Id">@item.Value</option>
+                        }
+                    }
+                </select>
+                <span class="highlight"></span>
+                <label>Payment/Receipt</label>
+            </div>
+        </div>
+
+        <div class="col-md-1">
+            <div class="form-group floating-label">
+                <input class="form-control floating-input elementInput" id="ChequeNo" name="ChequeNo" value="@Model.BulkPurchasePayment.ChequeNo"
+                       type="text" placeholder=" ">
+                <span class="highlight"></span>
+                <label>Chq No</label>
+            </div>
+        </div>
+        <div class="col-md-2">
+            <div class="form-group floating-label">
+                <input class="form-control floating-input elementInput" id="ChequeDate" name="ChequeDate" value="@Model.BulkPurchasePayment.ChequeDate" type="text" placeholder=" " onfocus="(this.type='date')">
+                <span class="highlight"></span>
+                <label>Chq Date</label>
+            </div>
+        </div>
+        <div class="col-md-2">
+            <div class="form-group floating-label">
+                <input class="form-control floating-input elementInput" id="Amount" name="Amount" value="@Model.BulkPurchasePayment.Amount"
+                       type="text" placeholder=" " onfocus="(this.type='number')">
+                <span class="highlight"></span>
+                <label>Amount</label>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="form-group floating-label">
+                <input class="form-control floating-input elementInput" id="Remark" name="Remark" value="@Model.BulkPurchasePayment.Remark"
+                       type="text" placeholder=" ">
+                <span class="highlight"></span>
+                <label>Remark</label>
+            </div>
+        </div>
+        <div class="col-md-2">
+            <div class="form-group floating-label">
+                <select class="form-control form-control-sm floating-select elementInput" id="Bank" name="Bank" value="@Model.BulkPurchasePayment.Bank" onfocus="this.setAttribute('value', this.value);">                    
+                    @foreach (var item in Model.Bank)
+                    {
+                        if (Model.BulkPurchasePayment.Bank.HasValue && Model.BulkPurchasePayment.Bank.Value == item.Id) {
+                            <option value="@item.Id" selected>@item.Value</option>
+                        }
+                        else {
+                            <option value="@item.Id">@item.Value</option>
+                        }
+                    }
+                </select>
+                <span class="highlight"></span>
+                <label>Bank</label>
+            </div>
+        </div>
+        <div class="col-md-2">
+            <div class="form-group floating-label">
+                <input class="form-control floating-input elementInput" id="Date" name="Date" value="@Model.BulkPurchasePayment.Date" type="text" placeholder=" " onfocus="(this.type='date')">
+                <span class="highlight"></span>
+                <label>Date</label>
+            </div>
+        </div>
+      
+        <div class="col-md-2">
+            <div class="form-group floating-label">
+                <input class="form-control floating-input readonlyInputblue elementInput" id="NetPayable" name="NetPayable" value="@Model.BulkPurchasePayment.NetPayable" type="text" placeholder=" ">
+                <span class="highlight"></span>
+                <label></label>
+            </div>
+        </div>
+        <div class="col-md-2">
+            <div class="form-group floating-label">
+                <input class="form-control floating-input readonlyInputblue elementInput" id="TotalPendingAmount" name="TotalPendingAmount" value="@Model.BulkPurchasePayment.TotalPendingAmount" type="text" placeholder=" " >
+                <span class="highlight"></span>
+                <label></label>
+            </div>
+        </div>
+        <div class="col-md-2">
+            <div class="form-group floating-label">
+                <input class="form-control floating-input readonlyInputred elementInput" id="BalanceAmount" name="BalanceAmount" value="@Model.BulkPurchasePayment.BalanceAmount" type="text" placeholder=" " >
+                <span class="highlight"></span>
+                <label>Balance</label>
+            </div>
+        </div>
+       
+      
+      
+        <div class="col-md-1 payment-command-container">
+            <div class="form-group">
+                <button type="button" class="btn btn-success btn-sm left-panelbtn editor_save" id="btnSaveAct">Save</button>
+            </div>
+        </div>
+
+        <div class="col-md-1 payment-command-container">
+            <div class="form-group">
+                <button type="button" class="btn btn-info btn-sm left-panelbtn editor_cancel" id="btnCancelAct">Cancel</button>
+            </div>
+        </div>
+       
+</form>
+
+

@@ -32,7 +32,8 @@ namespace Win10WebApp.Utility
             ["ENCASHEDBALANCE"] = "encashedbalance",
             ["UNSETTLEDFOREXCARD"] = "unsettledforexcard",
             ["UNSETTLED"] = "unsettled",
-            ["BULKPURCHASE"]= "bulkpurchase"
+            ["BULKPURCHASE"]= "bulkpurchase",
+            ["BULKSALE"] = "bulksale"
         };
 
 

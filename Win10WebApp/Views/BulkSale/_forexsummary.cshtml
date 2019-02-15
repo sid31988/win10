@@ -1,0 +1,122 @@
+﻿@model Win10WebApp.ViewModels.BulkPurchaseViewModel
+
+<form class="row" id="forexSummaryForm">
+    <div class="panel panel-default col-sm-10">
+        <div class="panel-heading">
+            <h4 class="panel-title">
+                <a class="accordion-toggle" data-toggle="collapse" data-parent="#forex" href="#forex_form"> Summary - Charges & Taxes </a>
+            </h4>
+        </div>
+        <div class="panel-collapse in">
+            <div class="panel-body floating-form">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group floating-label">
+                            <input class="form-control floating-input readonlyInputblue elementInput" id="GrossAmt" name="BulkPurchase.GrossAmt" value="@Model.BulkPurchase.GrossAmt"
+                                   type="text" placeholder=" ">
+                            <span class="highlight"></span>
+                            <label>Gross Amt</label>
+
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group floating-label">
+                            <input class="form-control floating-input elementInput" id="FxGST" name="BulkPurchase.FxGST" value="@Model.BulkPurchase.FxGST"
+                                   type="text" placeholder=" " onclick="(this.type='number')">
+                            <span class="highlight"></span>
+                            <label>Fx STX</label>
+
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group floating-label">
+                            <input class="form-control floating-input elementInput" id="TCCardChrg" name="BulkPurchase.TCCardChrg" value="@Model.BulkPurchase.TCCardChrg"
+                                   type="text" placeholder=" " onclick="(this.type='number')">
+                            <span class="highlight"></span>
+                            <label>TC/Card Charge</label>
+
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group floating-label">
+                            <select class="form-control form-control-sm floating-select elementInput" id="SrvChrg" name="BulkPurchase.SrvChrg" value="@Model.BulkPurchase.SrvChrg" onclick="this.setAttribute('value', this.value);">                                
+                                @foreach (var item in Model.ChargesTax)
+                                {
+                                    <option value="@item.Id">@item.Value</option>
+                                }
+                            </select>
+                            <span class="highlight"></span>
+                            <label>Srv. Chrg</label>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group floating-label">
+                            <input class="form-control floating-input elementInput" id="SrvChrgAmt" name="BulkPurchase.SrvChrgAmt" value="@Model.BulkPurchase.SrvChrgAmt"
+                                   type="text" placeholder=" " onclick="(this.type='number')">
+                            <span class="highlight"></span>
+                            <label></label>
+
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group floating-label">
+                            <input class="form-control floating-input elementInput" id="STXPercentage" name="BulkPurchase.STXPercentage" value="@Model.BulkPurchase.STXPercentage"
+                                   type="text" placeholder=" " onclick="(this.type='number')">
+                            <span class="highlight"></span>
+                            <label>STX %</label>
+
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group floating-label">
+                            <input class="form-control floating-input elementInput" id="STXAmt" name="BulkPurchase.STXAmt" value="@Model.BulkPurchase.STXAmt"
+                                   type="text" placeholder=" " onclick="(this.type='number')">
+                            <span class="highlight"></span>
+                            <label></label>
+
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group floating-label">
+                            <select class="form-control form-control-sm floating-select elementInput" id="ChargesTax" name="BulkPurchase.ChargesTax" value="@Model.BulkPurchase.ChargesTax" onclick="this.setAttribute('value', this.value);">                                
+                                @foreach (var item in Model.ChargesTax)
+                                {
+                                    <option value="@item.Id">@item.Value</option>
+                                }
+                            </select>
+                            <span class="highlight"></span>
+                            <label>Charges & Tax</label>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group floating-label">
+                            <input class="form-control floating-input elementInput" id="RoundOff" name="BulkPurchase.RoundOff" value="@Model.BulkPurchase.RoundOff"
+                                   type="text" placeholder=" " onclick="(this.type='number')">
+                            <span class="highlight"></span>
+                            <label>Round Off</label>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group floating-label">
+                            <input class="form-control floating-input readonlyInputred elementInput" id="NetPayable" name="BulkPurchase.NetPayable" value="@Model.BulkPurchase.NetPayable"
+                                   type="text" placeholder=" ">
+                            <span class="highlight"></span>
+                            <label>NetPayable</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="command-panel col-sm-2">
+        <div class="form-action forex-command-container">
+            <button type="button" class="btn btn-primary editor_add" id="btnAddAct" style="width:70px;margin-bottom:15px">Add</button>
+            <button type="button" class="btn btn-warning editor_edit" id="btnEditAct" style="width:70px;margin-bottom:15px">Edit</button>
+            <button type="button" class="btn btn-danger editor_delete" id="btnDeleteAct" style="width:70px;margin-bottom:15px">Delete</button>
+        </div>
+    </div>
+</form>
+
+
+

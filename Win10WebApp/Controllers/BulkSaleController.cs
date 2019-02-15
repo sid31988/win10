@@ -11,19 +11,19 @@ using Win10WebApp.ViewModels;
 
 namespace Win10WebApp.Controllers
 {
-    public class BulkPurchaseController : Controller
+    public class BulkSaleController : Controller
     {
         private Repository<BulkPurchase> _repository = null;
         public BulkPurchaseViewModel _model = null;
         public BulkPurchaseForexViewModel _forexmodel = null;
         public BulkPurchasePaymentViewModel _paymentmodel = null;
 
-        public BulkPurchaseController()
+        public BulkSaleController()
         {
             _repository = new Repository<BulkPurchase>();
             _model = new BulkPurchaseViewModel().SetModel();
-            _forexmodel = new BulkPurchaseForexViewModel("bulkpurchase");
-            _paymentmodel = new BulkPurchasePaymentViewModel("bulkpurchase");
+            _forexmodel = new BulkPurchaseForexViewModel("bulksale");
+            _paymentmodel = new BulkPurchasePaymentViewModel("bulksale");
         }
 
         [Authorize]
@@ -121,7 +121,7 @@ namespace Win10WebApp.Controllers
             try
             {
                 if (ModelState.IsValid)
-                {
+                {                    
                     System.Diagnostics.Debug.WriteLine("Forex Save Invoked!!!");
                     return Json(Functions.OutPutResponse(true, "Record saved successfully", _forexmodel.Save(model, action)));
                 }
@@ -167,7 +167,7 @@ namespace Win10WebApp.Controllers
                 if (ModelState.IsValid)
                 {
                     model.BulkPurchase.IsDeleted = false;
-                    model.BulkPurchase.MasterType = "Debit";
+                    model.BulkPurchase.MasterType = "Credit";
                     model.Save(model);
                     return Json(Functions.OutPutResponse(true, "Record inserted successfully", model));
                 }

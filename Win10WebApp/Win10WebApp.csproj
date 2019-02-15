@@ -181,6 +181,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AccountingController.cs" />
+    <Compile Include="Controllers\BulkSaleController.cs" />
     <Compile Include="Controllers\BulkPurchaseController.cs" />
     <Compile Include="Controllers\TCMasterController.cs" />
     <Compile Include="Controllers\CountryMasterController.cs" />
@@ -350,6 +351,15 @@
     <Content Include="Views\BulkPurchase\_forexdatatable.cshtml" />
     <Content Include="Views\BulkPurchase\_paymentdatatable.cshtml" />
     <Content Include="Views\BulkPurchase\_paymentform.cshtml" />
+    <Content Include="Views\BulkSale\_billingview.cshtml" />
+    <Content Include="Views\BulkSale\_forexdatatable.cshtml" />
+    <Content Include="Views\BulkSale\_forexform.cshtml" />
+    <Content Include="Views\BulkSale\_forexsummary.cshtml" />
+    <Content Include="Views\BulkSale\_forexview.cshtml" />
+    <Content Include="Views\BulkSale\_paymentdatatable.cshtml" />
+    <Content Include="Views\BulkSale\_paymentform.cshtml" />
+    <Content Include="Views\BulkSale\_paymentview.cshtml" />
+    <Content Include="Views\BulkSale\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
